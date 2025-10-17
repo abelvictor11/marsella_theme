@@ -1,0 +1,679 @@
+{{ 'component-trust-statement.css' | asset_url | stylesheet_tag }}
+
+<div class="trust-statement-section section-{{ section.id }}" 
+     style="--section-bg: {{ section.settings.section_bg_color }}; 
+            --section-padding-top: {{ section.settings.padding_top }}px;
+            --section-padding-bottom: {{ section.settings.padding_bottom }}px;">
+  
+  <div class="{% if section.settings.container == 'fullwidth' %}container-full{% elsif section.settings.container == '1170' %}container-1170{% elsif section.settings.container == '1370' %}container-1370{% elsif section.settings.container == '1770' %}container-1770{% else %}container{% endif %}">
+    
+    <div class="trust-statement-wrapper">
+      
+      {%- comment -%} Badge Pill {%- endcomment -%}
+      {%- if section.settings.show_badge and section.settings.badge_text != blank -%}
+        <div class="trust-badge animate-fade-in" 
+             style="--badge-bg: {{ section.settings.badge_bg_color }};
+                    --badge-text-color: {{ section.settings.badge_text_color }};
+                    --badge-border-color: {{ section.settings.badge_border_color }};">
+          {{ section.settings.badge_text }}
+        </div>
+      {%- endif -%}
+
+      {%- comment -%} Main Title {%- endcomment -%}
+      <div class="trust-title-container">
+        {%- if section.settings.title_line_1 != blank -%}
+          <h2 class="trust-title trust-title-line-1 animate-title" 
+              style="--title-color: {{ section.settings.title_color }};
+                     --title-size: {{ section.settings.title_size }}px;
+                     --title-size-mobile: {{ section.settings.title_size_mobile }}px;
+                     --title-weight: {{ section.settings.title_weight }};
+                     --title-line-height: {{ section.settings.title_line_height }};">
+            {{ section.settings.title_line_1 }}
+          </h2>
+        {%- endif -%}
+        
+        {%- if section.settings.title_line_2 != blank -%}
+          <h2 class="trust-title trust-title-line-2 animate-title" 
+              style="--title-color: {{ section.settings.title_color }};
+                     --title-size: {{ section.settings.title_size }}px;
+                     --title-size-mobile: {{ section.settings.title_size_mobile }}px;
+                     --title-weight: {{ section.settings.title_weight }};
+                     --title-line-height: {{ section.settings.title_line_height }};">
+            {{ section.settings.title_line_2 }}
+          </h2>
+        {%- endif -%}
+        
+        {%- if section.settings.title_line_3 != blank -%}
+          <h2 class="trust-title trust-title-line-3 trust-title-italic animate-title" 
+              style="--title-color: {{ section.settings.title_color }};
+                     --title-size: {{ section.settings.title_size }}px;
+                     --title-size-mobile: {{ section.settings.title_size_mobile }}px;
+                     --title-weight: {{ section.settings.title_weight }};
+                     --title-line-height: {{ section.settings.title_line_height }};">
+            {{ section.settings.title_line_3 }}
+          </h2>
+        {%- endif -%}
+        
+        {%- if section.settings.title_line_4 != blank -%}
+          <h2 class="trust-title trust-title-line-4 animate-title" 
+              style="--title-color: {{ section.settings.title_color }};
+                     --title-size: {{ section.settings.title_size }}px;
+                     --title-size-mobile: {{ section.settings.title_size_mobile }}px;
+                     --title-weight: {{ section.settings.title_weight }};
+                     --title-line-height: {{ section.settings.title_line_height }};">
+            {{ section.settings.title_line_4 }}
+          </h2>
+        {%- endif -%}
+      </div>
+
+      {%- comment -%} Hero Image {%- endcomment -%}
+      {%- if section.settings.hero_image != blank -%}
+        <div class="trust-hero-image animate-scale-in"
+             style="--image-top: {{ section.settings.image_top }}px;
+                    --image-left: {{ section.settings.image_left }}%;
+                    --image-width: {{ section.settings.image_width }}px;
+                    --image-top-mobile: {{ section.settings.image_top_mobile }}px;
+                    --image-left-mobile: {{ section.settings.image_left_mobile }}%;
+                    --image-width-mobile: {{ section.settings.image_width_mobile }}px;
+                    --image-rotation: {{ section.settings.image_rotation }}deg;">
+          <img src="{{ section.settings.hero_image | image_url: width: 800 }}" 
+               alt="{{ section.settings.hero_image.alt | escape }}"
+               loading="lazy"
+               width="{{ section.settings.hero_image.width }}"
+               height="{{ section.settings.hero_image.height }}">
+        </div>
+      {%- endif -%}
+
+      {%- comment -%} Philosophy Button {%- endcomment -%}
+      {%- if section.settings.show_philosophy_button -%}
+        <a href="{{ section.settings.philosophy_link | default: '#' }}" 
+           class="trust-philosophy-button animate-fade-in"
+           style="--button-bg: {{ section.settings.philosophy_button_bg }};
+                  --button-text-color: {{ section.settings.philosophy_button_text_color }};
+                  --button-border-color: {{ section.settings.philosophy_button_border_color }};
+                  --button-top: {{ section.settings.philosophy_button_top }}px;
+                  --button-left: {{ section.settings.philosophy_button_left }}%;
+                  --button-top-mobile: {{ section.settings.philosophy_button_top_mobile }}px;
+                  --button-left-mobile: {{ section.settings.philosophy_button_left_mobile }}%;">
+          <span class="button-icon">
+            {%- if section.settings.philosophy_button_icon != blank -%}
+              {{ section.settings.philosophy_button_icon }}
+            {%- else -%}
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            {%- endif -%}
+          </span>
+          <span class="button-text">
+            {{ section.settings.philosophy_button_text | default: "NUESTRA FILOSOFÍA" }}
+          </span>
+        </a>
+      {%- endif -%}
+
+      {%- comment -%} Features List {%- endcomment -%}
+      {%- if section.blocks.size > 0 -%}
+        <div class="trust-features-list"
+             style="--features-top: {{ section.settings.features_top }}px;
+                    --features-right: {{ section.settings.features_right }}%;
+                    --features-top-mobile: {{ section.settings.features_top_mobile }}px;
+                    --features-right-mobile: {{ section.settings.features_right_mobile }}%;">
+          {%- for block in section.blocks -%}
+            <div class="trust-feature-item animate-slide-in" 
+                 style="--animation-delay: {{ forloop.index | times: 0.1 }}s;"
+                 {{ block.shopify_attributes }}>
+              
+              {%- if block.settings.feature_icon != blank -%}
+                <div class="feature-icon" 
+                     style="--icon-color: {{ block.settings.icon_color }}; 
+                            --icon-size: {{ block.settings.icon_size }}px;">
+                  {{ block.settings.feature_icon }}
+                </div>
+              {%- endif -%}
+              
+              <div class="feature-content">
+                {%- if block.settings.feature_title != blank -%}
+                  <h3 class="feature-title" 
+                      style="--feature-title-color: {{ block.settings.title_color }};
+                             --feature-title-size: {{ block.settings.title_size }}px;
+                             --feature-title-weight: {{ block.settings.title_weight }};">
+                    {{ block.settings.feature_title }}
+                  </h3>
+                {%- endif -%}
+                
+                {%- if block.settings.feature_description != blank -%}
+                  <div class="feature-description" 
+                       style="--feature-desc-color: {{ block.settings.description_color }};
+                              --feature-desc-size: {{ block.settings.description_size }}px;">
+                    {{ block.settings.feature_description }}
+                  </div>
+                {%- endif -%}
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Trust Statement",
+  "class": "section-trust-statement",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Settings"
+    },
+    {
+      "type": "select",
+      "id": "container",
+      "label": "Container Width",
+      "options": [
+        {
+          "value": "container",
+          "label": "Default"
+        },
+        {
+          "value": "1170",
+          "label": "1170px"
+        },
+        {
+          "value": "1370",
+          "label": "1370px"
+        },
+        {
+          "value": "1770",
+          "label": "1770px"
+        },
+        {
+          "value": "fullwidth",
+          "label": "Full Width"
+        }
+      ],
+      "default": "1370"
+    },
+    {
+      "type": "color",
+      "id": "section_bg_color",
+      "label": "Background Color",
+      "default": "#f5f5f5"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "header",
+      "content": "Badge Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_badge",
+      "label": "Show Badge",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge Text",
+      "default": "AUTENTICIDAD"
+    },
+    {
+      "type": "color",
+      "id": "badge_bg_color",
+      "label": "Badge Background",
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "color",
+      "id": "badge_text_color",
+      "label": "Badge Text Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "badge_border_color",
+      "label": "Badge Border Color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Title Settings"
+    },
+    {
+      "type": "text",
+      "id": "title_line_1",
+      "label": "Title Line 1",
+      "default": "COMPRA"
+    },
+    {
+      "type": "text",
+      "id": "title_line_2",
+      "label": "Title Line 2",
+      "default": "CONFIABLE."
+    },
+    {
+      "type": "text",
+      "id": "title_line_3",
+      "label": "Title Line 3 (Italic)",
+      "default": "CERO"
+    },
+    {
+      "type": "text",
+      "id": "title_line_4",
+      "label": "Title Line 4",
+      "default": "DUDAS."
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title Color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "label": "Title Font Size (Desktop)",
+      "min": 40,
+      "max": 200,
+      "step": 5,
+      "unit": "px",
+      "default": 120
+    },
+    {
+      "type": "range",
+      "id": "title_size_mobile",
+      "label": "Title Font Size (Mobile)",
+      "min": 30,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "type": "select",
+      "id": "title_weight",
+      "label": "Title Font Weight",
+      "options": [
+        {
+          "value": "400",
+          "label": "Normal"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semi Bold"
+        },
+        {
+          "value": "700",
+          "label": "Bold"
+        },
+        {
+          "value": "800",
+          "label": "Extra Bold"
+        },
+        {
+          "value": "900",
+          "label": "Black"
+        }
+      ],
+      "default": "700"
+    },
+    {
+      "type": "range",
+      "id": "title_line_height",
+      "label": "Title Line Height",
+      "min": 0.8,
+      "max": 1.5,
+      "step": 0.05,
+      "default": 0.95
+    },
+    {
+      "type": "header",
+      "content": "Hero Image Settings"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero Image"
+    },
+    {
+      "type": "range",
+      "id": "image_top",
+      "label": "Image Top Position (Desktop)",
+      "min": -200,
+      "max": 500,
+      "step": 10,
+      "unit": "px",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "image_left",
+      "label": "Image Left Position (Desktop)",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "image_width",
+      "label": "Image Width (Desktop)",
+      "min": 200,
+      "max": 800,
+      "step": 20,
+      "unit": "px",
+      "default": 400
+    },
+    {
+      "type": "range",
+      "id": "image_top_mobile",
+      "label": "Image Top Position (Mobile)",
+      "min": -100,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "image_left_mobile",
+      "label": "Image Left Position (Mobile)",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "image_width_mobile",
+      "label": "Image Width (Mobile)",
+      "min": 150,
+      "max": 400,
+      "step": 10,
+      "unit": "px",
+      "default": 250
+    },
+    {
+      "type": "range",
+      "id": "image_rotation",
+      "label": "Image Rotation",
+      "min": -45,
+      "max": 45,
+      "step": 1,
+      "unit": "deg",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Philosophy Button Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_philosophy_button",
+      "label": "Show Philosophy Button",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "philosophy_button_text",
+      "label": "Button Text",
+      "default": "NUESTRA FILOSOFÍA"
+    },
+    {
+      "type": "url",
+      "id": "philosophy_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "html",
+      "id": "philosophy_button_icon",
+      "label": "Button Icon SVG"
+    },
+    {
+      "type": "color",
+      "id": "philosophy_button_bg",
+      "label": "Button Background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "philosophy_button_text_color",
+      "label": "Button Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "philosophy_button_border_color",
+      "label": "Button Border Color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "philosophy_button_top",
+      "label": "Button Top Position (Desktop)",
+      "min": 0,
+      "max": 800,
+      "step": 10,
+      "unit": "px",
+      "default": 350
+    },
+    {
+      "type": "range",
+      "id": "philosophy_button_left",
+      "label": "Button Left Position (Desktop)",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "%",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "philosophy_button_top_mobile",
+      "label": "Button Top Position (Mobile)",
+      "min": 0,
+      "max": 600,
+      "step": 10,
+      "unit": "px",
+      "default": 250
+    },
+    {
+      "type": "range",
+      "id": "philosophy_button_left_mobile",
+      "label": "Button Left Position (Mobile)",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "%",
+      "default": 5
+    },
+    {
+      "type": "header",
+      "content": "Features Position"
+    },
+    {
+      "type": "range",
+      "id": "features_top",
+      "label": "Features Top Position (Desktop)",
+      "min": 0,
+      "max": 800,
+      "step": 10,
+      "unit": "px",
+      "default": 450
+    },
+    {
+      "type": "range",
+      "id": "features_right",
+      "label": "Features Right Position (Desktop)",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "%",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "features_top_mobile",
+      "label": "Features Top Position (Mobile)",
+      "min": 0,
+      "max": 600,
+      "step": 10,
+      "unit": "px",
+      "default": 350
+    },
+    {
+      "type": "range",
+      "id": "features_right_mobile",
+      "label": "Features Right Position (Mobile)",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "%",
+      "default": 5
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature Item",
+      "settings": [
+        {
+          "type": "html",
+          "id": "feature_icon",
+          "label": "Feature Icon SVG"
+        },
+        {
+          "type": "range",
+          "id": "icon_size",
+          "label": "Icon Size",
+          "min": 20,
+          "max": 80,
+          "step": 2,
+          "unit": "px",
+          "default": 40
+        },
+        {
+          "type": "color",
+          "id": "icon_color",
+          "label": "Icon Color",
+          "default": "#000000"
+        },
+        {
+          "type": "text",
+          "id": "feature_title",
+          "label": "Feature Title",
+          "default": "Feature Title"
+        },
+        {
+          "type": "color",
+          "id": "title_color",
+          "label": "Title Color",
+          "default": "#000000"
+        },
+        {
+          "type": "range",
+          "id": "title_size",
+          "label": "Title Font Size",
+          "min": 12,
+          "max": 24,
+          "step": 1,
+          "unit": "px",
+          "default": 14
+        },
+        {
+          "type": "select",
+          "id": "title_weight",
+          "label": "Title Font Weight",
+          "options": [
+            {
+              "value": "400",
+              "label": "Normal"
+            },
+            {
+              "value": "500",
+              "label": "Medium"
+            },
+            {
+              "value": "600",
+              "label": "Semi Bold"
+            },
+            {
+              "value": "700",
+              "label": "Bold"
+            }
+          ],
+          "default": "600"
+        },
+        {
+          "type": "richtext",
+          "id": "feature_description",
+          "label": "Feature Description",
+          "default": "<p>Feature description text goes here.</p>"
+        },
+        {
+          "type": "color",
+          "id": "description_color",
+          "label": "Description Color",
+          "default": "#666666"
+        },
+        {
+          "type": "range",
+          "id": "description_size",
+          "label": "Description Font Size",
+          "min": 10,
+          "max": 18,
+          "step": 1,
+          "unit": "px",
+          "default": 12
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Trust Statement",
+      "blocks": [
+        {
+          "type": "feature",
+          "settings": {
+            "feature_title": "100% Genuino Garantizado",
+            "feature_description": "<p>Tu Sello de Confianza. Vendemos solo frascos auténticos de las casas de diseño más prestigiosas. Cada frasco pasa por un riguroso control para asegurar que recibes el producto original, sin sorpresas.</p>"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "feature_title": "El Lujo de Elegir",
+            "feature_description": "<p>Catálogo Curado. No vendemos cualquier fragancia, solo las más de renombre mundial para ofrecerte la colección más selecta, nicho y de la más alta calidad.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
