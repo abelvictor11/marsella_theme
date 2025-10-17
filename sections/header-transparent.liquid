@@ -1,0 +1,348 @@
+{{ 'component-header-transparent.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign is_homepage = false
+  if template.name == 'index'
+    assign is_homepage = true
+  endif
+-%}
+
+<header class="header-transparent {% if is_homepage %}header-transparent-home{% else %}header-transparent-solid{% endif %}"
+        data-header
+        style="--header-bg-solid: {{ section.settings.header_bg_solid }};
+               --header-bg-transparent: {{ section.settings.header_bg_transparent }};
+               --header-text-color-home: {{ section.settings.header_text_color_home }};
+               --header-text-color-pages: {{ section.settings.header_text_color_pages }};
+               --header-height: {{ section.settings.header_height }}px;">
+  
+  <div class="header-container {% if section.settings.container == 'fullwidth' %}container-full{% elsif section.settings.container == '1170' %}container-1170{% elsif section.settings.container == '1370' %}container-1370{% elsif section.settings.container == '1770' %}container-1770{% else %}container{% endif %}">
+    
+    <div class="header-wrapper">
+      
+      {%- comment -%} Mobile Menu Toggle {%- endcomment -%}
+      <button class="header-mobile-toggle" 
+              aria-label="Toggle menu"
+              data-mobile-menu-toggle>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+
+      {%- comment -%} Logo {%- endcomment -%}
+      <div class="header-logo">
+        <a href="{{ routes.root_url }}">
+          {%- if section.settings.logo != blank -%}
+            <img src="{{ section.settings.logo | image_url: width: 400 }}"
+                 alt="{{ shop.name }}"
+                 width="{{ section.settings.logo_width }}"
+                 height="auto"
+                 style="--logo-width: {{ section.settings.logo_width }}px;
+                        --logo-width-mobile: {{ section.settings.logo_width_mobile }}px;">
+          {%- else -%}
+            <span class="header-logo-text"
+                  style="--logo-text-size: {{ section.settings.logo_text_size }}px;">
+              {{ shop.name }}
+            </span>
+          {%- endif -%}
+        </a>
+      </div>
+
+      {%- comment -%} Desktop Navigation {%- endcomment -%}
+      {%- if section.settings.menu != blank -%}
+        <nav class="header-nav" aria-label="Main navigation">
+          <ul class="header-nav-list"
+              style="--nav-font-size: {{ section.settings.nav_font_size }}px;
+                     --nav-font-weight: {{ section.settings.nav_font_weight }};
+                     --nav-letter-spacing: {{ section.settings.nav_letter_spacing | divided_by: 100.0 }}em;">
+            {%- for link in linklists[section.settings.menu].links -%}
+              <li class="header-nav-item">
+                <a href="{{ link.url }}" 
+                   class="header-nav-link {% if link.active %}active{% endif %}">
+                  {{ link.title }}
+                </a>
+              </li>
+            {%- endfor -%}
+          </ul>
+        </nav>
+      {%- endif -%}
+
+      {%- comment -%} Header Actions {%- endcomment -%}
+      <div class="header-actions">
+        
+        {%- if section.settings.show_search -%}
+          <a href="{{ routes.search_url }}" 
+             class="header-action-icon"
+             aria-label="Search">
+            {%- if section.settings.search_icon != blank -%}
+              {{ section.settings.search_icon }}
+            {%- else -%}
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"/>
+                <path d="m21 21-4.35-4.35"/>
+              </svg>
+            {%- endif -%}
+          </a>
+        {%- endif -%}
+
+        {%- if section.settings.show_account -%}
+          <a href="{{ routes.account_url }}" 
+             class="header-action-icon"
+             aria-label="Account">
+            {%- if section.settings.account_icon != blank -%}
+              {{ section.settings.account_icon }}
+            {%- else -%}
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                <circle cx="12" cy="7" r="4"/>
+              </svg>
+            {%- endif -%}
+          </a>
+        {%- endif -%}
+
+        {%- if section.settings.show_cart -%}
+          <a href="{{ routes.cart_url }}" 
+             class="header-action-icon header-cart-icon"
+             aria-label="Cart"
+             data-cart-icon>
+            {%- if section.settings.cart_icon != blank -%}
+              {{ section.settings.cart_icon }}
+            {%- else -%}
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+                <line x1="3" y1="6" x2="21" y2="6"/>
+                <path d="M16 10a4 4 0 0 1-8 0"/>
+              </svg>
+            {%- endif -%}
+            {%- if cart.item_count > 0 -%}
+              <span class="header-cart-count" data-cart-count>{{ cart.item_count }}</span>
+            {%- endif -%}
+          </a>
+        {%- endif -%}
+
+      </div>
+
+    </div>
+  </div>
+
+  {%- comment -%} Mobile Menu {%- endcomment -%}
+  <div class="header-mobile-menu" data-mobile-menu>
+    <div class="mobile-menu-wrapper">
+      
+      <div class="mobile-menu-header">
+        <button class="mobile-menu-close" 
+                aria-label="Close menu"
+                data-mobile-menu-close>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+
+      {%- if section.settings.menu != blank -%}
+        <nav class="mobile-menu-nav" aria-label="Mobile navigation">
+          <ul class="mobile-menu-list">
+            {%- for link in linklists[section.settings.menu].links -%}
+              <li class="mobile-menu-item">
+                <a href="{{ link.url }}" 
+                   class="mobile-menu-link {% if link.active %}active{% endif %}">
+                  {{ link.title }}
+                </a>
+              </li>
+            {%- endfor -%}
+          </ul>
+        </nav>
+      {%- endif -%}
+
+    </div>
+  </div>
+
+</header>
+
+<script src="{{ 'header-transparent.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "Header Transparent",
+  "class": "section-header-transparent",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Container Settings"
+    },
+    {
+      "type": "select",
+      "id": "container",
+      "label": "Container Width",
+      "options": [
+        {"value": "container", "label": "Default"},
+        {"value": "1170", "label": "1170px"},
+        {"value": "1370", "label": "1370px"},
+        {"value": "1770", "label": "1770px"},
+        {"value": "fullwidth", "label": "Full Width"}
+      ],
+      "default": "1370"
+    },
+    {
+      "type": "range",
+      "id": "header_height",
+      "label": "Header Height",
+      "min": 60,
+      "max": 120,
+      "step": 5,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "header",
+      "content": "Background Colors"
+    },
+    {
+      "type": "color",
+      "id": "header_bg_transparent",
+      "label": "Background (Homepage - Transparent)",
+      "default": "rgba(0,0,0,0)",
+      "info": "Transparent background for homepage"
+    },
+    {
+      "type": "color",
+      "id": "header_bg_solid",
+      "label": "Background (Other Pages - Solid)",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Text Colors"
+    },
+    {
+      "type": "color",
+      "id": "header_text_color_home",
+      "label": "Text Color (Homepage)",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "header_text_color_pages",
+      "label": "Text Color (Other Pages)",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Logo Settings"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo Image"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "label": "Logo Width (Desktop)",
+      "min": 80,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "default": 120
+    },
+    {
+      "type": "range",
+      "id": "logo_width_mobile",
+      "label": "Logo Width (Mobile)",
+      "min": 60,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "logo_text_size",
+      "label": "Logo Text Size (if no image)",
+      "min": 16,
+      "max": 36,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "header",
+      "content": "Navigation Settings"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu",
+      "default": "main-menu"
+    },
+    {
+      "type": "range",
+      "id": "nav_font_size",
+      "label": "Navigation Font Size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "select",
+      "id": "nav_font_weight",
+      "label": "Navigation Font Weight",
+      "options": [
+        {"value": "400", "label": "Normal"},
+        {"value": "500", "label": "Medium"},
+        {"value": "600", "label": "Semi Bold"}
+      ],
+      "default": "400"
+    },
+    {
+      "type": "range",
+      "id": "nav_letter_spacing",
+      "label": "Navigation Letter Spacing",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "default": 5,
+      "info": "Value will be divided by 100 (5 = 0.05em)"
+    },
+    {
+      "type": "header",
+      "content": "Header Actions"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_search",
+      "label": "Show Search Icon",
+      "default": true
+    },
+    {
+      "type": "html",
+      "id": "search_icon",
+      "label": "Search Icon SVG (optional)"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_account",
+      "label": "Show Account Icon",
+      "default": true
+    },
+    {
+      "type": "html",
+      "id": "account_icon",
+      "label": "Account Icon SVG (optional)"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cart",
+      "label": "Show Cart Icon",
+      "default": true
+    },
+    {
+      "type": "html",
+      "id": "cart_icon",
+      "label": "Cart Icon SVG (optional)"
+    }
+  ]
+}
+{% endschema %}
