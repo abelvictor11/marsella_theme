@@ -120,18 +120,40 @@ Parallax Speed: 20
 - Top Position (Mobile): 0-500px
 - Video Width (Mobile): 70-100%
 
-**Video Settings:**
-- Video URL: YouTube o Vimeo
+**Aspect Ratio (Máscara del Video):**
+- **3:4 (Vertical - Cuadrado)** ← Recomendado para el diseño
+- 4:3 (Horizontal)
+- 16:9 (Widescreen)
+- 1:1 (Cuadrado perfecto)
+- 9:16 (Vertical móvil)
+
+**Fuentes de Video:**
+
+1. **Video MP4 (Recomendado)**
+   - Sube tu video MP4 a Shopify Files (Settings > Files)
+   - Copia la URL del archivo
+   - Pégala en "Video MP4 URL"
+   - Agrega un poster/thumbnail (imagen de preview)
+   - **Tiene prioridad** sobre YouTube/Vimeo
+
+2. **YouTube/Vimeo (Alternativa)**
+   - Pega la URL completa del video
+   - Soporta YouTube y Vimeo
+   - Solo se usa si no hay MP4
+
+**Video Controls:**
 - Autoplay: Sí/No
 - Mute: Sí/No
 - Loop: Sí/No
 - Show Controls: Sí/No
-- Show Play Button: Sí/No
+- Show Play Button: Sí/No (solo si Autoplay está desactivado)
 
 **Ejemplo de configuración:**
 ```
 Top: 150px
 Width: 50%
+Aspect Ratio: 3:4 (Vertical - Cuadrado)
+Video MP4: https://cdn.shopify.com/s/files/1/xxx/video.mp4
 Autoplay: Yes
 Mute: Yes
 Loop: Yes
@@ -170,6 +192,24 @@ Parallax Speed: 60
 Rotation: 15deg
 ```
 
+## 📹 Cómo Subir un Video MP4 a Shopify
+
+1. **Ve a tu Admin de Shopify**
+2. **Settings (Configuración) > Files (Archivos)**
+3. **Haz clic en "Upload files"**
+4. **Selecciona tu video MP4** (máximo 20MB recomendado para mejor rendimiento)
+5. **Una vez subido, haz clic en el archivo**
+6. **Copia la URL** que aparece (ejemplo: `https://cdn.shopify.com/s/files/1/0xxx/xxx/files/video.mp4`)
+7. **Pega esta URL** en el campo "Video MP4 URL" de la sección
+
+### Consejos para Videos MP4:
+- **Formato**: MP4 (H.264 codec)
+- **Tamaño recomendado**: 5-20MB para web
+- **Resolución**: 720p o 1080p
+- **Duración**: 10-30 segundos para loops
+- **Compresión**: Usa herramientas como HandBrake o Adobe Media Encoder
+- **Aspect Ratio**: Exporta en 3:4 (vertical) para que coincida con el diseño
+
 ## 🎯 Ejemplo de Uso Completo
 
 ### Recrear el diseño de la imagen:
@@ -184,8 +224,11 @@ Rotation: 15deg
 3. **Agregar Video Block:**
    - Top: 150px
    - Width: 50%
-   - URL: Tu video de YouTube/Vimeo
+   - Aspect Ratio: 3:4 (Vertical - Cuadrado)
+   - Video MP4 URL: [Tu video subido a Shopify Files]
+   - Video Poster: [Imagen thumbnail]
    - Autoplay: Yes, Mute: Yes, Loop: Yes
+   - Show Controls: No
 
 4. **Agregar Card 1 (Garantía):**
    - Top: 350px, Left: 5%
