@@ -1,0 +1,579 @@
+{{ 'component-footer-newsletter.css' | asset_url | stylesheet_tag }}
+
+<footer class="footer-newsletter-section section-{{ section.id }}"
+        style="--footer-bg-color: {{ section.settings.footer_bg_color }};
+               --footer-text-color: {{ section.settings.footer_text_color }};
+               --footer-padding-top: {{ section.settings.padding_top }}px;
+               --footer-padding-bottom: {{ section.settings.padding_bottom }}px;">
+  
+  {%- comment -%} Background Image {%- endcomment -%}
+  {%- if section.settings.background_image != blank -%}
+    <div class="footer-background-image"
+         style="--bg-opacity: {{ section.settings.bg_image_opacity | divided_by: 100.0 }};">
+      <img src="{{ section.settings.background_image | image_url: width: 1920 }}"
+           alt="{{ section.settings.background_image.alt | escape }}"
+           loading="lazy">
+    </div>
+  {%- endif -%}
+
+  <div class="footer-content-wrapper">
+    <div class="{% if section.settings.container == 'fullwidth' %}container-full{% elsif section.settings.container == '1170' %}container-1170{% elsif section.settings.container == '1370' %}container-1370{% elsif section.settings.container == '1770' %}container-1770{% else %}container{% endif %}">
+      
+      <div class="footer-main-content">
+        
+        {%- comment -%} Footer Menus (Left Side) {%- endcomment -%}
+        <div class="footer-menus">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'menu_column' -%}
+              <div class="footer-menu-column" {{ block.shopify_attributes }}>
+                {%- if block.settings.menu_title != blank -%}
+                  <h3 class="footer-menu-title"
+                      style="--menu-title-color: {{ block.settings.title_color }};
+                             --menu-title-size: {{ block.settings.title_size }}px;
+                             --menu-title-weight: {{ block.settings.title_weight }};">
+                    {{ block.settings.menu_title }}
+                  </h3>
+                {%- endif -%}
+                
+                {%- if block.settings.menu != blank -%}
+                  <ul class="footer-menu-list">
+                    {%- for link in linklists[block.settings.menu].links -%}
+                      <li class="footer-menu-item">
+                        <a href="{{ link.url }}"
+                           style="--menu-link-color: {{ block.settings.link_color }};
+                                  --menu-link-size: {{ block.settings.link_size }}px;">
+                          {{ link.title }}
+                        </a>
+                      </li>
+                    {%- endfor -%}
+                  </ul>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+
+        {%- comment -%} Newsletter Box (Right Side) {%- endcomment -%}
+        {%- if section.settings.show_newsletter -%}
+          <div class="footer-newsletter-box"
+               style="--newsletter-bg: {{ section.settings.newsletter_bg_color }};
+                      --newsletter-text-color: {{ section.settings.newsletter_text_color }};">
+            
+            {%- if section.settings.newsletter_title != blank -%}
+              <h2 class="newsletter-title"
+                  style="--newsletter-title-size: {{ section.settings.newsletter_title_size }}px;
+                         --newsletter-title-weight: {{ section.settings.newsletter_title_weight }};">
+                {{ section.settings.newsletter_title }}
+              </h2>
+            {%- endif -%}
+            
+            {%- if section.settings.newsletter_description != blank -%}
+              <p class="newsletter-description"
+                 style="--newsletter-desc-size: {{ section.settings.newsletter_desc_size }}px;">
+                {{ section.settings.newsletter_description }}
+              </p>
+            {%- endif -%}
+
+            {%- form 'customer', class: 'newsletter-form', id: 'footer-newsletter-form' -%}
+              <input type="hidden" name="contact[tags]" value="newsletter">
+              
+              <div class="newsletter-input-wrapper">
+                <input type="email"
+                       name="contact[email]"
+                       id="footer-newsletter-email"
+                       class="newsletter-input"
+                       placeholder="{{ section.settings.email_placeholder | default: 'TU CORREO ELECTRÓNICO' }}"
+                       aria-label="{{ section.settings.email_placeholder | default: 'Email' }}"
+                       required
+                       style="--input-bg: {{ section.settings.input_bg_color }};
+                              --input-text-color: {{ section.settings.input_text_color }};
+                              --input-border-color: {{ section.settings.input_border_color }};">
+                
+                <button type="submit"
+                        class="newsletter-submit-button"
+                        aria-label="{{ section.settings.button_text | default: 'Registrarse' }}"
+                        style="--button-bg: {{ section.settings.button_bg_color }};
+                               --button-icon-color: {{ section.settings.button_icon_color }};">
+                  {%- if section.settings.button_icon != blank -%}
+                    {{ section.settings.button_icon }}
+                  {%- else -%}
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                  {%- endif -%}
+                </button>
+              </div>
+
+              {%- if section.settings.button_text != blank -%}
+                <p class="newsletter-button-label"
+                   style="--button-label-size: {{ section.settings.button_label_size }}px;">
+                  {{ section.settings.button_text }}
+                </p>
+              {%- endif -%}
+
+              <div class="newsletter-response" style="display: none;"></div>
+            {%- endform -%}
+
+            {%- if section.settings.privacy_text != blank -%}
+              <p class="newsletter-privacy"
+                 style="--privacy-text-size: {{ section.settings.privacy_text_size }}px;
+                        --privacy-text-color: {{ section.settings.privacy_text_color }};">
+                {{ section.settings.privacy_text }}
+              </p>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+
+      </div>
+
+      {%- comment -%} Footer Bottom {%- endcomment -%}
+      <div class="footer-bottom">
+        
+        {%- comment -%} Logo and Copyright {%- endcomment -%}
+        <div class="footer-bottom-left">
+          {%- if section.settings.footer_logo != blank -%}
+            <div class="footer-logo">
+              <img src="{{ section.settings.footer_logo | image_url: width: 200 }}"
+                   alt="{{ shop.name }}"
+                   loading="lazy"
+                   width="{{ section.settings.logo_width }}"
+                   style="--logo-width: {{ section.settings.logo_width }}px;">
+            </div>
+          {%- endif -%}
+
+          {%- if section.settings.show_copyright -%}
+            <div class="footer-copyright"
+                 style="--copyright-size: {{ section.settings.copyright_size }}px;
+                        --copyright-color: {{ section.settings.copyright_color }};">
+              {%- if section.settings.copyright_text != blank -%}
+                {{ section.settings.copyright_text }}
+              {%- else -%}
+                © {{ 'now' | date: '%Y' }} {{ shop.name }}. {{ section.settings.copyright_suffix | default: 'Todos los derechos reservados.' }}
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+        </div>
+
+        {%- comment -%} Legal Links {%- endcomment -%}
+        {%- if section.settings.legal_menu != blank -%}
+          <div class="footer-bottom-right">
+            <ul class="footer-legal-links"
+                style="--legal-link-size: {{ section.settings.legal_link_size }}px;
+                       --legal-link-color: {{ section.settings.legal_link_color }};">
+              {%- for link in linklists[section.settings.legal_menu].links -%}
+                <li class="footer-legal-item">
+                  <a href="{{ link.url }}">{{ link.title }}</a>
+                </li>
+              {%- endfor -%}
+            </ul>
+          </div>
+        {%- endif -%}
+
+      </div>
+
+    </div>
+  </div>
+</footer>
+
+<script src="{{ 'footer-newsletter.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "Footer Newsletter",
+  "class": "section-footer-newsletter",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Container Settings"
+    },
+    {
+      "type": "select",
+      "id": "container",
+      "label": "Container Width",
+      "options": [
+        {
+          "value": "container",
+          "label": "Default"
+        },
+        {
+          "value": "1170",
+          "label": "1170px"
+        },
+        {
+          "value": "1370",
+          "label": "1370px"
+        },
+        {
+          "value": "1770",
+          "label": "1770px"
+        },
+        {
+          "value": "fullwidth",
+          "label": "Full Width"
+        }
+      ],
+      "default": "1370"
+    },
+    {
+      "type": "color",
+      "id": "footer_bg_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "footer_text_color",
+      "label": "Text Color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 150,
+      "step": 10,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 150,
+      "step": 10,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "header",
+      "content": "Background Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background Image",
+      "info": "Recommended: 1920x800px"
+    },
+    {
+      "type": "range",
+      "id": "bg_image_opacity",
+      "label": "Background Image Opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 30
+    },
+    {
+      "type": "header",
+      "content": "Newsletter Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_newsletter",
+      "label": "Show Newsletter Box",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "newsletter_title",
+      "label": "Newsletter Title",
+      "default": "SUSCRÍBETE A LA NEWSLETTER"
+    },
+    {
+      "type": "range",
+      "id": "newsletter_title_size",
+      "label": "Title Font Size",
+      "min": 20,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "select",
+      "id": "newsletter_title_weight",
+      "label": "Title Font Weight",
+      "options": [
+        {"value": "400", "label": "Normal"},
+        {"value": "500", "label": "Medium"},
+        {"value": "600", "label": "Semi Bold"},
+        {"value": "700", "label": "Bold"}
+      ],
+      "default": "400"
+    },
+    {
+      "type": "textarea",
+      "id": "newsletter_description",
+      "label": "Newsletter Description",
+      "default": "Recibe ofertas exclusivas, novedades y guías de perfumería directo a tu bandeja."
+    },
+    {
+      "type": "range",
+      "id": "newsletter_desc_size",
+      "label": "Description Font Size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "color",
+      "id": "newsletter_bg_color",
+      "label": "Newsletter Box Background",
+      "default": "#2a2a2a"
+    },
+    {
+      "type": "color",
+      "id": "newsletter_text_color",
+      "label": "Newsletter Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "text",
+      "id": "email_placeholder",
+      "label": "Email Placeholder",
+      "default": "TU CORREO ELECTRÓNICO"
+    },
+    {
+      "type": "color",
+      "id": "input_bg_color",
+      "label": "Input Background",
+      "default": "rgba(255,255,255,0.1)"
+    },
+    {
+      "type": "color",
+      "id": "input_text_color",
+      "label": "Input Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "input_border_color",
+      "label": "Input Border Color",
+      "default": "rgba(255,255,255,0.3)"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Label",
+      "default": "REGISTRARSE"
+    },
+    {
+      "type": "range",
+      "id": "button_label_size",
+      "label": "Button Label Font Size",
+      "min": 10,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "default": 11
+    },
+    {
+      "type": "html",
+      "id": "button_icon",
+      "label": "Button Icon SVG"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Button Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_icon_color",
+      "label": "Button Icon Color",
+      "default": "#000000"
+    },
+    {
+      "type": "textarea",
+      "id": "privacy_text",
+      "label": "Privacy Text",
+      "default": "Tus datos están siempre en control para nosotros y son más robustos."
+    },
+    {
+      "type": "range",
+      "id": "privacy_text_size",
+      "label": "Privacy Text Font Size",
+      "min": 10,
+      "max": 14,
+      "step": 1,
+      "unit": "px",
+      "default": 11
+    },
+    {
+      "type": "color",
+      "id": "privacy_text_color",
+      "label": "Privacy Text Color",
+      "default": "rgba(255,255,255,0.6)"
+    },
+    {
+      "type": "header",
+      "content": "Footer Bottom"
+    },
+    {
+      "type": "image_picker",
+      "id": "footer_logo",
+      "label": "Footer Logo"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "label": "Logo Width",
+      "min": 80,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "default": 150
+    },
+    {
+      "type": "checkbox",
+      "id": "show_copyright",
+      "label": "Show Copyright",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "copyright_text",
+      "label": "Copyright Text",
+      "info": "Leave empty for automatic copyright"
+    },
+    {
+      "type": "text",
+      "id": "copyright_suffix",
+      "label": "Copyright Suffix",
+      "default": "Todos los derechos reservados."
+    },
+    {
+      "type": "range",
+      "id": "copyright_size",
+      "label": "Copyright Font Size",
+      "min": 10,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "color",
+      "id": "copyright_color",
+      "label": "Copyright Color",
+      "default": "#666666"
+    },
+    {
+      "type": "link_list",
+      "id": "legal_menu",
+      "label": "Legal Links Menu",
+      "info": "Menu for privacy policy, terms, etc."
+    },
+    {
+      "type": "range",
+      "id": "legal_link_size",
+      "label": "Legal Links Font Size",
+      "min": 10,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "color",
+      "id": "legal_link_color",
+      "label": "Legal Links Color",
+      "default": "#666666"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "menu_column",
+      "name": "Menu Column",
+      "settings": [
+        {
+          "type": "text",
+          "id": "menu_title",
+          "label": "Column Title",
+          "default": "EXPLORAR"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Menu"
+        },
+        {
+          "type": "color",
+          "id": "title_color",
+          "label": "Title Color",
+          "default": "#000000"
+        },
+        {
+          "type": "range",
+          "id": "title_size",
+          "label": "Title Font Size",
+          "min": 10,
+          "max": 18,
+          "step": 1,
+          "unit": "px",
+          "default": 11
+        },
+        {
+          "type": "select",
+          "id": "title_weight",
+          "label": "Title Font Weight",
+          "options": [
+            {"value": "400", "label": "Normal"},
+            {"value": "500", "label": "Medium"},
+            {"value": "600", "label": "Semi Bold"},
+            {"value": "700", "label": "Bold"}
+          ],
+          "default": "600"
+        },
+        {
+          "type": "color",
+          "id": "link_color",
+          "label": "Link Color",
+          "default": "#000000"
+        },
+        {
+          "type": "range",
+          "id": "link_size",
+          "label": "Link Font Size",
+          "min": 12,
+          "max": 18,
+          "step": 1,
+          "unit": "px",
+          "default": 14
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Footer Newsletter",
+      "blocks": [
+        {
+          "type": "menu_column",
+          "settings": {
+            "menu_title": "EXPLORAR"
+          }
+        },
+        {
+          "type": "menu_column",
+          "settings": {
+            "menu_title": "SÍGUENOS"
+          }
+        },
+        {
+          "type": "menu_column",
+          "settings": {
+            "menu_title": "CONTÁCTANOS"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
