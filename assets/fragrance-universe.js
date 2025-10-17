@@ -82,7 +82,20 @@ class FragranceUniverseParallax {
   }
 
   setupVideoControls() {
-    if (!this.videoPlayButton || !this.videoIframe) return;
+    if (!this.videoPlayButton) return;
+
+    // Check if it's HTML5 video or iframe
+    const html5Video = this.section.querySelector('.fragrance-video-html5');
+    
+    if (html5Video) {
+      this.videoElement = html5Video;
+      this.isHTML5 = true;
+    } else {
+      this.videoElement = this.videoIframe;
+      this.isHTML5 = false;
+    }
+
+    if (!this.videoElement) return;
 
     this.videoPlayButton.addEventListener('click', () => {
       this.playVideo();
@@ -90,15 +103,22 @@ class FragranceUniverseParallax {
   }
 
   playVideo() {
-    if (!this.videoIframe) return;
+    if (!this.videoElement) return;
 
-    const src = this.videoIframe.src;
-    
-    // Add autoplay parameter to URL
-    if (src.includes('youtube.com')) {
-      this.videoIframe.src = src.replace('autoplay=0', 'autoplay=1');
-    } else if (src.includes('vimeo.com')) {
-      this.videoIframe.src = src.replace('autoplay=0', 'autoplay=1');
+    if (this.isHTML5) {
+      // HTML5 video
+      this.videoElement.play().catch(error => {
+        console.log('Video autoplay prevented:', error);
+      });
+    } else {
+      // YouTube/Vimeo iframe
+      const src = this.videoElement.src;
+      
+      if (src.includes('youtube.com')) {
+        this.videoElement.src = src.replace('autoplay=0', 'autoplay=1');
+      } else if (src.includes('vimeo.com')) {
+        this.videoElement.src = src.replace('autoplay=0', 'autoplay=1');
+      }
     }
 
     // Hide play button

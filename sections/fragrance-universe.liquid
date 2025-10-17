@@ -68,30 +68,48 @@
                         --video-width: {{ block.settings.video_width }}%;
                         --video-top-mobile: {{ block.settings.video_top_mobile }}px;
                         --video-width-mobile: {{ block.settings.video_width_mobile }}%;
-                        --video-border-radius: {{ block.settings.video_border_radius }}px;"
+                        --video-border-radius: {{ block.settings.video_border_radius }}px;
+                        --video-aspect-ratio: {{ block.settings.video_aspect_ratio }};"
                  {{ block.shopify_attributes }}>
               
-              {%- if block.settings.video_url != blank -%}
+              {%- if block.settings.video_mp4 != blank or block.settings.video_url != blank -%}
                 <div class="video-wrapper">
-                  {%- if block.settings.video_url.type == 'youtube' -%}
-                    <iframe 
-                      src="https://www.youtube.com/embed/{{ block.settings.video_url.id }}?autoplay={{ block.settings.autoplay }}&mute={{ block.settings.mute }}&loop={{ block.settings.loop }}&controls={{ block.settings.show_controls }}&playlist={{ block.settings.video_url.id }}"
-                      frameborder="0"
-                      allow="autoplay; encrypted-media"
-                      allowfullscreen
-                      class="fragrance-video">
-                    </iframe>
-                  {%- elsif block.settings.video_url.type == 'vimeo' -%}
-                    <iframe 
-                      src="https://player.vimeo.com/video/{{ block.settings.video_url.id }}?autoplay={{ block.settings.autoplay }}&muted={{ block.settings.mute }}&loop={{ block.settings.loop }}&controls={{ block.settings.show_controls }}"
-                      frameborder="0"
-                      allow="autoplay; encrypted-media"
-                      allowfullscreen
-                      class="fragrance-video">
-                    </iframe>
+                  {%- if block.settings.video_mp4 != blank -%}
+                    {%- comment -%} MP4 Video Upload {%- endcomment -%}
+                    <video 
+                      class="fragrance-video fragrance-video-html5"
+                      {% if block.settings.autoplay %}autoplay{% endif %}
+                      {% if block.settings.mute %}muted{% endif %}
+                      {% if block.settings.loop %}loop{% endif %}
+                      {% unless block.settings.show_controls %}controls{% endunless %}
+                      playsinline
+                      preload="metadata"
+                      poster="{{ block.settings.video_poster | image_url: width: 1200 }}">
+                      <source src="{{ block.settings.video_mp4 }}" type="video/mp4">
+                      Tu navegador no soporta el elemento de video.
+                    </video>
+                  {%- elsif block.settings.video_url != blank -%}
+                    {%- comment -%} YouTube/Vimeo Video {%- endcomment -%}
+                    {%- if block.settings.video_url.type == 'youtube' -%}
+                      <iframe 
+                        src="https://www.youtube.com/embed/{{ block.settings.video_url.id }}?autoplay={{ block.settings.autoplay }}&mute={{ block.settings.mute }}&loop={{ block.settings.loop }}&controls={{ block.settings.show_controls }}&playlist={{ block.settings.video_url.id }}"
+                        frameborder="0"
+                        allow="autoplay; encrypted-media"
+                        allowfullscreen
+                        class="fragrance-video">
+                      </iframe>
+                    {%- elsif block.settings.video_url.type == 'vimeo' -%}
+                      <iframe 
+                        src="https://player.vimeo.com/video/{{ block.settings.video_url.id }}?autoplay={{ block.settings.autoplay }}&muted={{ block.settings.mute }}&loop={{ block.settings.loop }}&controls={{ block.settings.show_controls }}"
+                        frameborder="0"
+                        allow="autoplay; encrypted-media"
+                        allowfullscreen
+                        class="fragrance-video">
+                      </iframe>
+                    {%- endif -%}
                   {%- endif -%}
                   
-                  {%- if block.settings.show_play_button and block.settings.autoplay == 0 -%}
+                  {%- if block.settings.show_play_button and block.settings.autoplay == false -%}
                     <button class="video-play-button" aria-label="Play video">
                       <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
                         <circle cx="30" cy="30" r="30" fill="white" opacity="0.9"/>
@@ -102,7 +120,7 @@
                 </div>
               {%- else -%}
                 <div class="video-placeholder" style="background: {{ block.settings.placeholder_bg }};">
-                  <p>{{ 'sections.fragrance_universe.video_placeholder' | t }}</p>
+                  <p>Agrega un video MP4 o URL de YouTube/Vimeo</p>
                 </div>
               {%- endif -%}
             </div>
@@ -581,14 +599,63 @@
         },
         {
           "type": "header",
-          "content": "Video Settings"
+          "content": "Video Aspect Ratio"
+        },
+        {
+          "type": "select",
+          "id": "video_aspect_ratio",
+          "label": "Aspect Ratio",
+          "options": [
+            {
+              "value": "3/4",
+              "label": "3:4 (Vertical - Cuadrado)"
+            },
+            {
+              "value": "4/3",
+              "label": "4:3 (Horizontal)"
+            },
+            {
+              "value": "16/9",
+              "label": "16:9 (Widescreen)"
+            },
+            {
+              "value": "1/1",
+              "label": "1:1 (Cuadrado perfecto)"
+            },
+            {
+              "value": "9/16",
+              "label": "9:16 (Vertical móvil)"
+            }
+          ],
+          "default": "3/4",
+          "info": "Selecciona la proporción del video"
+        },
+        {
+          "type": "header",
+          "content": "Video Source"
+        },
+        {
+          "type": "url",
+          "id": "video_mp4",
+          "label": "Video MP4 URL",
+          "info": "Sube tu video MP4 a Files y pega la URL aquí. Tiene prioridad sobre YouTube/Vimeo"
+        },
+        {
+          "type": "image_picker",
+          "id": "video_poster",
+          "label": "Video Poster (Thumbnail)",
+          "info": "Imagen que se muestra antes de reproducir el video MP4"
         },
         {
           "type": "video_url",
           "id": "video_url",
-          "label": "Video URL",
+          "label": "Video URL (YouTube/Vimeo)",
           "accept": ["youtube", "vimeo"],
-          "info": "Supports YouTube and Vimeo"
+          "info": "Alternativa si no usas MP4. Soporta YouTube y Vimeo"
+        },
+        {
+          "type": "header",
+          "content": "Video Controls"
         },
         {
           "type": "checkbox",
@@ -618,7 +685,8 @@
           "type": "checkbox",
           "id": "show_play_button",
           "label": "Show Play Button",
-          "default": false
+          "default": false,
+          "info": "Solo visible si Autoplay está desactivado"
         },
         {
           "type": "color",
