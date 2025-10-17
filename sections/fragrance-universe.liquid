@@ -1,0 +1,868 @@
+{{ 'component-fragrance-universe.css' | asset_url | stylesheet_tag }}
+
+<div class="fragrance-universe-section section-{{ section.id }}" data-section-id="{{ section.id }}">
+  <div class="{% if section.settings.container == 'fullwidth' %}container-full{% elsif section.settings.container == '1170' %}container-1170{% elsif section.settings.container == '1370' %}container-1370{% elsif section.settings.container == '1770' %}container-1770{% else %}container{% endif %}">
+    
+    {%- if section.settings.main_title != blank or section.settings.subtitle != blank or section.settings.description != blank -%}
+      <div class="fragrance-universe-header">
+        {%- if section.settings.main_title != blank -%}
+          <h2 class="fragrance-universe-main-title animate-title" style="--color-title: {{ section.settings.color_main_title }}; --font-size-title: {{ section.settings.fontsize_main_title }}px; --font-size-title-mobile: {{ section.settings.fontsize_main_title_mobile }}px;">
+            {{ section.settings.main_title }}
+          </h2>
+        {%- endif -%}
+        
+        {%- if section.settings.subtitle != blank -%}
+          <h3 class="fragrance-universe-subtitle animate-title" style="--color-subtitle: {{ section.settings.color_subtitle }}; --font-size-subtitle: {{ section.settings.fontsize_subtitle }}px; --font-size-subtitle-mobile: {{ section.settings.fontsize_subtitle_mobile }}px; --font-weight-subtitle: {{ section.settings.font_weight_subtitle }};">
+            {{ section.settings.subtitle }}
+          </h3>
+        {%- endif -%}
+        
+        {%- if section.settings.description != blank -%}
+          <div class="fragrance-universe-description animate-title" style="--color-description: {{ section.settings.color_description }}; --font-size-description: {{ section.settings.fontsize_description }}px;">
+            {{ section.settings.description }}
+          </div>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <div class="fragrance-universe-content">
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          
+          {%- when 'info_card' -%}
+            <div class="fragrance-card parallax-card" 
+                 data-parallax-speed="{{ block.settings.parallax_speed }}"
+                 style="--card-top: {{ block.settings.card_top }}px; 
+                        --card-left: {{ block.settings.card_left }}%; 
+                        --card-width: {{ block.settings.card_width }}px;
+                        --card-top-mobile: {{ block.settings.card_top_mobile }}px;
+                        --card-left-mobile: {{ block.settings.card_left_mobile }}%;
+                        --card-width-mobile: {{ block.settings.card_width_mobile }}px;
+                        --card-bg: {{ block.settings.card_bg_color }};
+                        --card-border-radius: {{ block.settings.card_border_radius }}px;
+                        --card-padding: {{ block.settings.card_padding }}px;"
+                 {{ block.shopify_attributes }}>
+              
+              {%- if block.settings.card_icon != blank -%}
+                <div class="card-icon" style="--icon-size: {{ block.settings.icon_size }}px; --icon-color: {{ block.settings.icon_color }};">
+                  {{ block.settings.card_icon }}
+                </div>
+              {%- endif -%}
+              
+              {%- if block.settings.card_title != blank -%}
+                <h4 class="card-title" style="--card-title-color: {{ block.settings.card_title_color }}; --card-title-size: {{ block.settings.card_title_size }}px; --card-title-weight: {{ block.settings.card_title_weight }};">
+                  {{ block.settings.card_title }}
+                </h4>
+              {%- endif -%}
+              
+              {%- if block.settings.card_text != blank -%}
+                <div class="card-text" style="--card-text-color: {{ block.settings.card_text_color }}; --card-text-size: {{ block.settings.card_text_size }}px;">
+                  {{ block.settings.card_text }}
+                </div>
+              {%- endif -%}
+            </div>
+
+          {%- when 'video_block' -%}
+            <div class="fragrance-video-container" 
+                 style="--video-top: {{ block.settings.video_top }}px; 
+                        --video-width: {{ block.settings.video_width }}%;
+                        --video-top-mobile: {{ block.settings.video_top_mobile }}px;
+                        --video-width-mobile: {{ block.settings.video_width_mobile }}%;
+                        --video-border-radius: {{ block.settings.video_border_radius }}px;"
+                 {{ block.shopify_attributes }}>
+              
+              {%- if block.settings.video_url != blank -%}
+                <div class="video-wrapper">
+                  {%- if block.settings.video_url.type == 'youtube' -%}
+                    <iframe 
+                      src="https://www.youtube.com/embed/{{ block.settings.video_url.id }}?autoplay={{ block.settings.autoplay }}&mute={{ block.settings.mute }}&loop={{ block.settings.loop }}&controls={{ block.settings.show_controls }}&playlist={{ block.settings.video_url.id }}"
+                      frameborder="0"
+                      allow="autoplay; encrypted-media"
+                      allowfullscreen
+                      class="fragrance-video">
+                    </iframe>
+                  {%- elsif block.settings.video_url.type == 'vimeo' -%}
+                    <iframe 
+                      src="https://player.vimeo.com/video/{{ block.settings.video_url.id }}?autoplay={{ block.settings.autoplay }}&muted={{ block.settings.mute }}&loop={{ block.settings.loop }}&controls={{ block.settings.show_controls }}"
+                      frameborder="0"
+                      allow="autoplay; encrypted-media"
+                      allowfullscreen
+                      class="fragrance-video">
+                    </iframe>
+                  {%- endif -%}
+                  
+                  {%- if block.settings.show_play_button and block.settings.autoplay == 0 -%}
+                    <button class="video-play-button" aria-label="Play video">
+                      <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
+                        <circle cx="30" cy="30" r="30" fill="white" opacity="0.9"/>
+                        <path d="M24 20L40 30L24 40V20Z" fill="#000"/>
+                      </svg>
+                    </button>
+                  {%- endif -%}
+                </div>
+              {%- else -%}
+                <div class="video-placeholder" style="background: {{ block.settings.placeholder_bg }};">
+                  <p>{{ 'sections.fragrance_universe.video_placeholder' | t }}</p>
+                </div>
+              {%- endif -%}
+            </div>
+
+          {%- when 'decorative_element' -%}
+            <div class="decorative-element parallax-card" 
+                 data-parallax-speed="{{ block.settings.parallax_speed }}"
+                 style="--element-top: {{ block.settings.element_top }}px; 
+                        --element-left: {{ block.settings.element_left }}%; 
+                        --element-width: {{ block.settings.element_width }}px;
+                        --element-top-mobile: {{ block.settings.element_top_mobile }}px;
+                        --element-left-mobile: {{ block.settings.element_left_mobile }}%;
+                        --element-width-mobile: {{ block.settings.element_width_mobile }}px;
+                        --element-rotation: {{ block.settings.element_rotation }}deg;"
+                 {{ block.shopify_attributes }}>
+              
+              {%- if block.settings.element_type == 'image' and block.settings.element_image != blank -%}
+                <img src="{{ block.settings.element_image | image_url: width: 500 }}" 
+                     alt="{{ block.settings.element_image.alt | escape }}"
+                     loading="lazy">
+              {%- elsif block.settings.element_type == 'svg' and block.settings.element_svg != blank -%}
+                <div class="svg-wrapper" style="--svg-color: {{ block.settings.svg_color }};">
+                  {{ block.settings.element_svg }}
+                </div>
+              {%- elsif block.settings.element_type == 'shape' -%}
+                <div class="shape-element {{ block.settings.shape_type }}" 
+                     style="--shape-color: {{ block.settings.shape_color }}; 
+                            --shape-size: {{ block.settings.shape_size }}px;">
+                </div>
+              {%- endif -%}
+            </div>
+
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+<script src="{{ 'fragrance-universe.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "Fragrance Universe",
+  "class": "section-fragrance-universe",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Container Settings"
+    },
+    {
+      "type": "select",
+      "id": "container",
+      "label": "Container Width",
+      "options": [
+        {
+          "value": "container",
+          "label": "Default"
+        },
+        {
+          "value": "1170",
+          "label": "1170px"
+        },
+        {
+          "value": "1370",
+          "label": "1370px"
+        },
+        {
+          "value": "1770",
+          "label": "1770px"
+        },
+        {
+          "value": "fullwidth",
+          "label": "Full Width"
+        }
+      ],
+      "default": "1370"
+    },
+    {
+      "type": "header",
+      "content": "Title Settings"
+    },
+    {
+      "type": "text",
+      "id": "main_title",
+      "label": "Main Title (Italic)",
+      "default": "el lujo de elegir."
+    },
+    {
+      "type": "color",
+      "id": "color_main_title",
+      "label": "Main Title Color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "fontsize_main_title",
+      "label": "Main Title Font Size (Desktop)",
+      "min": 20,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "fontsize_main_title_mobile",
+      "label": "Main Title Font Size (Mobile)",
+      "min": 16,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "UN UNIVERSO DE FRAGANCIAS."
+    },
+    {
+      "type": "color",
+      "id": "color_subtitle",
+      "label": "Subtitle Color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "fontsize_subtitle",
+      "label": "Subtitle Font Size (Desktop)",
+      "min": 16,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "fontsize_subtitle_mobile",
+      "label": "Subtitle Font Size (Mobile)",
+      "min": 14,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "select",
+      "id": "font_weight_subtitle",
+      "label": "Subtitle Font Weight",
+      "options": [
+        {
+          "value": "300",
+          "label": "Light"
+        },
+        {
+          "value": "400",
+          "label": "Normal"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semi Bold"
+        },
+        {
+          "value": "700",
+          "label": "Bold"
+        }
+      ],
+      "default": "400"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Nuestra Colección de Nicho:<br>Fragancias que Aún No Conocías.</p>"
+    },
+    {
+      "type": "color",
+      "id": "color_description",
+      "label": "Description Color",
+      "default": "#666666"
+    },
+    {
+      "type": "range",
+      "id": "fontsize_description",
+      "label": "Description Font Size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    }
+  ],
+  "blocks": [
+    {
+      "type": "info_card",
+      "name": "Info Card",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Card Position (Desktop)"
+        },
+        {
+          "type": "range",
+          "id": "card_top",
+          "label": "Top Position",
+          "min": 0,
+          "max": 1000,
+          "step": 10,
+          "unit": "px",
+          "default": 200
+        },
+        {
+          "type": "range",
+          "id": "card_left",
+          "label": "Left Position",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "default": 10
+        },
+        {
+          "type": "range",
+          "id": "card_width",
+          "label": "Card Width",
+          "min": 150,
+          "max": 500,
+          "step": 10,
+          "unit": "px",
+          "default": 280
+        },
+        {
+          "type": "header",
+          "content": "Card Position (Mobile)"
+        },
+        {
+          "type": "range",
+          "id": "card_top_mobile",
+          "label": "Top Position (Mobile)",
+          "min": 0,
+          "max": 1000,
+          "step": 10,
+          "unit": "px",
+          "default": 100
+        },
+        {
+          "type": "range",
+          "id": "card_left_mobile",
+          "label": "Left Position (Mobile)",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "default": 5
+        },
+        {
+          "type": "range",
+          "id": "card_width_mobile",
+          "label": "Card Width (Mobile)",
+          "min": 150,
+          "max": 400,
+          "step": 10,
+          "unit": "px",
+          "default": 220
+        },
+        {
+          "type": "header",
+          "content": "Parallax Effect"
+        },
+        {
+          "type": "range",
+          "id": "parallax_speed",
+          "label": "Parallax Speed",
+          "info": "Higher values = faster movement. 0 = no parallax",
+          "min": 0,
+          "max": 100,
+          "step": 5,
+          "default": 30
+        },
+        {
+          "type": "header",
+          "content": "Card Style"
+        },
+        {
+          "type": "color",
+          "id": "card_bg_color",
+          "label": "Background Color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "range",
+          "id": "card_border_radius",
+          "label": "Border Radius",
+          "min": 0,
+          "max": 50,
+          "step": 2,
+          "unit": "px",
+          "default": 20
+        },
+        {
+          "type": "range",
+          "id": "card_padding",
+          "label": "Padding",
+          "min": 10,
+          "max": 60,
+          "step": 2,
+          "unit": "px",
+          "default": 30
+        },
+        {
+          "type": "header",
+          "content": "Card Icon"
+        },
+        {
+          "type": "html",
+          "id": "card_icon",
+          "label": "Icon SVG",
+          "info": "Paste SVG code here"
+        },
+        {
+          "type": "range",
+          "id": "icon_size",
+          "label": "Icon Size",
+          "min": 20,
+          "max": 80,
+          "step": 2,
+          "unit": "px",
+          "default": 40
+        },
+        {
+          "type": "color",
+          "id": "icon_color",
+          "label": "Icon Color",
+          "default": "#000000"
+        },
+        {
+          "type": "header",
+          "content": "Card Content"
+        },
+        {
+          "type": "text",
+          "id": "card_title",
+          "label": "Card Title",
+          "default": "Card Title"
+        },
+        {
+          "type": "color",
+          "id": "card_title_color",
+          "label": "Title Color",
+          "default": "#000000"
+        },
+        {
+          "type": "range",
+          "id": "card_title_size",
+          "label": "Title Font Size",
+          "min": 12,
+          "max": 32,
+          "step": 1,
+          "unit": "px",
+          "default": 18
+        },
+        {
+          "type": "select",
+          "id": "card_title_weight",
+          "label": "Title Font Weight",
+          "options": [
+            {
+              "value": "400",
+              "label": "Normal"
+            },
+            {
+              "value": "500",
+              "label": "Medium"
+            },
+            {
+              "value": "600",
+              "label": "Semi Bold"
+            },
+            {
+              "value": "700",
+              "label": "Bold"
+            }
+          ],
+          "default": "600"
+        },
+        {
+          "type": "richtext",
+          "id": "card_text",
+          "label": "Card Text",
+          "default": "<p>Card description text goes here.</p>"
+        },
+        {
+          "type": "color",
+          "id": "card_text_color",
+          "label": "Text Color",
+          "default": "#666666"
+        },
+        {
+          "type": "range",
+          "id": "card_text_size",
+          "label": "Text Font Size",
+          "min": 10,
+          "max": 20,
+          "step": 1,
+          "unit": "px",
+          "default": 14
+        }
+      ]
+    },
+    {
+      "type": "video_block",
+      "name": "Video Block",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Video Position (Desktop)"
+        },
+        {
+          "type": "range",
+          "id": "video_top",
+          "label": "Top Position",
+          "min": 0,
+          "max": 500,
+          "step": 10,
+          "unit": "px",
+          "default": 150
+        },
+        {
+          "type": "range",
+          "id": "video_width",
+          "label": "Video Width",
+          "min": 30,
+          "max": 80,
+          "step": 2,
+          "unit": "%",
+          "default": 50
+        },
+        {
+          "type": "header",
+          "content": "Video Position (Mobile)"
+        },
+        {
+          "type": "range",
+          "id": "video_top_mobile",
+          "label": "Top Position (Mobile)",
+          "min": 0,
+          "max": 500,
+          "step": 10,
+          "unit": "px",
+          "default": 100
+        },
+        {
+          "type": "range",
+          "id": "video_width_mobile",
+          "label": "Video Width (Mobile)",
+          "min": 70,
+          "max": 100,
+          "step": 2,
+          "unit": "%",
+          "default": 90
+        },
+        {
+          "type": "range",
+          "id": "video_border_radius",
+          "label": "Border Radius",
+          "min": 0,
+          "max": 50,
+          "step": 2,
+          "unit": "px",
+          "default": 20
+        },
+        {
+          "type": "header",
+          "content": "Video Settings"
+        },
+        {
+          "type": "video_url",
+          "id": "video_url",
+          "label": "Video URL",
+          "accept": ["youtube", "vimeo"],
+          "info": "Supports YouTube and Vimeo"
+        },
+        {
+          "type": "checkbox",
+          "id": "autoplay",
+          "label": "Autoplay",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "mute",
+          "label": "Mute",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "loop",
+          "label": "Loop",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "show_controls",
+          "label": "Show Controls",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "show_play_button",
+          "label": "Show Play Button",
+          "default": false
+        },
+        {
+          "type": "color",
+          "id": "placeholder_bg",
+          "label": "Placeholder Background",
+          "default": "#e0e0e0"
+        }
+      ]
+    },
+    {
+      "type": "decorative_element",
+      "name": "Decorative Element",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Element Position (Desktop)"
+        },
+        {
+          "type": "range",
+          "id": "element_top",
+          "label": "Top Position",
+          "min": 0,
+          "max": 1000,
+          "step": 10,
+          "unit": "px",
+          "default": 300
+        },
+        {
+          "type": "range",
+          "id": "element_left",
+          "label": "Left Position",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "default": 70
+        },
+        {
+          "type": "range",
+          "id": "element_width",
+          "label": "Element Width",
+          "min": 50,
+          "max": 400,
+          "step": 10,
+          "unit": "px",
+          "default": 150
+        },
+        {
+          "type": "header",
+          "content": "Element Position (Mobile)"
+        },
+        {
+          "type": "range",
+          "id": "element_top_mobile",
+          "label": "Top Position (Mobile)",
+          "min": 0,
+          "max": 1000,
+          "step": 10,
+          "unit": "px",
+          "default": 200
+        },
+        {
+          "type": "range",
+          "id": "element_left_mobile",
+          "label": "Left Position (Mobile)",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "default": 60
+        },
+        {
+          "type": "range",
+          "id": "element_width_mobile",
+          "label": "Element Width (Mobile)",
+          "min": 50,
+          "max": 300,
+          "step": 10,
+          "unit": "px",
+          "default": 100
+        },
+        {
+          "type": "header",
+          "content": "Parallax Effect"
+        },
+        {
+          "type": "range",
+          "id": "parallax_speed",
+          "label": "Parallax Speed",
+          "info": "Higher values = faster movement. 0 = no parallax",
+          "min": 0,
+          "max": 100,
+          "step": 5,
+          "default": 50
+        },
+        {
+          "type": "range",
+          "id": "element_rotation",
+          "label": "Rotation",
+          "min": -180,
+          "max": 180,
+          "step": 5,
+          "unit": "deg",
+          "default": 0
+        },
+        {
+          "type": "header",
+          "content": "Element Type"
+        },
+        {
+          "type": "select",
+          "id": "element_type",
+          "label": "Element Type",
+          "options": [
+            {
+              "value": "image",
+              "label": "Image"
+            },
+            {
+              "value": "svg",
+              "label": "SVG Code"
+            },
+            {
+              "value": "shape",
+              "label": "Shape"
+            }
+          ],
+          "default": "image"
+        },
+        {
+          "type": "image_picker",
+          "id": "element_image",
+          "label": "Element Image",
+          "info": "For 'Image' type"
+        },
+        {
+          "type": "html",
+          "id": "element_svg",
+          "label": "SVG Code",
+          "info": "For 'SVG Code' type"
+        },
+        {
+          "type": "select",
+          "id": "shape_type",
+          "label": "Shape Type",
+          "info": "For 'Shape' type",
+          "options": [
+            {
+              "value": "circle",
+              "label": "Circle"
+            },
+            {
+              "value": "square",
+              "label": "Square"
+            },
+            {
+              "value": "line",
+              "label": "Line"
+            }
+          ],
+          "default": "circle"
+        },
+        {
+          "type": "color",
+          "id": "shape_color",
+          "label": "Shape Color",
+          "default": "#000000"
+        },
+        {
+          "type": "range",
+          "id": "shape_size",
+          "label": "Shape Size",
+          "min": 20,
+          "max": 200,
+          "step": 5,
+          "unit": "px",
+          "default": 100
+        },
+        {
+          "type": "color",
+          "id": "svg_color",
+          "label": "SVG Color",
+          "default": "#000000"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Fragrance Universe",
+      "blocks": [
+        {
+          "type": "info_card",
+          "settings": {
+            "card_title": "GARANTÍA DE AUTENTICIDAD",
+            "card_text": "<p>El lujo no debe ser incierto, vendemos solo frascos 100% originales, directo de las casas de diseño. La confianza es nuestro ingrediente principal.</p>",
+            "card_top": 350,
+            "card_left": 5,
+            "parallax_speed": 20
+          }
+        },
+        {
+          "type": "video_block"
+        },
+        {
+          "type": "info_card",
+          "settings": {
+            "card_title": "CATÁLOGO CURADO POR EXPERTOS",
+            "card_text": "<p>Nada de las perfumes más mejor. Hemos seleccionado las marcas más icónicas, nicho y de alta costura para que la excelencia sea tu única opción.</p>",
+            "card_top": 200,
+            "card_left": 20,
+            "parallax_speed": 35
+          }
+        },
+        {
+          "type": "info_card",
+          "settings": {
+            "card_title": "TU PRÓXIMO CLÁSICO TE ESPERA",
+            "card_text": "<p>Simplificamos la búsqueda. Usa nuestros filtros y recomendaciones para encontrar fácilmente esa fragancia que te acompañará por años.</p>",
+            "card_top": 450,
+            "card_left": 60,
+            "parallax_speed": 45
+          }
+        },
+        {
+          "type": "info_card",
+          "settings": {
+            "card_title": "COMPRA CONSCIENTE",
+            "card_text": "<p>Fragancias con propósito. Ofrecemos marcas que priorizan ingredientes cruelty-free y los procesos responsables. Belleza que se siente bien.</p>",
+            "card_top": 550,
+            "card_left": 75,
+            "parallax_speed": 25
+          }
+        },
+        {
+          "type": "decorative_element",
+          "settings": {
+            "element_top": 250,
+            "element_left": 75,
+            "parallax_speed": 60
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

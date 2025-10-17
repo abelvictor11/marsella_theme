@@ -1,0 +1,399 @@
+.fragrance-universe-section {
+  position: relative;
+  padding: 80px 0 120px;
+  overflow: hidden;
+  background: #ffffff;
+}
+
+/* Header Styles */
+.fragrance-universe-header {
+  text-align: left;
+  margin-bottom: 80px;
+  padding: 0 20px;
+}
+
+.fragrance-universe-main-title {
+  font-style: italic;
+  font-size: var(--font-size-title, 60px);
+  color: var(--color-title, #000);
+  margin: 0 0 10px 0;
+  line-height: 1.2;
+  font-weight: 300;
+}
+
+.fragrance-universe-subtitle {
+  font-size: var(--font-size-subtitle, 48px);
+  color: var(--color-subtitle, #000);
+  margin: 0 0 20px 0;
+  line-height: 1.2;
+  font-weight: var(--font-weight-subtitle, 400);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.fragrance-universe-description {
+  font-size: var(--font-size-description, 16px);
+  color: var(--color-description, #666);
+  margin: 0;
+  line-height: 1.6;
+  max-width: 600px;
+}
+
+/* Title Animation */
+.animate-title {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.animate-title:nth-child(1) {
+  animation-delay: 0.2s;
+}
+
+.animate-title:nth-child(2) {
+  animation-delay: 0.4s;
+}
+
+.animate-title:nth-child(3) {
+  animation-delay: 0.6s;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Content Container */
+.fragrance-universe-content {
+  position: relative;
+  min-height: 800px;
+  margin: 0 auto;
+}
+
+/* Info Cards */
+.fragrance-card {
+  position: absolute;
+  top: var(--card-top, 200px);
+  left: var(--card-left, 10%);
+  width: var(--card-width, 280px);
+  background: var(--card-bg, #ffffff);
+  border-radius: var(--card-border-radius, 20px);
+  padding: var(--card-padding, 30px);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  z-index: 10;
+  will-change: transform;
+}
+
+.fragrance-card:hover {
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.12);
+  transform: translateY(-5px) !important;
+}
+
+.card-icon {
+  width: var(--icon-size, 40px);
+  height: var(--icon-size, 40px);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--icon-color, #000);
+}
+
+.card-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.card-title {
+  font-size: var(--card-title-size, 18px);
+  color: var(--card-title-color, #000);
+  font-weight: var(--card-title-weight, 600);
+  margin: 0 0 15px 0;
+  line-height: 1.3;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.card-text {
+  font-size: var(--card-text-size, 14px);
+  color: var(--card-text-color, #666);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.card-text p {
+  margin: 0;
+}
+
+/* Video Container */
+.fragrance-video-container {
+  position: absolute;
+  top: var(--video-top, 150px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: var(--video-width, 50%);
+  z-index: 5;
+}
+
+.video-wrapper {
+  position: relative;
+  width: 100%;
+  padding-bottom: 133.33%; /* 3:4 aspect ratio */
+  border-radius: var(--video-border-radius, 20px);
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+}
+
+.fragrance-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.video-play-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 10;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.video-play-button:hover {
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+.video-play-button svg {
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.2));
+}
+
+.video-placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--placeholder-bg, #e0e0e0);
+  color: #666;
+  font-size: 16px;
+}
+
+/* Decorative Elements */
+.decorative-element {
+  position: absolute;
+  top: var(--element-top, 300px);
+  left: var(--element-left, 70%);
+  width: var(--element-width, 150px);
+  z-index: 3;
+  transform: rotate(var(--element-rotation, 0deg));
+  will-change: transform;
+  pointer-events: none;
+}
+
+.decorative-element img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.svg-wrapper {
+  width: 100%;
+  height: auto;
+  color: var(--svg-color, #000);
+}
+
+.svg-wrapper svg {
+  width: 100%;
+  height: auto;
+}
+
+.shape-element {
+  width: var(--shape-size, 100px);
+  height: var(--shape-size, 100px);
+}
+
+.shape-element.circle {
+  border-radius: 50%;
+  background: var(--shape-color, #000);
+}
+
+.shape-element.square {
+  background: var(--shape-color, #000);
+}
+
+.shape-element.line {
+  width: var(--shape-size, 100px);
+  height: 2px;
+  background: var(--shape-color, #000);
+}
+
+/* Parallax Effect */
+.parallax-card {
+  transition: transform 0.1s ease-out;
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 1024px) {
+  .fragrance-universe-section {
+    padding: 60px 0 100px;
+  }
+
+  .fragrance-universe-header {
+    margin-bottom: 60px;
+  }
+
+  .fragrance-universe-main-title {
+    font-size: calc(var(--font-size-title, 60px) * 0.7);
+  }
+
+  .fragrance-universe-subtitle {
+    font-size: calc(var(--font-size-subtitle, 48px) * 0.7);
+  }
+
+  .fragrance-card {
+    width: calc(var(--card-width, 280px) * 0.85);
+    padding: calc(var(--card-padding, 30px) * 0.85);
+  }
+
+  .fragrance-video-container {
+    width: calc(var(--video-width, 50%) + 10%);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .fragrance-universe-section {
+    padding: 40px 0 80px;
+  }
+
+  .fragrance-universe-header {
+    margin-bottom: 40px;
+    padding: 0 15px;
+  }
+
+  .fragrance-universe-main-title {
+    font-size: var(--font-size-title-mobile, 32px);
+  }
+
+  .fragrance-universe-subtitle {
+    font-size: var(--font-size-subtitle-mobile, 24px);
+  }
+
+  .fragrance-universe-description {
+    font-size: 14px;
+  }
+
+  .fragrance-universe-content {
+    min-height: 1200px;
+  }
+
+  /* Mobile positioning */
+  .fragrance-card {
+    top: var(--card-top-mobile, 100px) !important;
+    left: var(--card-left-mobile, 5%) !important;
+    width: var(--card-width-mobile, 220px) !important;
+    padding: 20px;
+  }
+
+  .card-title {
+    font-size: 14px;
+  }
+
+  .card-text {
+    font-size: 12px;
+  }
+
+  .card-icon {
+    width: 30px;
+    height: 30px;
+    margin-bottom: 15px;
+  }
+
+  .fragrance-video-container {
+    top: var(--video-top-mobile, 100px) !important;
+    width: var(--video-width-mobile, 90%) !important;
+  }
+
+  .decorative-element {
+    top: var(--element-top-mobile, 200px) !important;
+    left: var(--element-left-mobile, 60%) !important;
+    width: var(--element-width-mobile, 100px) !important;
+  }
+
+  /* Reduce parallax effect on mobile */
+  .parallax-card[data-parallax-speed] {
+    --parallax-multiplier: 0.3;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .fragrance-universe-main-title {
+    font-size: calc(var(--font-size-title-mobile, 32px) * 0.85);
+  }
+
+  .fragrance-universe-subtitle {
+    font-size: calc(var(--font-size-subtitle-mobile, 24px) * 0.85);
+  }
+
+  .fragrance-card {
+    width: calc(var(--card-width-mobile, 220px) * 0.9) !important;
+    padding: 18px;
+  }
+
+  .card-title {
+    font-size: 13px;
+  }
+
+  .card-text {
+    font-size: 11px;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .fragrance-universe-section {
+    page-break-inside: avoid;
+  }
+
+  .parallax-card {
+    position: relative !important;
+    transform: none !important;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .animate-title,
+  .parallax-card,
+  .fragrance-card,
+  .video-play-button {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .parallax-card {
+    transform: none !important;
+  }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .fragrance-card {
+    border: 2px solid currentColor;
+  }
+
+  .video-wrapper {
+    border: 2px solid currentColor;
+  }
+}
