@@ -293,11 +293,30 @@ Rotation: 15deg
 
 ### Ajustar velocidad de parallax
 
-La velocidad del parallax se calcula así:
-- **0**: Sin movimiento
-- **20-30**: Movimiento muy sutil (recomendado para cards principales)
-- **40-60**: Movimiento medio (recomendado para elementos decorativos)
-- **70-100**: Movimiento rápido (usar con precaución)
+El efecto parallax hace que cada card se mueva a una velocidad diferente mientras haces scroll, creando profundidad y dinamismo.
+
+**Cómo funciona:**
+- Cuando haces scroll hacia abajo, las cards se mueven hacia arriba
+- Cada card se mueve a su propia velocidad según el valor configurado
+- Cards con mayor velocidad se mueven más rápido = más efecto
+- Cards con menor velocidad se mueven más lento = más sutil
+
+**Valores recomendados:**
+- **0**: Sin movimiento (estático)
+- **15-25**: Movimiento muy sutil (cards de fondo)
+- **30-40**: Movimiento medio-suave (cards principales)
+- **45-60**: Movimiento medio-rápido (elementos destacados)
+- **65-100**: Movimiento rápido (elementos decorativos)
+
+**Ejemplo de configuración escalonada:**
+```
+Card 1 (izquierda): Speed 20  → Se mueve lento
+Card 2 (centro-izq): Speed 35  → Se mueve medio
+Card 3 (centro-der): Speed 45  → Se mueve rápido
+Card 4 (derecha): Speed 25  → Se mueve lento
+```
+
+Esto crea un efecto de "olas" donde las cards centrales se mueven más rápido que las laterales.
 
 ### Colores recomendados
 

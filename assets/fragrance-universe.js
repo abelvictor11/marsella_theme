@@ -59,10 +59,11 @@ class FragranceUniverseParallax {
       return;
     }
 
-    // Calculate scroll progress through the section (0 to 1)
-    const scrollProgress = Math.max(0, Math.min(1, 
-      (windowHeight - sectionTop) / (windowHeight + sectionHeight)
-    ));
+    // Calculate scroll progress through the section (-1 to 1)
+    // -1 = section at bottom of viewport
+    //  0 = section centered in viewport
+    //  1 = section at top of viewport
+    const scrollProgress = (windowHeight - sectionTop - sectionHeight / 2) / (windowHeight + sectionHeight);
 
     this.parallaxElements.forEach((element) => {
       const speed = parseFloat(element.dataset.parallaxSpeed) || 0;
@@ -73,8 +74,9 @@ class FragranceUniverseParallax {
       const multiplier = this.isMobile ? 0.3 : 1;
       
       // Calculate parallax offset
-      // Negative speed moves element up as you scroll down
-      const offset = (scrollProgress - 0.5) * speed * multiplier;
+      // Higher speed = more movement
+      // Positive scrollProgress (scrolling down) = move element up (negative offset)
+      const offset = -scrollProgress * speed * multiplier;
       
       // Apply transform with GPU acceleration
       element.style.transform = `translate3d(0, ${offset}px, 0)`;

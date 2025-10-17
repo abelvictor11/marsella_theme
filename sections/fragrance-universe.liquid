@@ -30,6 +30,7 @@
         {%- case block.type -%}
           
           {%- when 'info_card' -%}
+            {%- comment -%} Card con efecto parallax - se mueve a velocidad diferente en scroll {%- endcomment -%}
             <div class="fragrance-card parallax-card" 
                  data-parallax-speed="{{ block.settings.parallax_speed }}"
                  style="--card-top: {{ block.settings.card_top }}px; 
