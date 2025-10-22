@@ -32,6 +32,7 @@
         {{ content_for_header }}
         {% render 'variable' %}
         {% render 'global-style' %}
+        {{ 'fonts.css' | asset_url | stylesheet_tag }}
         {% render 'global-script' %}
 
         <script>document.documentElement.className = document.documentElement.className.replace('no-js', 'js');</script>
