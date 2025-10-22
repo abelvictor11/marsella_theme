@@ -81,10 +81,10 @@
   background: var(--card-bg, #ffffff);
   border-radius: var(--card-border-radius, 20px);
   padding: var(--card-padding, 30px);
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   z-index: 10;
   will-change: transform;
+  text-align: center;
 }
 
 .fragrance-card:hover {
@@ -95,11 +95,14 @@
 .card-icon {
   width: var(--icon-size, 40px);
   height: var(--icon-size, 40px);
-  margin-bottom: 20px;
+  margin-bottom: 20px !important;
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--icon-color, #000);
+  background: #fff;
+    border-radius: 100px;
+    margin: 0 auto;
 }
 
 .card-icon svg {
