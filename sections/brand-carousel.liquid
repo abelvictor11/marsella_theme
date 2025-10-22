@@ -1,0 +1,360 @@
+{{ 'component-brand-carousel.css' | asset_url | stylesheet_tag }}
+
+<section class="brand-carousel-section section-{{ section.id }}"
+         style="--section-bg: {{ section.settings.section_bg_color }};
+                --section-padding-top: {{ section.settings.padding_top }}px;
+                --section-padding-bottom: {{ section.settings.padding_bottom }}px;">
+  
+  <div class="{% if section.settings.container == 'fullwidth' %}container-full{% elsif section.settings.container == '1170' %}container-1170{% elsif section.settings.container == '1370' %}container-1370{% elsif section.settings.container == '1770' %}container-1770{% else %}container{% endif %}">
+    
+    <div class="brand-carousel-header">
+      
+      {%- comment -%} Title and Description {%- endcomment -%}
+      <div class="brand-carousel-content">
+        {%- if section.settings.title != blank -%}
+          <h2 class="brand-carousel-title"
+              style="--title-color: {{ section.settings.title_color }};
+                     --title-size: {{ section.settings.title_size }}px;
+                     --title-size-mobile: {{ section.settings.title_size_mobile }}px;
+                     --title-weight: {{ section.settings.title_weight }};
+                     --title-line-height: {{ section.settings.title_line_height | divided_by: 10.0 }};">
+            {{ section.settings.title }}
+          </h2>
+        {%- endif -%}
+        
+        {%- if section.settings.description != blank -%}
+          <div class="brand-carousel-description"
+               style="--description-color: {{ section.settings.description_color }};
+                      --description-size: {{ section.settings.description_size }}px;
+                      --description-size-mobile: {{ section.settings.description_size_mobile }}px;">
+            {{ section.settings.description }}
+          </div>
+        {%- endif -%}
+      </div>
+
+      {%- comment -%} Navigation Arrows {%- endcomment -%}
+      <div class="brand-carousel-navigation">
+        <button class="brand-carousel-arrow brand-carousel-prev"
+                aria-label="Previous"
+                data-carousel-prev
+                style="--arrow-bg: {{ section.settings.arrow_bg_color }};
+                       --arrow-color: {{ section.settings.arrow_icon_color }};">
+          {%- if section.settings.arrow_icon != blank -%}
+            {{ section.settings.arrow_icon }}
+          {%- else -%}
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M15 18l-6-6 6-6"/>
+            </svg>
+          {%- endif -%}
+        </button>
+        
+        <button class="brand-carousel-arrow brand-carousel-next"
+                aria-label="Next"
+                data-carousel-next
+                style="--arrow-bg: {{ section.settings.arrow_bg_color }};
+                       --arrow-color: {{ section.settings.arrow_icon_color }};">
+          {%- if section.settings.arrow_icon != blank -%}
+            {{ section.settings.arrow_icon }}
+          {%- else -%}
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 18l6-6-6-6"/>
+            </svg>
+          {%- endif -%}
+        </button>
+      </div>
+
+    </div>
+
+    {%- comment -%} Brand Logos Carousel {%- endcomment -%}
+    <div class="brand-carousel-wrapper">
+      <div class="brand-carousel-track" data-carousel-track>
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'brand' -%}
+            <div class="brand-carousel-item" {{ block.shopify_attributes }}>
+              {%- if block.settings.brand_logo != blank -%}
+                {%- if block.settings.brand_link != blank -%}
+                  <a href="{{ block.settings.brand_link }}" 
+                     class="brand-logo-link"
+                     {% if block.settings.open_in_new_tab %}target="_blank" rel="noopener"{% endif %}>
+                    <img src="{{ block.settings.brand_logo | image_url: width: 400 }}"
+                         alt="{{ block.settings.brand_name | default: 'Brand logo' }}"
+                         loading="lazy"
+                         style="--logo-max-width: {{ block.settings.logo_max_width }}px;
+                                --logo-max-height: {{ block.settings.logo_max_height }}px;">
+                  </a>
+                {%- else -%}
+                  <div class="brand-logo-wrapper">
+                    <img src="{{ block.settings.brand_logo | image_url: width: 400 }}"
+                         alt="{{ block.settings.brand_name | default: 'Brand logo' }}"
+                         loading="lazy"
+                         style="--logo-max-width: {{ block.settings.logo_max_width }}px;
+                                --logo-max-height: {{ block.settings.logo_max_height }}px;">
+                  </div>
+                {%- endif -%}
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script src="{{ 'brand-carousel.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "Brand Carousel",
+  "class": "section-brand-carousel",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Container Settings"
+    },
+    {
+      "type": "select",
+      "id": "container",
+      "label": "Container Width",
+      "options": [
+        {"value": "container", "label": "Default"},
+        {"value": "1170", "label": "1170px"},
+        {"value": "1370", "label": "1370px"},
+        {"value": "1770", "label": "1770px"},
+        {"value": "fullwidth", "label": "Full Width"}
+      ],
+      "default": "1370"
+    },
+    {
+      "type": "color",
+      "id": "section_bg_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 150,
+      "step": 10,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 150,
+      "step": 10,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "header",
+      "content": "Title Settings"
+    },
+    {
+      "type": "html",
+      "id": "title",
+      "label": "Title",
+      "default": "TU MARCA FAVORITA,<br><em>100% auténtica</em>",
+      "info": "Use <em> for italic, <br> for line breaks"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title Color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "label": "Title Font Size (Desktop)",
+      "min": 24,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "title_size_mobile",
+      "label": "Title Font Size (Mobile)",
+      "min": 20,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 28
+    },
+    {
+      "type": "select",
+      "id": "title_weight",
+      "label": "Title Font Weight",
+      "options": [
+        {"value": "300", "label": "Light"},
+        {"value": "400", "label": "Normal"},
+        {"value": "500", "label": "Medium"},
+        {"value": "600", "label": "Semi Bold"},
+        {"value": "700", "label": "Bold"}
+      ],
+      "default": "400"
+    },
+    {
+      "type": "range",
+      "id": "title_line_height",
+      "label": "Title Line Height",
+      "min": 8,
+      "max": 15,
+      "step": 1,
+      "default": 12,
+      "info": "Value will be divided by 10 (12 = 1.2 line height)"
+    },
+    {
+      "type": "header",
+      "content": "Description Settings"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "De Dior a Tom Ford, pasando por Gucci y Chanel. Accede a las marencias más icónicas y a las últimas novedades de diseño. Si es un must-have, está en Marsella."
+    },
+    {
+      "type": "color",
+      "id": "description_color",
+      "label": "Description Color",
+      "default": "#666666"
+    },
+    {
+      "type": "range",
+      "id": "description_size",
+      "label": "Description Font Size (Desktop)",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "description_size_mobile",
+      "label": "Description Font Size (Mobile)",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "header",
+      "content": "Navigation Arrows"
+    },
+    {
+      "type": "color",
+      "id": "arrow_bg_color",
+      "label": "Arrow Background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "arrow_icon_color",
+      "label": "Arrow Icon Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "html",
+      "id": "arrow_icon",
+      "label": "Custom Arrow Icon SVG (optional)"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "brand",
+      "name": "Brand Logo",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "brand_logo",
+          "label": "Brand Logo"
+        },
+        {
+          "type": "text",
+          "id": "brand_name",
+          "label": "Brand Name",
+          "info": "For alt text"
+        },
+        {
+          "type": "url",
+          "id": "brand_link",
+          "label": "Brand Link (optional)"
+        },
+        {
+          "type": "checkbox",
+          "id": "open_in_new_tab",
+          "label": "Open in new tab",
+          "default": false
+        },
+        {
+          "type": "range",
+          "id": "logo_max_width",
+          "label": "Logo Max Width",
+          "min": 80,
+          "max": 300,
+          "step": 10,
+          "unit": "px",
+          "default": 180
+        },
+        {
+          "type": "range",
+          "id": "logo_max_height",
+          "label": "Logo Max Height",
+          "min": 40,
+          "max": 150,
+          "step": 10,
+          "unit": "px",
+          "default": 80
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brand Carousel",
+      "blocks": [
+        {
+          "type": "brand",
+          "settings": {
+            "brand_name": "Steve Madden"
+          }
+        },
+        {
+          "type": "brand",
+          "settings": {
+            "brand_name": "Blackoud"
+          }
+        },
+        {
+          "type": "brand",
+          "settings": {
+            "brand_name": "Khadlaj"
+          }
+        },
+        {
+          "type": "brand",
+          "settings": {
+            "brand_name": "Issey Miyake"
+          }
+        },
+        {
+          "type": "brand",
+          "settings": {
+            "brand_name": "French Avenue"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
