@@ -1,0 +1,600 @@
+{{ 'component-split-banner-products.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign layout_reverse = false
+  if section.settings.layout == 'products_left'
+    assign layout_reverse = true
+  endif
+-%}
+
+<section class="split-banner-products section-{{ section.id }} {% if layout_reverse %}layout-reverse{% endif %}"
+         style="--section-bg: {{ section.settings.section_bg_color }};
+                --section-padding-top: {{ section.settings.padding_top }}px;
+                --section-padding-bottom: {{ section.settings.padding_bottom }}px;
+                --card-bg: {{ section.settings.card_bg_color }};
+                --card-text-color: {{ section.settings.card_text_color }};
+                --card-price-color: {{ section.settings.card_price_color }};
+                --badge-bg: {{ section.settings.badge_bg_color }};
+                --badge-text-color: {{ section.settings.badge_text_color }};">
+  
+  <div class="split-container">
+    
+    {%- comment -%} Banner Side (50%) {%- endcomment -%}
+    <div class="split-banner-side">
+      
+      {%- comment -%} Background Media {%- endcomment -%}
+      <div class="banner-media">
+        {%- if section.settings.video_url != blank -%}
+          <video class="banner-video"
+                 autoplay
+                 muted
+                 loop
+                 playsinline
+                 {% if section.settings.poster_image != blank %}
+                 poster="{{ section.settings.poster_image | image_url: width: 1200 }}"
+                 {% endif %}>
+            <source src="{{ section.settings.video_url }}" type="video/mp4">
+          </video>
+        {%- elsif section.settings.banner_image != blank -%}
+          <img src="{{ section.settings.banner_image | image_url: width: 1200 }}"
+               alt="{{ section.settings.banner_image.alt | escape }}"
+               class="banner-image"
+               loading="lazy">
+        {%- endif -%}
+
+        {%- if section.settings.show_overlay -%}
+          <div class="banner-overlay"
+               style="--overlay-color: {{ section.settings.overlay_color }};
+                      --overlay-opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};"></div>
+        {%- endif -%}
+      </div>
+
+      {%- comment -%} Banner Content {%- endcomment -%}
+      <div class="banner-content"
+           style="--content-align: {{ section.settings.content_alignment }};
+                  --content-text-color: {{ section.settings.content_text_color }};">
+        
+        {%- if section.settings.title != blank -%}
+          <h2 class="banner-title"
+              style="--title-size: {{ section.settings.title_size }}px;
+                     --title-size-mobile: {{ section.settings.title_size_mobile }}px;
+                     --title-weight: {{ section.settings.title_weight }};
+                     --title-line-height: {{ section.settings.title_line_height | divided_by: 10.0 }};">
+            {{ section.settings.title }}
+          </h2>
+        {%- endif -%}
+
+        {%- if section.settings.description != blank -%}
+          <div class="banner-description"
+               style="--description-size: {{ section.settings.description_size }}px;
+                      --description-size-mobile: {{ section.settings.description_size_mobile }}px;">
+            {{ section.settings.description }}
+          </div>
+        {%- endif -%}
+
+        {%- if section.settings.show_button and section.settings.button_text != blank -%}
+          <div class="banner-button-wrapper">
+            <a href="{{ section.settings.button_link | default: '#' }}"
+               class="banner-button"
+               style="--button-bg: {{ section.settings.button_bg_color }};
+                      --button-text: {{ section.settings.button_text_color }};
+                      --button-border: {{ section.settings.button_border_color }};">
+              {{ section.settings.button_text }}
+            </a>
+          </div>
+        {%- endif -%}
+
+      </div>
+
+    </div>
+
+    {%- comment -%} Products Side (50%) {%- endcomment -%}
+    <div class="split-products-side">
+      
+      {%- comment -%} Products Header {%- endcomment -%}
+      {%- if section.settings.products_title != blank -%}
+        <div class="products-header">
+          <h3 class="products-title"
+              style="--products-title-color: {{ section.settings.products_title_color }};
+                     --products-title-size: {{ section.settings.products_title_size }}px;">
+            {{ section.settings.products_title }}
+          </h3>
+          
+          {%- comment -%} Navigation Arrow {%- endcomment -%}
+          <button class="products-carousel-arrow"
+                  data-products-next
+                  aria-label="Next products"
+                  style="--arrow-bg: {{ section.settings.arrow_bg_color }};
+                         --arrow-color: {{ section.settings.arrow_color }};">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 18l6-6-6-6"/>
+            </svg>
+          </button>
+        </div>
+      {%- endif -%}
+
+      {%- comment -%} Products Carousel {%- endcomment -%}
+      <div class="products-carousel-wrapper">
+        <div class="products-carousel-track" data-products-track>
+          
+          {%- liquid
+            assign collection = collections[section.settings.collection]
+            assign products_to_show = section.settings.products_limit | default: 6
+          -%}
+
+          {%- if collection != blank and collection.products.size > 0 -%}
+            {%- for product in collection.products limit: products_to_show -%}
+              <div class="product-card">
+                
+                {%- comment -%} Product Image {%- endcomment -%}
+                <div class="product-card-image">
+                  <a href="{{ product.url }}">
+                    {%- if product.featured_image -%}
+                      <img src="{{ product.featured_image | image_url: width: 600 }}"
+                           alt="{{ product.featured_image.alt | escape }}"
+                           loading="lazy">
+                    {%- else -%}
+                      <div class="product-card-placeholder">
+                        {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                      </div>
+                    {%- endif -%}
+                  </a>
+
+                  {%- comment -%} Quick Add Button {%- endcomment -%}
+                  {%- if section.settings.show_quick_add -%}
+                    <button class="product-quick-add"
+                            data-product-id="{{ product.id }}"
+                            aria-label="Quick add {{ product.title }}">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M12 8v8M8 12h8"/>
+                      </svg>
+                    </button>
+                  {%- endif -%}
+
+                  {%- comment -%} Badge {%- endcomment -%}
+                  {%- if section.settings.show_badge -%}
+                    {%- if product.tags contains section.settings.badge_tag -%}
+                      <span class="product-badge">{{ section.settings.badge_text }}</span>
+                    {%- endif -%}
+                  {%- endif -%}
+                </div>
+
+                {%- comment -%} Product Info {%- endcomment -%}
+                <div class="product-card-info">
+                  
+                  {%- if section.settings.show_vendor and product.vendor != blank -%}
+                    <div class="product-vendor">{{ product.vendor }}</div>
+                  {%- endif -%}
+
+                  <h4 class="product-title">
+                    <a href="{{ product.url }}">{{ product.title }}</a>
+                  </h4>
+
+                  <div class="product-price">
+                    {%- if product.compare_at_price > product.price -%}
+                      <span class="price-compare">{{ product.compare_at_price | money }}</span>
+                    {%- endif -%}
+                    <span class="price-regular">{{ product.price | money }}</span>
+                  </div>
+
+                </div>
+
+              </div>
+            {%- endfor -%}
+          {%- else -%}
+            {%- comment -%} Placeholder products {%- endcomment -%}
+            {%- for i in (1..4) -%}
+              <div class="product-card">
+                <div class="product-card-image">
+                  <div class="product-card-placeholder">
+                    {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                  </div>
+                </div>
+                <div class="product-card-info">
+                  <h4 class="product-title">Product {{ i }}</h4>
+                  <div class="product-price">
+                    <span class="price-regular">$99.00</span>
+                  </div>
+                </div>
+              </div>
+            {%- endfor -%}
+          {%- endif -%}
+
+        </div>
+      </div>
+
+      {%- comment -%} Tagline {%- endcomment -%}
+      {%- if section.settings.tagline != blank -%}
+        <div class="products-tagline"
+             style="--tagline-color: {{ section.settings.tagline_color }};
+                    --tagline-size: {{ section.settings.tagline_size }}px;">
+          {{ section.settings.tagline }}
+        </div>
+      {%- endif -%}
+
+    </div>
+
+  </div>
+</section>
+
+<script src="{{ 'split-banner-products.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "Split Banner + Products",
+  "class": "section-split-banner-products",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout Settings"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Layout Direction",
+      "options": [
+        {"value": "banner_left", "label": "Banner Left | Products Right"},
+        {"value": "products_left", "label": "Products Left | Banner Right"}
+      ],
+      "default": "banner_left"
+    },
+    {
+      "type": "color",
+      "id": "section_bg_color",
+      "label": "Section Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 150,
+      "step": 10,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 150,
+      "step": 10,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Banner Media"
+    },
+    {
+      "type": "url",
+      "id": "video_url",
+      "label": "Video URL (MP4)",
+      "info": "Video takes priority over image"
+    },
+    {
+      "type": "image_picker",
+      "id": "poster_image",
+      "label": "Video Poster Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_image",
+      "label": "Banner Image",
+      "info": "Used if no video provided"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_overlay",
+      "label": "Show Overlay",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Overlay Color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Overlay Opacity",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "%",
+      "default": 30
+    },
+    {
+      "type": "header",
+      "content": "Banner Content"
+    },
+    {
+      "type": "html",
+      "id": "title",
+      "label": "Title",
+      "default": "Varnaya<br><em>Blends</em>",
+      "info": "Use <em> for italic, <br> for line breaks"
+    },
+    {
+      "type": "color",
+      "id": "content_text_color",
+      "label": "Text Color",
+      "default": "#000000"
+    },
+    {
+      "type": "select",
+      "id": "content_alignment",
+      "label": "Content Alignment",
+      "options": [
+        {"value": "left", "label": "Left"},
+        {"value": "center", "label": "Center"},
+        {"value": "right", "label": "Right"}
+      ],
+      "default": "left"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "label": "Title Size (Desktop)",
+      "min": 30,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "title_size_mobile",
+      "label": "Title Size (Mobile)",
+      "min": 24,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "select",
+      "id": "title_weight",
+      "label": "Title Weight",
+      "options": [
+        {"value": "300", "label": "Light"},
+        {"value": "400", "label": "Normal"},
+        {"value": "500", "label": "Medium"},
+        {"value": "600", "label": "Semi Bold"}
+      ],
+      "default": "400"
+    },
+    {
+      "type": "range",
+      "id": "title_line_height",
+      "label": "Title Line Height",
+      "min": 8,
+      "max": 15,
+      "step": 1,
+      "default": 11,
+      "info": "Value divided by 10 (11 = 1.1)"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "STAY GLOWING AND HEALTHY WITHOUT HAVING TO THINK ABOUT IT."
+    },
+    {
+      "type": "range",
+      "id": "description_size",
+      "label": "Description Size (Desktop)",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "description_size_mobile",
+      "label": "Description Size (Mobile)",
+      "min": 11,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 13
+    },
+    {
+      "type": "checkbox",
+      "id": "show_button",
+      "label": "Show Button",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Button Background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_border_color",
+      "label": "Button Border Color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Products Settings"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_limit",
+      "label": "Products to Show",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "default": 6
+    },
+    {
+      "type": "text",
+      "id": "products_title",
+      "label": "Products Title",
+      "default": "Varnaya Blends"
+    },
+    {
+      "type": "color",
+      "id": "products_title_color",
+      "label": "Products Title Color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "products_title_size",
+      "label": "Products Title Size",
+      "min": 18,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 28
+    },
+    {
+      "type": "header",
+      "content": "Product Card Style"
+    },
+    {
+      "type": "color",
+      "id": "card_bg_color",
+      "label": "Card Background",
+      "default": "#f5f5f5"
+    },
+    {
+      "type": "color",
+      "id": "card_text_color",
+      "label": "Card Text Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "card_price_color",
+      "label": "Card Price Color",
+      "default": "#000000"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "label": "Show Vendor",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_quick_add",
+      "label": "Show Quick Add Button",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Product Badge"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_badge",
+      "label": "Show Badge",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "badge_tag",
+      "label": "Badge Tag",
+      "default": "new",
+      "info": "Products with this tag will show the badge"
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge Text",
+      "default": "NEW"
+    },
+    {
+      "type": "color",
+      "id": "badge_bg_color",
+      "label": "Badge Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "badge_text_color",
+      "label": "Badge Text Color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Navigation Arrow"
+    },
+    {
+      "type": "color",
+      "id": "arrow_bg_color",
+      "label": "Arrow Background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "arrow_color",
+      "label": "Arrow Icon Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Tagline"
+    },
+    {
+      "type": "text",
+      "id": "tagline",
+      "label": "Tagline",
+      "default": "STAY GLOWING AND HEALTHY WITHOUT HAVING TO THINK ABOUT IT."
+    },
+    {
+      "type": "color",
+      "id": "tagline_color",
+      "label": "Tagline Color",
+      "default": "#666666"
+    },
+    {
+      "type": "range",
+      "id": "tagline_size",
+      "label": "Tagline Size",
+      "min": 11,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 13
+    }
+  ],
+  "presets": [
+    {
+      "name": "Split Banner + Products"
+    }
+  ]
+}
+{% endschema %}
