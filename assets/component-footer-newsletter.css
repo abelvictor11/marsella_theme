@@ -3,7 +3,6 @@
   background: var(--footer-bg-color, #fff);
   color: var(--footer-text-color, #000);
   padding: var(--footer-padding-top, 80px) 0 var(--footer-padding-bottom, 60px);
-  overflow: hidden;
 }
 
 /* Background Image */
@@ -32,11 +31,11 @@
 
 /* Main Content Layout */
 .footer-main-content {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 60px;
-  align-items: start;
-  margin-bottom: 60px;
+    display: grid;
+    grid-template-columns: 2fr 2fr;
+    gap: 60px;
+    align-items: start;
+    margin-bottom: 60px;
 }
 
 /* Footer Menus (Left) */
@@ -88,7 +87,7 @@
   color: var(--newsletter-text-color, #fff);
   padding: 50px 40px;
   border-radius: 8px;
-  max-width: 450px;
+  max-width: 500px;
   width: 100%;
 }
 
