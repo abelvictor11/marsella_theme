@@ -7,38 +7,76 @@ class CollectionFiltersOverlay {
     this.applyButton = document.querySelector('[data-filters-apply]');
     this.clearButton = document.querySelector('[data-filters-clear]');
     
-    if (!this.sidebar || !this.overlay || !this.toggleButton) return;
+    console.log('CollectionFiltersOverlay initialized', {
+      sidebar: !!this.sidebar,
+      overlay: !!this.overlay,
+      toggleButton: !!this.toggleButton,
+      closeButton: !!this.closeButton
+    });
+    
+    if (!this.sidebar || !this.overlay || !this.toggleButton) {
+      console.warn('Missing required elements for filters overlay');
+      return;
+    }
 
     this.init();
   }
 
   init() {
+    // Ensure sidebar starts hidden
+    this.sidebar.classList.remove('active');
+    this.overlay.classList.remove('active');
+    
     // Toggle filters
-    this.toggleButton.addEventListener('click', () => this.openFilters());
+    this.toggleButton.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      console.log('Toggle button clicked');
+      this.openFilters();
+    });
     
     // Close filters
     if (this.closeButton) {
-      this.closeButton.addEventListener('click', () => this.closeFilters());
+      this.closeButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log('Close button clicked');
+        this.closeFilters();
+      });
     }
     
     // Close on overlay click
-    this.overlay.addEventListener('click', () => this.closeFilters());
+    this.overlay.addEventListener('click', (e) => {
+      if (e.target === this.overlay) {
+        console.log('Overlay clicked');
+        this.closeFilters();
+      }
+    });
     
     // Close on ESC key
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && this.sidebar.classList.contains('active')) {
+        console.log('ESC key pressed');
         this.closeFilters();
       }
     });
 
     // Apply filters
     if (this.applyButton) {
-      this.applyButton.addEventListener('click', () => this.applyFilters());
+      this.applyButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        console.log('Apply button clicked');
+        this.applyFilters();
+      });
     }
 
     // Clear filters
     if (this.clearButton) {
-      this.clearButton.addEventListener('click', () => this.clearFilters());
+      this.clearButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        console.log('Clear button clicked');
+        this.clearFilters();
+      });
     }
 
     // Update filter count
@@ -51,6 +89,8 @@ class CollectionFiltersOverlay {
 
     // Collapsible filter blocks
     this.initCollapsibleBlocks();
+    
+    console.log('Filters overlay initialized successfully');
   }
 
   openFilters() {
