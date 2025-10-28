@@ -90,18 +90,44 @@ class CollectionFiltersOverlay {
     // Collapsible filter blocks
     this.initCollapsibleBlocks();
     
+    // Scroll indicator
+    this.initScrollIndicator();
+    
     console.log('Filters overlay initialized successfully');
   }
 
+  initScrollIndicator() {
+    const wrapper = this.sidebar.querySelector('.halo-sidebar-wrapper');
+    if (!wrapper) return;
+    
+    wrapper.addEventListener('scroll', () => {
+      if (wrapper.scrollTop > 10) {
+        wrapper.classList.add('is-scrolled');
+      } else {
+        wrapper.classList.remove('is-scrolled');
+      }
+    });
+  }
+
   openFilters() {
+    console.log('Opening filters...');
     this.sidebar.classList.add('active');
     this.overlay.classList.add('active');
+    document.body.classList.add('filters-open');
     document.body.style.overflow = 'hidden';
+    
+    // Force scroll to top of sidebar
+    const wrapper = this.sidebar.querySelector('.halo-sidebar-wrapper');
+    if (wrapper) {
+      wrapper.scrollTop = 0;
+    }
   }
 
   closeFilters() {
+    console.log('Closing filters...');
     this.sidebar.classList.remove('active');
     this.overlay.classList.remove('active');
+    document.body.classList.remove('filters-open');
     document.body.style.overflow = '';
   }
 
