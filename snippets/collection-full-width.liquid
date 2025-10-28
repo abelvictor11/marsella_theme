@@ -86,6 +86,11 @@
     @media (max-width: 550px) {#CollectionSection-{{ section.id }}{padding-top: {{ padding_top_mobile }};padding-bottom: {{ padding_bottom_mobile }}}}
 </style>
 <div class="collection-full-width" data-section-id="{{ section.id }}" data-section-type="collection" id="CollectionSection-{{ section.id }}" data-section="{{ section.id }}">
+    {%- if has_sidebar -%}
+        {{ 'collection-filters-overlay.css' | asset_url | stylesheet_tag }}
+        <div class="filters-overlay" data-filters-overlay></div>
+    {%- endif -%}
+    
     {%- if settings.layout != '4' or sidebar_type != 'horizontal' -%}
         <div class="{% if container == '1170' %}container-1170{% elsif container == '1770' %}container-1770{% elsif container == 'fullwidth'%}container-full{% else %}container{% endif %}">
     {%- endif -%}
@@ -93,8 +98,12 @@
             {%- if has_sidebar -%}
                 {{ 'component-main-sidebar.css' | asset_url | stylesheet_tag }}
                 <div class="page-sidebar page-sidebar-{{ sidebar_position }} page-sidebar--{{ sidebar_type }} sidebar--{{ sidebar_layout }}{% if enable_sticky %} has-sticky{% endif %}" id="halo-sidebar">
-                    <button type="button" class="halo-sidebar-close" data-close-sidebar role="button"><span class="visually-hidden">{{ 'general.common.close' | t }}</span>{% render 'icon-close' %}</button>
-                    <div class="halo-sidebar-header text-left{% if settings.banner_animation == 'effect_fade_up' %} scroll-trigger animate--slide-in{% endif %}"><span class="title">{{ 'sections.sidebar.title' | t }}</span></div>
+                    <div class="halo-sidebar-header">
+                        <span class="title">{{ 'sections.sidebar.title' | t }}</span>
+                        <button type="button" class="halo-sidebar-close" data-close-sidebar role="button" aria-label="{{ 'general.common.close' | t }}">
+                            {% render 'icon-close' %}
+                        </button>
+                    </div>
                     <div class="halo-sidebar-wrapper custom-scrollbar{% if settings.banner_animation == 'effect_fade_up' %} scroll-trigger animate--slide-in{% endif %}">
                         {% render 'collection-sidebar',
                             results: collection,
@@ -109,6 +118,14 @@
                             filter_swatch_type: filter_swatch_type,
                             filter_rectangle: filter_rectangle
                         %}
+                    </div>
+                    <div class="halo-sidebar-footer">
+                        <button type="button" class="filters-clear-button" data-filters-clear>
+                            {{ 'sections.sidebar.clear_all' | t | default: 'Clear All' }}
+                        </button>
+                        <button type="button" class="filters-apply-button" data-filters-apply>
+                            {{ 'sections.sidebar.apply' | t | default: 'Apply Filters' }}
+                        </button>
                     </div>
                 </div>
             {%- endif -%}
@@ -162,6 +179,17 @@
                     {%- endif -%}
                 {%- endfor -%}
                 {%- paginate collection.products by products_per_page -%}
+                    {%- if has_sidebar -%}
+                        <div class="filters-toggle-wrapper">
+                            <button type="button" class="filters-toggle-button" data-filters-toggle>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M4 6h16M4 12h16M4 18h16"/>
+                                </svg>
+                                <span>{{ 'sections.sidebar.title' | t }}</span>
+                                <span class="filter-count" style="display: none;">0</span>
+                            </button>
+                        </div>
+                    {%- endif -%}
                     {%- if show_toolbar -%}
                         {% render 'toolbar',
                             has_sidebar: has_sidebar,
@@ -249,3 +277,7 @@
         <div class="loading-overlay__spinner" aria-label="{{ 'general.button_load_more.loading' | t }}"><svg aria-hidden="true" focusable="false" role="presentation" class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg"><circle class="path" fill="none" stroke-width="6" cx="33" cy="33" r="30"></circle></svg></div>
     </div>
 </div>
+
+{%- if has_sidebar -%}
+    <script src="{{ 'collection-filters-overlay.js' | asset_url }}" defer></script>
+{%- endif -%}
