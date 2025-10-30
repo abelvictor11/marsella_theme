@@ -9,3 +9,121 @@
 // Please use only CSS to style the layout.
 //
 // =============================================================================*/
+
+/* Product View Details */
+.halo-productView-right.productView-details {
+  padding: 30px;
+  background: #fff;
+  border-radius: 20px;
+  margin: 30px;
+}
+
+/* Media Elements */
+.media {
+  background: #f5f5f5;
+}
+
+.media img {
+  mix-blend-mode: multiply;
+  aspect-ratio: 1 / 1;
+}
+
+/* Product Cards */
+.product-card-image img,
+.product-card-placeholder {
+  mix-blend-mode: multiply;
+  padding: 20px;
+}
+
+.product-item {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+/* Spotlight Button */
+a.spotlight-button.button.custom-button-style {
+  position: absolute;
+  bottom: 5px;
+  left: 5px;
+  right: 5px;
+  margin: 0 auto;
+  width: auto;
+  border-radius: 12px;
+  font-weight: 100;
+  font-size: 12px;
+}
+
+.content.spotlight-inner.text-center.align-items--center {
+  height: 100%;
+}
+
+h3.title.custom-text-style.has--border_hover {
+  margin-top: 20%;
+}
+
+/* Badges */
+.badge-leaf .halo-productBadges .badge {
+  border-radius: 50px;
+}
+
+/* Card Media */
+.card-media {
+  margin-top: 60px;
+}
+
+.card-media img {
+  aspect-ratio: 1 / 1;
+}
+
+/* Payment Buttons */
+.productView-payment .shopify-payment-button [data-testid="ShopifyPay-button"],
+.productView-payment .shopify-payment-button .shopify-payment-button__button--unbranded {
+  border-radius: 12px;
+}
+
+/* Delivery Time */
+delivery-time {
+  background: #f5f5f5;
+  padding: 20px;
+  border-radius: 12px;
+}
+
+/* Custom Image Banner */
+.content.customImageBanner-inner.text-left.align-items--bottom {
+  background: #141811;
+  margin: 20px;
+  width: max-content;
+  padding: 20px;
+  border-radius: 12px;
+}
+
+/* FAQs Section */
+.section-block-template--20503296671997__faqs_84V73c .halo-block-header .text {
+  max-width: max-content !important;
+}
+
+/* Collection Filters */
+div#main-collection-filters {
+  padding: 20px;
+}
+
+#CollectionFiltersForm .sidebarBlock {
+  margin-bottom: 20px;
+}
+
+.facets__item--rectangle .facet-checkbox .text {
+  border-radius: 8px;
+}
+
+.facets__list--refined .active-facets__button {
+  color: #1a1a1a;
+  border-radius: 8px;
+  background-color: #f2f2f2;
+}
+
+.facets__list--refined .active-facets__button:hover {
+  background-color: #1a1a1a;
+  color: var(--color-white);
+  font-weight: 100;
+}
