@@ -549,7 +549,7 @@ class Toolbar extends HTMLElement {
             column = parseInt(buttonElement.dataset.col);
 
         if(!buttonElement.classList.contains('active')){
-            viewMode.classList.remove('active');
+            if(viewMode) viewMode.classList.remove('active');
             buttonElement.classList.add('active');
 
             this.mediaViewMobile.querySelectorAll('.icon-mode').forEach((element) => {
