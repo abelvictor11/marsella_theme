@@ -272,16 +272,12 @@ div#main-collection-filters {
   font-weight: 600;
 }
 
-/* Filters Toggle Button - Desktop Only (Hide in Mobile) */
+/* Hide the non-working filter toggle button */
 .filters-toggle-wrapper {
   display: none !important;
 }
 
-/* Show toolbar filter button - Mobile Only */
-.toolbar-wrapper.toolbar-mobile {
-  display: none !important;
-}
-
+/* Style the toolbar filter button */
 .toolbar-wrapper.toolbar-mobile .toolbar-sidebar {
   display: flex !important;
   align-items: center;
@@ -323,32 +319,10 @@ div#main-collection-filters {
   color: #fff;
 }
 
-/* Responsive Behavior */
-@media screen and (min-width: 1025px) {
-  /* Desktop: Show toolbar button, hide toggle wrapper */
-  .toolbar-wrapper.toolbar-mobile {
-    display: flex !important;
-  }
-  
-  .filters-toggle-wrapper {
-    display: none !important;
-  }
-}
-
-@media screen and (max-width: 1024px) {
-  /* Mobile: Hide toolbar button, show toggle wrapper */
-  .toolbar-wrapper.toolbar-mobile {
-    display: flex !important;
-  }
-  
-  .filters-toggle-wrapper {
-    display: none !important;
-  }
-  
-  .page-sidebar {
-    display: flex !important;
-    position: fixed !important;
-  }
+/* Ensure sidebar is accessible */
+.page-sidebar {
+  display: flex !important;
+  position: fixed !important;
 }
 
 /* Fix close button in sidebar */
