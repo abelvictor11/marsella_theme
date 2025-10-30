@@ -3,6 +3,7 @@ class CollectionFiltersOverlay {
     this.sidebar = document.querySelector('.page-sidebar');
     this.overlay = document.querySelector('.filters-overlay');
     this.toggleButton = document.querySelector('[data-filters-toggle]');
+    this.toolbarButton = document.querySelector('[data-sidebar]');
     this.closeButton = document.querySelector('[data-close-sidebar]');
     this.applyButton = document.querySelector('[data-filters-apply]');
     this.clearButton = document.querySelector('[data-filters-clear]');
@@ -11,10 +12,11 @@ class CollectionFiltersOverlay {
       sidebar: !!this.sidebar,
       overlay: !!this.overlay,
       toggleButton: !!this.toggleButton,
+      toolbarButton: !!this.toolbarButton,
       closeButton: !!this.closeButton
     });
     
-    if (!this.sidebar || !this.overlay || !this.toggleButton) {
+    if (!this.sidebar || !this.overlay) {
       console.warn('Missing required elements for filters overlay');
       return;
     }
@@ -27,13 +29,25 @@ class CollectionFiltersOverlay {
     this.sidebar.classList.remove('active');
     this.overlay.classList.remove('active');
     
-    // Toggle filters
-    this.toggleButton.addEventListener('click', (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      console.log('Toggle button clicked');
-      this.openFilters();
-    });
+    // Toggle filters - Main button
+    if (this.toggleButton) {
+      this.toggleButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log('Toggle button clicked');
+        this.openFilters();
+      });
+    }
+    
+    // Toggle filters - Toolbar button
+    if (this.toolbarButton) {
+      this.toolbarButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log('Toolbar button clicked');
+        this.openFilters();
+      });
+    }
     
     // Close filters - Multiple selectors for compatibility
     const closeButtons = document.querySelectorAll('[data-close-sidebar], .halo-sidebar-close');
