@@ -271,3 +271,70 @@ div#main-collection-filters {
   color: #fff;
   font-weight: 600;
 }
+
+/* Filters Toggle Button - Mobile Visibility */
+.filters-toggle-wrapper {
+  display: block !important;
+  margin-bottom: 20px;
+}
+
+.filters-toggle-button {
+  display: flex !important;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  background: #fff;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  width: 100%;
+  justify-content: center;
+}
+
+.filters-toggle-button:hover {
+  border-color: #000;
+  background: #f5f5f5;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.filters-toggle-button svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.filters-toggle-button .filter-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 2px 6px;
+  background: #000;
+  color: #fff;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  margin-left: auto;
+}
+
+/* Ensure sidebar is accessible on mobile */
+@media screen and (max-width: 1024px) {
+  .page-sidebar {
+    display: flex !important;
+    position: fixed !important;
+  }
+  
+  .filters-toggle-wrapper {
+    display: block !important;
+  }
+  
+  .filters-toggle-button {
+    width: 100%;
+    max-width: 100%;
+  }
+}
