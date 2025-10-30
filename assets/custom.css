@@ -133,6 +133,13 @@ div#main-collection-filters {
   display: flex !important;
   gap: 8px;
   align-items: center;
+  font-size: 0 !important;
+  letter-spacing: 0 !important;
+}
+
+.toolbar .toolbar-item.toolbar-viewAs--numbers {
+  display: flex !important;
+  font-size: 0 !important;
 }
 
 .toolbar-number {
@@ -142,16 +149,17 @@ div#main-collection-filters {
   min-width: 40px;
   height: 40px;
   padding: 8px 12px;
-  font-size: 15px;
+  font-size: 15px !important;
   font-weight: 500;
   color: #666;
   background: #fff;
   border: 2px solid #e0e0e0;
   border-radius: 8px;
-  cursor: pointer;
+  cursor: pointer !important;
   transition: all 0.3s ease;
   user-select: none;
   line-height: 1;
+  letter-spacing: 0 !important;
 }
 
 .toolbar-number:hover {
