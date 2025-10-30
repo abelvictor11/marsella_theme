@@ -168,8 +168,8 @@
 }
 
 .products-carousel-arrow svg {
-  width: 20px;
-  height: 20px;
+  min-height: 1rem;
+  min-width: 1rem;
 }
 
 /* Products Carousel */
