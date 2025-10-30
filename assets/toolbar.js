@@ -10,7 +10,7 @@ class Toolbar extends HTMLElement {
             this.mediaView = this.querySelector('[data-view-as]');
             this.mediaViewMobile = this.querySelector('[data-view-as-mobile]');
 
-            this.mediaView.querySelectorAll('.icon-mode').forEach((modeButton) => {
+            this.mediaView.querySelectorAll('.icon-mode, .toolbar-number').forEach((modeButton) => {
                 modeButton.addEventListener('click', this.onClickModeButtonHandler.bind(this));
             });
 
@@ -317,7 +317,7 @@ class Toolbar extends HTMLElement {
     }
   
     setActiveViewModeMediaQuery(ajaxLoading = true){
-        var viewMode = this.mediaView?.querySelector('.icon-mode.active'),
+        var viewMode = this.mediaView?.querySelector('.icon-mode.active, .toolbar-number.active'),
             viewModeMobile = this.mediaViewMobile?.querySelector('.icon-mode.active'),
             column = parseInt(viewMode?.dataset.col),
             windowWidth = window.innerWidth;
@@ -545,7 +545,7 @@ class Toolbar extends HTMLElement {
         event.preventDefault();
 
         var buttonElement = event.currentTarget,
-            viewMode = this.mediaView.querySelector('.icon-mode.active'),
+            viewMode = this.mediaView.querySelector('.icon-mode.active, .toolbar-number.active'),
             column = parseInt(buttonElement.dataset.col);
 
         if(!buttonElement.classList.contains('active')){
