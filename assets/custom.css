@@ -322,6 +322,11 @@ div#main-collection-filters {
   margin-left: auto;
 }
 
+/* Hide duplicate filter button from toolbar */
+.toolbar-wrapper.toolbar-mobile .toolbar-sidebar {
+  display: none !important;
+}
+
 /* Ensure sidebar is accessible on mobile */
 @media screen and (max-width: 1024px) {
   .page-sidebar {
@@ -337,4 +342,33 @@ div#main-collection-filters {
     width: 100%;
     max-width: 100%;
   }
+}
+
+/* Fix close button in sidebar */
+.halo-sidebar-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border: 2px solid #e0e0e0;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.halo-sidebar-close:hover {
+  background: #f5f5f5;
+  border-color: #000;
+  transform: rotate(90deg);
+}
+
+.halo-sidebar-close svg {
+  width: 20px;
+  height: 20px;
 }

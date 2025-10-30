@@ -35,15 +35,16 @@ class CollectionFiltersOverlay {
       this.openFilters();
     });
     
-    // Close filters
-    if (this.closeButton) {
-      this.closeButton.addEventListener('click', (e) => {
+    // Close filters - Multiple selectors for compatibility
+    const closeButtons = document.querySelectorAll('[data-close-sidebar], .halo-sidebar-close');
+    closeButtons.forEach(button => {
+      button.addEventListener('click', (e) => {
         e.preventDefault();
         e.stopPropagation();
         console.log('Close button clicked');
         this.closeFilters();
       });
-    }
+    });
     
     // Close on overlay click
     this.overlay.addEventListener('click', (e) => {
