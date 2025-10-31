@@ -451,12 +451,27 @@
   }
 
   .fragrance-universe-content {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1px;
-    background: rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    margin: 0 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .fragrance-center-image-wrapper {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    transform: none !important;
+    width: 100% !important;
+    height: 50vh;
+    margin: 0 0 2rem !important;
+    z-index: 1;
+    order: -1; /* Move to top */
+  }
+
+  .fragrance-universe-content::after {
+    content: '';
+    display: block;
+    order: 999;
   }
 
   .fragrance-card {
@@ -464,17 +479,20 @@
     top: auto !important;
     left: auto !important;
     transform: none !important;
-    width: 100% !important;
+    width: calc(50% - 0.5px) !important;
     min-height: 200px;
     padding: 30px 20px !important;
     margin: 0 !important;
     background: #f8f8f8;
-    display: flex;
+    display: inline-flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
     gap: 15px;
+    border: 0.5px solid rgba(0, 0, 0, 0.1);
+    float: left;
+    box-sizing: border-box;
   }
 
   .card-icon {
@@ -494,23 +512,17 @@
   }
 
   .fragrance-video-container {
-    top: var(--video-top-mobile, 100px) !important;
-    width: var(--video-width-mobile, 90%) !important;
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    transform: none !important;
+    width: 100% !important;
+    margin: 0 0 2rem !important;
+    order: -1; /* Move to top with image */
   }
 
   .decorative-element {
     display: none !important;
-  }
-  
-  .fragrance-center-image-wrapper {
-    position: relative;
-    top: auto;
-    left: auto;
-    transform: none;
-    width: 100% !important;
-    height: 50vh;
-    margin: 0 0 2rem;
-    z-index: 1;
   }
   
   .fragrance-arrow {
@@ -520,6 +532,13 @@
   .parallax-card[data-parallax-speed],
   .parallax-scroll-item[data-parallax-speed] {
     transform: none !important;
+  }
+  
+  .fragrance-universe-content::before {
+    content: '';
+    display: table;
+    clear: both;
+    order: 1000;
   }
 }
 
