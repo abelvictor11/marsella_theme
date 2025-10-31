@@ -25,6 +25,9 @@ class FragranceUniverseParallax {
       return;
     }
 
+    console.log('Fragrance Universe Parallax initialized');
+    console.log('Parallax elements found:', this.parallaxElements.length);
+    
     this.setupParallax();
     this.setupVideoControls();
     this.setupArrowAnimation();
@@ -95,8 +98,14 @@ class FragranceUniverseParallax {
       // Positive scrollProgress (scrolling down) = move element up (negative offset)
       const offset = -scrollProgress * speed * multiplier;
       
-      // Apply transform with GPU acceleration
-      element.style.transform = `translate3d(0, ${offset}px, 0)`;
+      // Check if element is center image (needs special handling)
+      if (element.classList.contains('fragrance-center-image')) {
+        // Center image keeps its centering transform
+        element.style.transform = `translateX(-50%) translate3d(0, ${offset}px, 0)`;
+      } else {
+        // Regular parallax elements
+        element.style.transform = `translate3d(0, ${offset}px, 0)`;
+      }
     });
   }
 
