@@ -91,6 +91,13 @@
   width: 100%;
 }
 
+/* Desktop only: margin-right for newsletter box */
+@media screen and (min-width: 769px) {
+  #shopify-section-sections--20503296213245__footer_newsletter_VaznGK .footer-newsletter-box {
+    margin-right: 10%;
+  }
+}
+
 .newsletter-title {
   font-size: var(--newsletter-title-size, 36px);
   font-weight: var(--newsletter-title-weight, 400);
@@ -298,6 +305,13 @@
 
   .footer-newsletter-box {
     padding: 40px 30px;
+  }
+  
+  /* Remove desktop margins on mobile */
+  #shopify-section-sections--20503296213245__footer_newsletter_VaznGK .footer-newsletter-box {
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+    margin-top: 0 !important;
   }
 
   .newsletter-title {
