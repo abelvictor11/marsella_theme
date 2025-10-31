@@ -137,9 +137,12 @@
   top: var(--image-top, 100px);
   left: 50%;
   transform: translateX(-50%);
-  width: var(--image-width, 45%);
+  width: var(--image-width, 46%);
   z-index: 5;
   will-change: transform;
+  transition: transform 0.05s linear;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 .image-mask-svg {
