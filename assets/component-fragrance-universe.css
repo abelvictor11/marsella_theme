@@ -443,37 +443,54 @@
   }
 
   .fragrance-universe-subtitle {
-    font-size: var(--font-size-subtitle-mobile, 24px);
+    font-size: var(--font-size-subtitle-mobile, 14px);
   }
 
   .fragrance-universe-description {
-    font-size: 14px;
+    font-size: var(--font-size-description-mobile, 14px);
   }
 
   .fragrance-universe-content {
-    min-height: 1200px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    margin: 0 15px;
   }
 
-  /* Mobile positioning */
   .fragrance-card {
-    top: var(--card-top-mobile, 100px) !important;
-    left: var(--card-left-mobile, 5%) !important;
-    width: var(--card-width-mobile, 220px) !important;
-    padding: 20px;
-  }
-
-  .card-title {
-    font-size: 14px;
-  }
-
-  .card-text {
-    font-size: 12px;
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    transform: none !important;
+    width: 100% !important;
+    min-height: 200px;
+    padding: 30px 20px !important;
+    margin: 0 !important;
+    background: #f8f8f8;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 15px;
   }
 
   .card-icon {
-    width: 30px;
-    height: 30px;
-    margin-bottom: 15px;
+    width: 60px;
+    height: 60px;
+    margin: 0;
+  }
+
+  .card-title {
+    font-size: 16px !important;
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .card-text {
+    display: none !important;
   }
 
   .fragrance-video-container {
@@ -482,9 +499,7 @@
   }
 
   .decorative-element {
-    top: var(--element-top-mobile, 200px) !important;
-    left: var(--element-left-mobile, 60%) !important;
-    width: var(--element-width-mobile, 100px) !important;
+    display: none !important;
   }
   
   .fragrance-center-image-wrapper {
@@ -492,20 +507,19 @@
     top: auto;
     left: auto;
     transform: none;
-    width: var(--image-width-mobile, 86%) !important;
+    width: 100% !important;
     height: 50vh;
-    margin: 0 auto 2rem;
+    margin: 0 0 2rem;
     z-index: 1;
   }
   
   .fragrance-arrow {
-    width: 80px;
-    right: 2%;
+    display: none !important;
   }
 
-  /* Reduce parallax effect on mobile */
-  .parallax-card[data-parallax-speed] {
-    --parallax-multiplier: 0.3;
+  .parallax-card[data-parallax-speed],
+  .parallax-scroll-item[data-parallax-speed] {
+    transform: none !important;
   }
 }
 
