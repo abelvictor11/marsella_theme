@@ -98,10 +98,14 @@ class FragranceUniverseParallax {
       // Positive scrollProgress (scrolling down) = move element up (negative offset)
       const offset = -scrollProgress * speed * multiplier;
       
-      // Check if element is center image (needs special handling)
-      if (element.classList.contains('fragrance-center-image')) {
-        // Center image keeps its centering transform
-        element.style.transform = `translateX(-50%) translate3d(0, ${offset}px, 0)`;
+      // Check if element is center image wrapper (needs special handling)
+      if (element.classList.contains('fragrance-center-image-wrapper')) {
+        // Center image wrapper keeps its centering transform
+        if (window.innerWidth >= 768) {
+          element.style.transform = `translate(-50%, -50%) translate3d(0, ${offset}px, 0)`;
+        } else {
+          element.style.transform = `translate3d(0, ${offset}px, 0)`;
+        }
       } else {
         // Regular parallax elements
         element.style.transform = `translate3d(0, ${offset}px, 0)`;
