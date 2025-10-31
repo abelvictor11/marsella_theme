@@ -288,8 +288,12 @@
   }
 
   .footer-menus {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 25% 25% 50%;
     gap: 25px;
+  }
+  
+  .footer-menu-column:nth-child(3) {
+    grid-column: 3;
   }
 
   .footer-newsletter-box {
