@@ -81,7 +81,7 @@
 
           {%- when 'center_image' -%}
             {%- comment -%} Imagen central con máscara orgánica {%- endcomment -%}
-            <div class="fragrance-center-image parallax-scroll-item" 
+            <div class="fragrance-center-image-wrapper parallax-scroll-item" 
                  data-parallax-speed="{{ block.settings.image_parallax_speed }}"
                  style="--image-top: {{ block.settings.image_top }}px;
                         --image-width: {{ block.settings.image_width }}%;
@@ -90,19 +90,11 @@
                  {{ block.shopify_attributes }}>
               
               {%- if block.settings.center_image != blank -%}
-                <svg class="image-mask-svg" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice">
-                  <defs>
-                    <clipPath id="organic-mask-{{ section.id }}">
-                      <path d="{{ block.settings.mask_path | default: 'M400,50 C550,50 700,150 700,350 C700,500 650,650 550,750 C450,850 350,950 250,900 C150,850 50,750 50,550 C50,350 150,150 250,100 C300,75 350,50 400,50 Z' }}"/>
-                    </clipPath>
-                  </defs>
-                  <image 
-                    href="{{ block.settings.center_image | image_url: width: 1200 }}" 
-                    width="100%" 
-                    height="100%" 
-                    clip-path="url(#organic-mask-{{ section.id }})"
-                    preserveAspectRatio="xMidYMid slice"/>
-                </svg>
+                <img 
+                  src="{{ block.settings.center_image | image_url: width: 1200 }}" 
+                  alt="{{ block.settings.center_image.alt | escape }}"
+                  class="fragrance-center-image"
+                  loading="lazy">
               {%- else -%}
                 <div class="image-placeholder">
                   <p>Agrega una imagen central</p>
@@ -667,14 +659,7 @@
           "type": "image_picker",
           "id": "center_image",
           "label": "Center Image",
-          "info": "Main image with organic mask"
-        },
-        {
-          "type": "textarea",
-          "id": "mask_path",
-          "label": "SVG Mask Path",
-          "info": "Custom SVG path for organic shape. Leave empty for default.",
-          "default": "M400,50 C550,50 700,150 700,350 C700,500 650,650 550,750 C450,850 350,950 250,900 C150,850 50,750 50,550 C50,350 150,150 250,100 C300,75 350,50 400,50 Z"
+          "info": "Main image with organic ellipse mask (automatic)"
         }
       ]
     },
