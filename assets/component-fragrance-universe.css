@@ -131,6 +131,73 @@
   margin: 0;
 }
 
+/* Center Image with Organic Mask */
+.fragrance-center-image {
+  position: absolute;
+  top: var(--image-top, 100px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: var(--image-width, 45%);
+  z-index: 5;
+  will-change: transform;
+}
+
+.image-mask-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 20px 60px rgba(0, 0, 0, 0.15));
+}
+
+.image-placeholder {
+  width: 100%;
+  aspect-ratio: 4/5;
+  background: #f0f0f0;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #999;
+  font-size: 16px;
+}
+
+/* Animated Arrow */
+.fragrance-arrow {
+  position: absolute;
+  top: 50%;
+  right: 10%;
+  width: 200px;
+  height: auto;
+  pointer-events: none;
+  opacity: 0;
+  animation: arrowFadeIn 1s ease-out 0.8s forwards;
+}
+
+.fragrance-arrow.d-block.d-md-none {
+  width: 100px;
+  right: 5%;
+  top: 60%;
+}
+
+.arrow-path {
+  stroke: #000;
+  stroke-width: 1;
+  fill: none;
+  animation: drawArrow 2s ease-out 1s forwards;
+}
+
+@keyframes arrowFadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes drawArrow {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
 /* Video Container */
 .fragrance-video-container {
   position: absolute;
@@ -321,6 +388,15 @@
   .fragrance-video-container {
     width: calc(var(--video-width, 50%) + 10%);
   }
+  
+  .fragrance-center-image {
+    width: calc(var(--image-width, 45%) + 10%);
+  }
+  
+  .fragrance-arrow {
+    width: 150px;
+    right: 5%;
+  }
 }
 
 @media screen and (max-width: 768px) {
@@ -380,6 +456,16 @@
     top: var(--element-top-mobile, 200px) !important;
     left: var(--element-left-mobile, 60%) !important;
     width: var(--element-width-mobile, 100px) !important;
+  }
+  
+  .fragrance-center-image {
+    top: var(--image-top-mobile, 80px) !important;
+    width: var(--image-width-mobile, 85%) !important;
+  }
+  
+  .fragrance-arrow {
+    width: 80px;
+    right: 2%;
   }
 
   /* Reduce parallax effect on mobile */
