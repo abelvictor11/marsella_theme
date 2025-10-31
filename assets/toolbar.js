@@ -322,65 +322,69 @@ class Toolbar extends HTMLElement {
             column = parseInt(viewMode?.dataset.col),
             windowWidth = window.innerWidth;
         
+        if(!viewMode || !this.mediaView || !this.mediaViewMobile) {
+            return;
+        }
+        
         if(column != 1){
             if(document.querySelector('.sidebar--layout_vertical')){
                 if (windowWidth < 768) {
                     if (column == 3 || column == 4 || column == 5) {
                         column = 2;
-                        viewMode.classList.remove('active');
-                        viewModeMobile.classList.remove('active');
-                        this.mediaView.querySelector('.grid-2').classList.add('active');
-                        this.mediaViewMobile.querySelector('.grid-2').classList.add('active');
+                        if(viewMode) viewMode.classList.remove('active');
+                        if(viewModeMobile) viewModeMobile.classList.remove('active');
+                        this.mediaView.querySelector('.grid-2')?.classList.add('active');
+                        this.mediaViewMobile.querySelector('.grid-2')?.classList.add('active');
                     }
                 } else if (windowWidth <= 1100 && windowWidth >= 768) {
                     if (column == 5 || column == 4 || column == 3) {
                         column = 2;
-                        viewMode.classList.remove('active');
-                        viewModeMobile.classList.remove('active');
-                        this.mediaView.querySelector('.grid-2').classList.add('active');
-                        this.mediaViewMobile.querySelector('.grid-2').classList.add('active');
+                        if(viewMode) viewMode.classList.remove('active');
+                        if(viewModeMobile) viewModeMobile.classList.remove('active');
+                        this.mediaView.querySelector('.grid-2')?.classList.add('active');
+                        this.mediaViewMobile.querySelector('.grid-2')?.classList.add('active');
                     }
                 } else if (windowWidth < 1300 && windowWidth > 1100) {
                     if (column == 5 || column == 4) {
                         column = 3;
-                        viewMode.classList.remove('active');
-                        viewModeMobile.classList.remove('active');
-                        this.mediaView.querySelector('.grid-3').classList.add('active');
-                        this.mediaViewMobile.querySelector('.grid-3').classList.add('active');
+                        if(viewMode) viewMode.classList.remove('active');
+                        if(viewModeMobile) viewModeMobile.classList.remove('active');
+                        this.mediaView.querySelector('.grid-3')?.classList.add('active');
+                        this.mediaViewMobile.querySelector('.grid-3')?.classList.add('active');
                     }
                 } else if (windowWidth < 1700 && windowWidth >= 1300) {
                     if (column == 5) {
                         column = 4;
-                        viewMode.classList.remove('active');
-                        viewModeMobile.classList.remove('active');
-                        this.mediaView.querySelector('.grid-4').classList.add('active');
-                        this.mediaViewMobile.querySelector('.grid-4').classList.add('active');
+                        if(viewMode) viewMode.classList.remove('active');
+                        if(viewModeMobile) viewModeMobile.classList.remove('active');
+                        this.mediaView.querySelector('.grid-4')?.classList.add('active');
+                        this.mediaViewMobile.querySelector('.grid-4')?.classList.add('active');
                     }
                 }
             } else{
                 if (windowWidth < 768) {
                     if (column == 3 || column == 4 || column == 5) {
                         column = 2;
-                        viewMode.classList.remove('active');
-                        viewModeMobile.classList.remove('active');
-                        this.mediaView.querySelector('.grid-2').classList.add('active');
-                        this.mediaViewMobile.querySelector('.grid-2').classList.add('active');
+                        if(viewMode) viewMode.classList.remove('active');
+                        if(viewModeMobile) viewModeMobile.classList.remove('active');
+                        this.mediaView.querySelector('.grid-2')?.classList.add('active');
+                        this.mediaViewMobile.querySelector('.grid-2')?.classList.add('active');
                     }
                 } else if (windowWidth < 992 && windowWidth >= 768) {
                     if (column == 4 || column == 5) {
                         column = 3;
-                        viewMode.classList.remove('active');
-                        viewModeMobile.classList.remove('active');
-                        this.mediaView.querySelector('.grid-3').classList.add('active');
-                        this.mediaViewMobile.querySelector('.grid-3').classList.add('active');
+                        if(viewMode) viewMode.classList.remove('active');
+                        if(viewModeMobile) viewModeMobile.classList.remove('active');
+                        this.mediaView.querySelector('.grid-3')?.classList.add('active');
+                        this.mediaViewMobile.querySelector('.grid-3')?.classList.add('active');
                     }
                 } else if (windowWidth < 1600 && windowWidth >= 992) {
                     if (column == 5) {
                         column = 4;
-                        viewMode.classList.remove('active');
-                        viewModeMobile.classList.remove('active');
-                        this.mediaView.querySelector('.grid-4').classList.add('active');
-                        this.mediaViewMobile.querySelector('.grid-4').classList.add('active');
+                        if(viewMode) viewMode.classList.remove('active');
+                        if(viewModeMobile) viewModeMobile.classList.remove('active');
+                        this.mediaView.querySelector('.grid-4')?.classList.add('active');
+                        this.mediaViewMobile.querySelector('.grid-4')?.classList.add('active');
                     }
                 }
             }
@@ -570,11 +574,11 @@ class Toolbar extends HTMLElement {
         event.preventDefault();
 
         var buttonElement = event.currentTarget,
-            viewMode = this.mediaViewMobile.querySelector('.icon-mode.active'),
+            viewMode = this.mediaViewMobile?.querySelector('.icon-mode.active'),
             column = parseInt(buttonElement.dataset.col);
 
         if(!buttonElement.classList.contains('active')){
-            viewMode.classList.remove('active');
+            if(viewMode) viewMode.classList.remove('active');
             buttonElement.classList.add('active');
 
             this.mediaView.querySelectorAll('.icon-mode').forEach((element) => {
