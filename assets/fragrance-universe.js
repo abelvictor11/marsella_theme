@@ -6,9 +6,10 @@
 class FragranceUniverseParallax {
   constructor(section) {
     this.section = section;
-    this.parallaxElements = section.querySelectorAll('.parallax-card');
+    this.parallaxElements = section.querySelectorAll('.parallax-card, .parallax-scroll-item');
     this.videoPlayButton = section.querySelector('.video-play-button');
     this.videoIframe = section.querySelector('.fragrance-video');
+    this.arrowPaths = section.querySelectorAll('.arrow-path');
     
     this.isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     this.isMobile = window.innerWidth <= 768;
@@ -26,7 +27,23 @@ class FragranceUniverseParallax {
 
     this.setupParallax();
     this.setupVideoControls();
+    this.setupArrowAnimation();
     this.setupResizeObserver();
+  }
+  
+  setupArrowAnimation() {
+    // Animate arrow paths on scroll into view
+    if (!this.arrowPaths.length) return;
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.animation = 'drawArrow 2s ease-out forwards';
+        }
+      });
+    }, { threshold: 0.3 });
+    
+    this.arrowPaths.forEach(path => observer.observe(path));
   }
 
   setupParallax() {

@@ -22,6 +22,22 @@
             {{ section.settings.description }}
           </div>
         {%- endif -%}
+        
+        {%- if section.settings.show_arrow -%}
+          <svg class="fragrance-arrow d-none d-md-block" width="443" height="454" viewBox="0 0 443 454" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <mask id="maskarrowtext_{{ section.id }}">
+              <path class="arrow-path" stroke-dashoffset="835" stroke-dasharray="835, 850" d="M359.477 453.019C359.488 453.324 359.743 453.562 360.048 453.551L365.011 453.376C365.315 453.365 365.554 453.11 365.543 452.805C365.532 452.501 365.277 452.262 364.972 452.273L360.56 452.429L360.405 448.017C360.394 447.712 360.138 447.474 359.834 447.485C359.529 447.496 359.291 447.751 359.302 448.056L359.477 453.019ZM1.13069 19.0358C201.979 -29.9272 338.641 28.0524 401.572 123.362C464.513 218.687 453.828 351.533 359.625 452.623L360.432 453.376C454.944 351.955 465.745 218.551 402.493 122.754C339.23 26.9416 202.021 -31.0734 0.869309 17.9636L1.13069 19.0358Z"/>
+            </mask>
+            <path mask="url(#maskarrowtext_{{ section.id }})" d="M359.477 453.019C359.488 453.324 359.743 453.562 360.048 453.551L365.011 453.376C365.315 453.365 365.554 453.11 365.543 452.805C365.532 452.501 365.277 452.262 364.972 452.273L360.56 452.429L360.405 448.017C360.394 447.712 360.138 447.474 359.834 447.485C359.529 447.496 359.291 447.751 359.302 448.056L359.477 453.019ZM1.13069 19.0358C201.979 -29.9272 338.641 28.0524 401.572 123.362C464.513 218.687 453.828 351.533 359.625 452.623L360.432 453.376C454.944 351.955 465.745 218.551 402.493 122.754C339.23 26.9416 202.021 -31.0734 0.869309 17.9636L1.13069 19.0358Z" fill="black"/>
+          </svg>
+          
+          <svg class="fragrance-arrow d-block d-md-none" width="122" height="195" viewBox="0 0 122 195" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <mask id="maskarrowtext_mobile_{{ section.id }}">
+              <path class="arrow-path" stroke-dashoffset="390" stroke-dasharray="380, 380" d="M62.0791 194.046C62.3807 194.003 62.5899 193.723 62.5464 193.421L61.8364 188.506C61.7928 188.204 61.513 187.995 61.2114 188.039C60.9098 188.082 60.7006 188.362 60.7441 188.664L61.3752 193.033L57.0062 193.664C56.7045 193.707 56.4954 193.987 56.5389 194.289C56.5825 194.59 56.8623 194.8 57.1639 194.756L62.0791 194.046ZM121.492 0.948265C56.0968 1.95061 15.1899 30.7812 3.65924 69.2165C-7.86788 107.64 10.058 155.358 61.6698 193.942L62.3306 193.058C10.9425 154.642 -6.6316 107.36 4.7163 69.5336C16.0607 31.719 56.4038 3.04963 121.509 2.05174L121.492 0.948265Z"/>
+            </mask>
+            <path mask="url(#maskarrowtext_mobile_{{ section.id }})" d="M62.0791 194.046C62.3807 194.003 62.5899 193.723 62.5464 193.421L61.8364 188.506C61.7928 188.204 61.513 187.995 61.2114 188.039C60.9098 188.082 60.7006 188.362 60.7441 188.664L61.3752 193.033L57.0062 193.664C56.7045 193.707 56.4954 193.987 56.5389 194.289C56.5825 194.59 56.8623 194.8 57.1639 194.756L62.0791 194.046ZM121.492 0.948265C56.0968 1.95061 15.1899 30.7812 3.65924 69.2165C-7.86788 107.64 10.058 155.358 61.6698 193.942L62.3306 193.058C10.9425 154.642 -6.6316 107.36 4.7163 69.5336C16.0607 31.719 56.4038 3.04963 121.509 2.05174L121.492 0.948265Z" fill="black"/>
+          </svg>
+        {%- endif -%}
       </div>
     {%- endif -%}
 
@@ -59,6 +75,37 @@
               {%- if block.settings.card_text != blank -%}
                 <div class="card-text" style="--card-text-color: {{ block.settings.card_text_color }}; --card-text-size: {{ block.settings.card_text_size }}px;">
                   {{ block.settings.card_text }}
+                </div>
+              {%- endif -%}
+            </div>
+
+          {%- when 'center_image' -%}
+            {%- comment -%} Imagen central con máscara orgánica {%- endcomment -%}
+            <div class="fragrance-center-image parallax-scroll-item" 
+                 data-parallax-speed="{{ block.settings.image_parallax_speed }}"
+                 style="--image-top: {{ block.settings.image_top }}px;
+                        --image-width: {{ block.settings.image_width }}%;
+                        --image-top-mobile: {{ block.settings.image_top_mobile }}px;
+                        --image-width-mobile: {{ block.settings.image_width_mobile }}%;"
+                 {{ block.shopify_attributes }}>
+              
+              {%- if block.settings.center_image != blank -%}
+                <svg class="image-mask-svg" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice">
+                  <defs>
+                    <clipPath id="organic-mask-{{ section.id }}">
+                      <path d="{{ block.settings.mask_path | default: 'M400,50 C550,50 700,150 700,350 C700,500 650,650 550,750 C450,850 350,950 250,900 C150,850 50,750 50,550 C50,350 150,150 250,100 C300,75 350,50 400,50 Z' }}"/>
+                    </clipPath>
+                  </defs>
+                  <image 
+                    href="{{ block.settings.center_image | image_url: width: 1200 }}" 
+                    width="100%" 
+                    height="100%" 
+                    clip-path="url(#organic-mask-{{ section.id }})"
+                    preserveAspectRatio="xMidYMid slice"/>
+                </svg>
+              {%- else -%}
+                <div class="image-placeholder">
+                  <p>Agrega una imagen central</p>
                 </div>
               {%- endif -%}
             </div>
@@ -316,6 +363,16 @@
       "step": 1,
       "unit": "px",
       "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Arrow Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_arrow",
+      "label": "Show Animated Arrow",
+      "default": true
     }
   ],
   "blocks": [
@@ -532,6 +589,92 @@
           "step": 1,
           "unit": "px",
           "default": 14
+        }
+      ]
+    },
+    {
+      "type": "center_image",
+      "name": "Center Image (Masked)",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Image Position (Desktop)"
+        },
+        {
+          "type": "range",
+          "id": "image_top",
+          "label": "Top Position",
+          "min": 0,
+          "max": 500,
+          "step": 10,
+          "unit": "px",
+          "default": 100
+        },
+        {
+          "type": "range",
+          "id": "image_width",
+          "label": "Image Width",
+          "min": 30,
+          "max": 70,
+          "step": 2,
+          "unit": "%",
+          "default": 45
+        },
+        {
+          "type": "header",
+          "content": "Image Position (Mobile)"
+        },
+        {
+          "type": "range",
+          "id": "image_top_mobile",
+          "label": "Top Position (Mobile)",
+          "min": 0,
+          "max": 500,
+          "step": 10,
+          "unit": "px",
+          "default": 80
+        },
+        {
+          "type": "range",
+          "id": "image_width_mobile",
+          "label": "Image Width (Mobile)",
+          "min": 60,
+          "max": 100,
+          "step": 2,
+          "unit": "%",
+          "default": 85
+        },
+        {
+          "type": "header",
+          "content": "Parallax Effect"
+        },
+        {
+          "type": "range",
+          "id": "image_parallax_speed",
+          "label": "Parallax Speed",
+          "info": "Negative values move opposite to scroll",
+          "min": -50,
+          "max": 50,
+          "step": 5,
+          "default": -10
+        },
+        {
+          "type": "header",
+          "content": "Image & Mask"
+        },
+        {
+          "type": "image_picker",
+          "id": "center_image",
+          "label": "Center Image",
+          "info": "Main image with organic mask"
+        },
+        {
+          "type": "textarea",
+          "id": "mask_path",
+          "label": "SVG Mask Path",
+          "info": "Custom SVG path for organic shape. Leave empty for default.",
+          "default": "M400,50 C550,50 700,150 700,350 C700,500 650,650 550,750 C450,850 350,950 250,900 C150,850 50,750 50,550 C50,350 150,150 250,100 C300,75 350,50 400,50 Z"
         }
       ]
     },
