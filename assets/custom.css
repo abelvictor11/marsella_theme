@@ -272,57 +272,58 @@ div#main-collection-filters {
   font-weight: 600;
 }
 
-/* Hide the non-working filter toggle button */
-.filters-toggle-wrapper {
-  display: none !important;
+/* Style the toolbar filter button for mobile */
+@media (max-width: 1024px) {
+  .toolbar-wrapper.toolbar-mobile .toolbar-sidebar {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 20px;
+    background: #000;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    width: auto;
+    margin: 0 auto 20px;
+  }
 }
 
-/* Style the toolbar filter button */
-.toolbar-wrapper.toolbar-mobile .toolbar-sidebar {
-  display: flex !important;
-  align-items: center;
-  justify-content: center;
-  padding: 12px 20px;
-  background: #000;
-  border-radius: 50px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  border: none;
-  width: auto;
-  margin: 0 auto 20px;
+@media (max-width: 1024px) {
+  .toolbar-wrapper.toolbar-mobile .toolbar-sidebar:hover {
+    background: #1a1a1a;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+
+  .toolbar-wrapper.toolbar-mobile .toolbar-icon {
+    display: flex !important;
+    align-items: center;
+    gap: 8px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .toolbar-wrapper.toolbar-mobile .toolbar-icon svg {
+    width: 18px;
+    height: 18px;
+    fill: #fff;
+  }
+
+  .toolbar-wrapper.toolbar-mobile .filter-text {
+    color: #fff;
+  }
 }
 
-.toolbar-wrapper.toolbar-mobile .toolbar-sidebar:hover {
-  background: #1a1a1a;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-}
-
-.toolbar-wrapper.toolbar-mobile .toolbar-icon {
-  display: flex !important;
-  align-items: center;
-  gap: 8px;
-  color: #fff;
-  font-size: 14px;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.toolbar-wrapper.toolbar-mobile .toolbar-icon svg {
-  width: 18px;
-  height: 18px;
-  fill: #fff;
-}
-
-.toolbar-wrapper.toolbar-mobile .filter-text {
-  color: #fff;
-}
-
-/* Ensure sidebar is accessible */
-.page-sidebar {
-  display: flex !important;
-  position: fixed !important;
+/* Ensure sidebar is accessible on mobile */
+@media (max-width: 1024px) {
+  .page-sidebar {
+    display: flex !important;
+    position: fixed !important;
+  }
 }
 
 /* Fix close button in sidebar */
