@@ -353,3 +353,32 @@ div#main-collection-filters {
   width: 20px;
   height: 20px;
 }
+.halo-block-header.style--left.has-des.d-flex.flex-align-center.flex-jc-between {
+    padding-left: 30px;
+    padding-right: 30px;
+}
+.section-block-template--20503297392893__brand_slider_riKeqf .halo-item .wrapper-image {
+    padding: 20px;
+}
+@media (min-width: 1025px) {
+    .section-block-template--20503297392893__brand_slider_riKeqf .halo-row .slick-next {
+        width: 50px;
+        height: 50px;
+    }
+    .section-block-template--20503297392893__brand_slider_riKeqf .halo-row .slick-prev {
+        width: 50px;
+        height: 50px;
+    }
+}
+@media (min-width: 768px) {
+    .section-block-template--20503297392893__brand_slider_riKeqf .halo-block-header .rte {
+        max-width: 40%;
+        margin-right: 20%;
+    }
+}
+.title-brand {
+    padding-left: 30px;
+    display: inline-flex;
+    align-items: center;
+    gap: 20px;
+}
