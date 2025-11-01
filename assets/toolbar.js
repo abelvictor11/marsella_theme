@@ -14,7 +14,7 @@ class Toolbar extends HTMLElement {
                 modeButton.addEventListener('click', this.onClickModeButtonHandler.bind(this));
             });
 
-            this.mediaViewMobile.querySelectorAll('.icon-mode').forEach((modeMobileButton) => {
+            this.mediaViewMobile.querySelectorAll('.icon-mode, .toolbar-number').forEach((modeMobileButton) => {
                 modeMobileButton.addEventListener('click', this.onClickModeButtonMobileHandler.bind(this));
             });
 
