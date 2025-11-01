@@ -272,24 +272,61 @@ div#main-collection-filters {
   font-weight: 600;
 }
 
-/* Style the toolbar filter button for mobile */
+/* Mobile Toolbar Layout */
 @media (max-width: 1024px) {
+  /* Hide desktop toolbar on mobile */
+  .toolbar-wrapper:not(.toolbar-mobile) {
+    display: none !important;
+  }
+  
+  /* Mobile toolbar container */
+  .toolbar-wrapper.toolbar-mobile {
+    display: flex !important;
+    flex-direction: column;
+    gap: 15px;
+    padding: 15px;
+    background: #f8f8f8;
+    border-radius: 12px;
+    margin-bottom: 20px;
+  }
+  
+  /* Filter button */
   .toolbar-wrapper.toolbar-mobile .toolbar-sidebar {
     display: flex !important;
     align-items: center;
     justify-content: center;
-    padding: 12px 20px;
+    padding: 14px 24px;
     background: #000;
     border-radius: 50px;
     cursor: pointer;
     transition: all 0.3s ease;
     border: none;
-    width: auto;
-    margin: 0 auto 20px;
+    width: 100%;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
   }
-}
-
-@media (max-width: 1024px) {
+  
+  /* Grid numbers in mobile */
+  .toolbar-wrapper.toolbar-mobile .toolbar-colLeft {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+  }
+  
+  .toolbar-wrapper.toolbar-mobile .toolbar-label {
+    font-size: 12px;
+    margin: 0;
+  }
+  
+  .toolbar-wrapper.toolbar-mobile .toolbar-viewAs--numbers {
+    display: flex !important;
+    gap: 8px;
+  }
+  
   .toolbar-wrapper.toolbar-mobile .toolbar-sidebar:hover {
     background: #1a1a1a;
     transform: translateY(-2px);
@@ -301,10 +338,8 @@ div#main-collection-filters {
     align-items: center;
     gap: 8px;
     color: #fff;
-    font-size: 14px;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
+    font-size: 13px;
+    font-weight: 600;
   }
 
   .toolbar-wrapper.toolbar-mobile .toolbar-icon svg {
@@ -316,15 +351,25 @@ div#main-collection-filters {
   .toolbar-wrapper.toolbar-mobile .filter-text {
     color: #fff;
   }
-}
-
-/* Ensure sidebar is accessible on mobile */
-@media (max-width: 1024px) {
+  
+  /* Ensure sidebar is accessible on mobile */
   .page-sidebar {
     display: flex !important;
     position: fixed !important;
   }
+  
+  /* Sort dropdown mobile */
+  .toolbar-dropdown .label-tab.hidden-on-desktop {
+    display: flex !important;
+    padding: 12px 20px;
+    background: #fff;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    width: 100%;
+    justify-content: space-between;
+  }
 }
+
 
 /* Fix close button in sidebar */
 .halo-sidebar-close {
