@@ -43,6 +43,12 @@
   background: var(--hero-overlay-color, #000);
   opacity: var(--hero-overlay-opacity, 0.3);
   z-index: 1;
+  pointer-events: none; /* Permite clicks a través del overlay */
+}
+
+/* Asegurar que el overlay sea visible */
+.hero-background .hero-overlay {
+  display: block !important;
 }
 
 /* Content Wrapper */
