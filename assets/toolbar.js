@@ -14,9 +14,11 @@ class Toolbar extends HTMLElement {
                 modeButton.addEventListener('click', this.onClickModeButtonHandler.bind(this));
             });
 
-            this.mediaViewMobile.querySelectorAll('.icon-mode, .toolbar-number').forEach((modeMobileButton) => {
-                modeMobileButton.addEventListener('click', this.onClickModeButtonMobileHandler.bind(this));
-            });
+            if(this.mediaViewMobile) {
+                this.mediaViewMobile.querySelectorAll('.icon-mode, .toolbar-number').forEach((modeMobileButton) => {
+                    modeMobileButton.addEventListener('click', this.onClickModeButtonMobileHandler.bind(this));
+                });
+            }
 
             this.debouncedOnResizeMediaQuery = debounce(() => {
                 this.setActiveViewModeMediaQuery(false);
@@ -38,9 +40,14 @@ class Toolbar extends HTMLElement {
                 this.debouncedOnResizeMediaQuery();
             });
         } else{
-            if (window.innerWidth < 1100) {
+            if (window.innerWidth < 1025) {
                 this.initViewModeLayout(2);
             }
+        }
+        
+        // Force 2 columns on mobile
+        if (window.innerWidth < 1025) {
+            this.initViewModeLayout(2);
         }
 
         if(this.querySelector('[data-limited-view]')){
