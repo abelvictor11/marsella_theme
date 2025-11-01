@@ -1,7 +1,7 @@
 {{ 'component-toolbar.css' | asset_url | stylesheet_tag }}
 <toolbar-item class="toolbar" data-toolbar data-id="{{ section.id }}">
     {%- if has_sidebar -%}
-        <div class="toolbar-wrapper toolbar-mobile{% if settings.banner_animation == 'effect_fade_up' %} scroll-trigger animate--slide-in{% endif %}">
+        <div class="toolbar-wrapper toolbar-mobile hidden-on-desktop{% if settings.banner_animation == 'effect_fade_up' %} scroll-trigger animate--slide-in{% endif %}">
             <div class="toolbar-item toolbar-sidebar" data-sidebar>
                 <span class="toolbar-icon icon-filter">{% render 'icon-sidebar' %} <span class='filter-text text'>{{ 'sections.collection_template.filter_button' | t }}</span></span>
             </div>
@@ -74,18 +74,6 @@
                         </div>
                     </div>
                 {%- endif -%}
-            </div>
-        {%- endif -%}
-    </div>
-    <div class="toolbar-wrapper toolbar-mobile hidden-on-desktop{% if settings.banner_animation == 'effect_fade_up' %} scroll-trigger animate--slide-in{% endif %}">
-        {%- if show_view_as -%}
-            <div class="toolbar-col toolbar-colLeft">
-                <label class="toolbar-label">GRID</label>
-                <div class="toolbar-item toolbar-viewAs toolbar-viewAs--numbers clearfix" data-view-as-mobile>
-                    <span class="toolbar-number{% if layout == '4' %} active{% endif %}" data-col="4" role="button" aria-label="Grid 4" tabindex="0">4</span>
-                    <span class="toolbar-number{% if layout == '6' or layout == '3' %} active{% endif %}" data-col="6" role="button" aria-label="Grid 6" tabindex="0">6</span>
-                    <span class="toolbar-number{% if layout == '8' or layout == '5' %} active{% endif %}" data-col="8" role="button" aria-label="Grid 8" tabindex="0">8</span>
-                </div>
             </div>
         {%- endif -%}
     </div>

@@ -279,23 +279,18 @@ div#main-collection-filters {
     display: none !important;
   }
   
-  /* Mobile toolbar container */
+  /* Mobile toolbar container - simple filter button only */
   .toolbar-wrapper.toolbar-mobile {
-    display: flex !important;
-    flex-direction: column;
-    gap: 15px;
-    padding: 15px;
-    background: #f8f8f8;
-    border-radius: 12px;
+    display: block !important;
     margin-bottom: 20px;
   }
   
-  /* Filter button */
+  /* Filter button - full width, clean design */
   .toolbar-wrapper.toolbar-mobile .toolbar-sidebar {
     display: flex !important;
     align-items: center;
     justify-content: center;
-    padding: 14px 24px;
+    padding: 16px 24px;
     background: #000;
     border-radius: 50px;
     cursor: pointer;
@@ -306,25 +301,6 @@ div#main-collection-filters {
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-  }
-  
-  /* Grid numbers in mobile */
-  .toolbar-wrapper.toolbar-mobile .toolbar-colLeft {
-    display: flex !important;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    width: 100%;
-  }
-  
-  .toolbar-wrapper.toolbar-mobile .toolbar-label {
-    font-size: 12px;
-    margin: 0;
-  }
-  
-  .toolbar-wrapper.toolbar-mobile .toolbar-viewAs--numbers {
-    display: flex !important;
-    gap: 8px;
   }
   
   .toolbar-wrapper.toolbar-mobile .toolbar-sidebar:hover {
