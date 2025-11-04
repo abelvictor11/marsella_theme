@@ -294,10 +294,14 @@
 }
 
 .product-title {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 400;
   margin: 0 0 10px 0;
   line-height: 1.4;
+  font-family: Editorial New, serif;
+    font-style: italic;
+    letter-spacing: -1px;
+    text-transform: none;
 }
 
 .product-title a {
