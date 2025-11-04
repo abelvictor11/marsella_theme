@@ -294,10 +294,12 @@
 }
 
 .product-title {
-  font-size: 14px;
-  font-weight: 400;
-  margin: 0 0 10px 0;
-  line-height: 1.4;
+    font-size: 16px;
+    font-weight: 400;
+    margin: 0 0 10px;
+    line-height: 1.4;
+    font-family: PP Editorial New, Georgia, serif !important;
+    font-weight: 500;
 }
 
 .product-title a {
