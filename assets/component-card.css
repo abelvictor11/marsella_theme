@@ -3057,7 +3057,7 @@ quickshop-update-quantity.disabled {
     }
 
     .card-action .button:hover {
-        background: var(--product-action-bg-hover);
+         background: #F2D953 !important;
         color: var(--product-action-color-hover);
         border-color: var(--product-action-border-hover);
         box-shadow: var(--btn-3-horizontal-length) var(--btn-3-vertical-length) var(--btn-3-blur-radius) var(--btn-3-spread) var(--btn-3-all-bg-opacity-hover) var(--btn-3-inset);
@@ -3417,4 +3417,9 @@ quickshop-update-quantity.disabled {
     .style-card--list .card-information {
         padding: 0 0 0 10px !important;
     }
+}
+
+h3.card__heading a {
+    font-family: PP Editorial New, Georgia, serif !important;
+    font-weight: 500;
 }
