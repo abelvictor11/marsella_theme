@@ -110,10 +110,11 @@
 /* Button */
 .hero-button-wrapper {
   margin-top: 15px;
+  width: 100%;
 }
 
 .hero-button {
-  display: inline-flex;
+  display: block;
   align-items: center;
   gap: 15px;
   padding: 18px 40px;
@@ -127,6 +128,7 @@
   letter-spacing: 0.1em;
   text-transform: uppercase;
   transition: all 0.3s ease;
+  width: 100%;
 }
 
 .hero-button:hover {
@@ -135,12 +137,20 @@
 }
 
 .button-icon {
-  width: 20px;
-  height: 20px;
-  display: flex;
   align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
+    background: #3b3b3b;
+    border-radius: 100%;
+    display: flex;
+    flex-direction: row;
+    height: 3.6rem;
+    justify-content: center;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translate(-25%, -50%);
+    transition: transform .3s ease;
+    width: 3.6rem;
+    color: #fff;
 }
 
 .button-icon svg {
