@@ -1,0 +1,325 @@
+<section class="guia-piramide">
+  <div class="container">
+    <div class="guia-piramide__header">
+      <h2 class="guia-piramide__title">La Pirámide Olfativa</h2>
+      <p class="guia-piramide__subtitle">
+        Todo perfume se compone de tres capas de notas que se revelan con el tiempo
+      </p>
+    </div>
+    
+    <div class="guia-piramide__content">
+      <div class="guia-piramide__visual">
+        <div class="piramide">
+          <div class="piramide__layer piramide__layer--top">
+            <div class="piramide__layer-content">
+              <span class="piramide__layer-number">1</span>
+              <h3 class="piramide__layer-title">Notas de Salida</h3>
+              <p class="piramide__layer-time">0-15 minutos</p>
+            </div>
+          </div>
+          <div class="piramide__layer piramide__layer--middle">
+            <div class="piramide__layer-content">
+              <span class="piramide__layer-number">2</span>
+              <h3 class="piramide__layer-title">Notas de Corazón</h3>
+              <p class="piramide__layer-time">15 min - 4 horas</p>
+            </div>
+          </div>
+          <div class="piramide__layer piramide__layer--base">
+            <div class="piramide__layer-content">
+              <span class="piramide__layer-number">3</span>
+              <h3 class="piramide__layer-title">Notas de Fondo</h3>
+              <p class="piramide__layer-time">4+ horas</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="guia-piramide__info">
+        <div class="nota-info">
+          <div class="nota-info__header">
+            <div class="nota-info__icon nota-info__icon--top">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M12 2L15 8L22 9L17 14L18 21L12 18L6 21L7 14L2 9L9 8L12 2Z" fill="currentColor"/>
+              </svg>
+            </div>
+            <h3 class="nota-info__title">Notas de Salida</h3>
+          </div>
+          <p class="nota-info__description">
+            Son las primeras notas que percibes al aplicar el perfume. Ligeras y volátiles, 
+            crean la primera impresión. Suelen ser cítricas, aromáticas o frutales.
+          </p>
+          <div class="nota-info__examples">
+            <strong>Ejemplos:</strong> Bergamota, Limón, Naranja, Menta, Lavanda
+          </div>
+        </div>
+        
+        <div class="nota-info">
+          <div class="nota-info__header">
+            <div class="nota-info__icon nota-info__icon--middle">
+              <svg viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="10" fill="currentColor"/>
+              </svg>
+            </div>
+            <h3 class="nota-info__title">Notas de Corazón</h3>
+          </div>
+          <p class="nota-info__description">
+            El alma del perfume. Aparecen cuando las notas de salida se evaporan y definen 
+            el carácter principal de la fragancia. Predominan las florales y especiadas.
+          </p>
+          <div class="nota-info__examples">
+            <strong>Ejemplos:</strong> Rosa, Jazmín, Lirio, Canela, Cardamomo
+          </div>
+        </div>
+        
+        <div class="nota-info">
+          <div class="nota-info__header">
+            <div class="nota-info__icon nota-info__icon--base">
+              <svg viewBox="0 0 24 24" fill="none">
+                <rect x="4" y="4" width="16" height="16" fill="currentColor"/>
+              </svg>
+            </div>
+            <h3 class="nota-info__title">Notas de Fondo</h3>
+          </div>
+          <p class="nota-info__description">
+            La base duradera del perfume. Son las notas más pesadas y persistentes que 
+            permanecen en la piel durante horas. Aportan profundidad y fijación.
+          </p>
+          <div class="nota-info__examples">
+            <strong>Ejemplos:</strong> Vainilla, Ámbar, Almizcle, Sándalo, Pachulí
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+.guia-piramide {
+  padding: 120px 0;
+  background: #fff;
+}
+
+.guia-piramide__header {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 80px;
+  padding: 0 20px;
+}
+
+.guia-piramide__title {
+  font-size: 56px;
+  font-weight: 300;
+  font-style: italic;
+  margin: 0 0 20px;
+  color: #2d2d2d;
+  font-family: 'PP Editorial New', Georgia, serif;
+}
+
+.guia-piramide__subtitle {
+  font-size: 18px;
+  color: #666;
+  margin: 0;
+  line-height: 1.6;
+}
+
+.guia-piramide__content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 20px;
+  align-items: center;
+}
+
+.guia-piramide__visual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.piramide {
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.piramide__layer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  clip-path: polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%);
+  transition: all 0.3s ease;
+}
+
+.piramide__layer:hover {
+  transform: scale(1.05);
+  z-index: 10;
+}
+
+.piramide__layer--top {
+  background: linear-gradient(135deg, #FFD93D 0%, #FFA500 100%);
+  width: 60%;
+  margin: 0 auto;
+  clip-path: polygon(30% 0%, 70% 0%, 100% 100%, 0% 100%);
+}
+
+.piramide__layer--middle {
+  background: linear-gradient(135deg, #FF6B9D 0%, #C44569 100%);
+  width: 80%;
+  margin: -5px auto 0;
+  clip-path: polygon(15% 0%, 85% 0%, 100% 100%, 0% 100%);
+}
+
+.piramide__layer--base {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  width: 100%;
+  margin: -5px auto 0;
+  clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+}
+
+.piramide__layer-content {
+  text-align: center;
+  color: white;
+  position: relative;
+  z-index: 1;
+}
+
+.piramide__layer-number {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.3);
+  line-height: 30px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.piramide__layer-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0 0 5px;
+  font-family: 'PP Editorial New', Georgia, serif;
+}
+
+.piramide__layer-time {
+  font-size: 13px;
+  margin: 0;
+  opacity: 0.9;
+}
+
+.guia-piramide__info {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.nota-info {
+  background: #f8f9fa;
+  border-radius: 20px;
+  padding: 30px;
+  transition: all 0.3s ease;
+}
+
+.nota-info:hover {
+  transform: translateX(10px);
+  box-shadow: -5px 10px 30px rgba(0,0,0,0.1);
+}
+
+.nota-info__header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.nota-info__icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.nota-info__icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.nota-info__icon--top {
+  background: linear-gradient(135deg, #FFD93D 0%, #FFA500 100%);
+  color: white;
+}
+
+.nota-info__icon--middle {
+  background: linear-gradient(135deg, #FF6B9D 0%, #C44569 100%);
+  color: white;
+}
+
+.nota-info__icon--base {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.nota-info__title {
+  font-size: 22px;
+  font-weight: 600;
+  margin: 0;
+  color: #2d2d2d;
+}
+
+.nota-info__description {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #666;
+  margin: 0 0 15px;
+}
+
+.nota-info__examples {
+  font-size: 14px;
+  color: #666;
+  padding: 15px;
+  background: white;
+  border-radius: 10px;
+  border-left: 3px solid #667eea;
+}
+
+.nota-info__examples strong {
+  color: #2d2d2d;
+  font-weight: 600;
+}
+
+@media (max-width: 968px) {
+  .guia-piramide {
+    padding: 80px 0;
+  }
+  
+  .guia-piramide__title {
+    font-size: 36px;
+  }
+  
+  .guia-piramide__content {
+    grid-template-columns: 1fr;
+    gap: 60px;
+  }
+  
+  .piramide {
+    max-width: 400px;
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Guía Olfativa - Pirámide",
+  "settings": []
+}
+{% endschema %}
