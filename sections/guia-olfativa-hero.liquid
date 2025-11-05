@@ -1,0 +1,245 @@
+{{ 'guia-olfativa.css' | asset_url | stylesheet_tag }}
+
+<section class="guia-hero">
+  <div class="guia-hero__background">
+    <div class="guia-hero__overlay"></div>
+  </div>
+  
+  <div class="guia-hero__content container">
+    <div class="guia-hero__text">
+      <span class="guia-hero__subtitle">Descubre el Arte de la Perfumería</span>
+      <h1 class="guia-hero__title">La Guía Olfativa</h1>
+      <p class="guia-hero__description">
+        Sumérgete en el fascinante mundo de las fragancias. Aprende a identificar notas, 
+        familias olfativas y encuentra el perfume perfecto para cada ocasión.
+      </p>
+      <a href="#familias" class="guia-hero__cta">
+        Explorar la Guía
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <path d="M10 4L10 16M10 16L16 10M10 16L4 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+    
+    <div class="guia-hero__visual">
+      <div class="guia-hero__circle guia-hero__circle--1"></div>
+      <div class="guia-hero__circle guia-hero__circle--2"></div>
+      <div class="guia-hero__circle guia-hero__circle--3"></div>
+      <div class="guia-hero__bottle">
+        <svg viewBox="0 0 200 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="bottleGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#f0e6ff;stop-opacity:1" />
+              <stop offset="100%" style="stop-color:#e6f0ff;stop-opacity:1" />
+            </linearGradient>
+          </defs>
+          <rect x="60" y="40" width="80" height="30" rx="5" fill="#d4af37"/>
+          <rect x="70" y="70" width="60" height="200" rx="10" fill="url(#bottleGradient)"/>
+          <ellipse cx="100" cy="270" rx="30" ry="10" fill="#d4af37" opacity="0.3"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+  
+  <div class="guia-hero__scroll">
+    <span>Scroll</span>
+    <div class="guia-hero__scroll-line"></div>
+  </div>
+</section>
+
+<style>
+.guia-hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.guia-hero__background {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.guia-hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 30% 50%, rgba(255,255,255,0.1) 0%, transparent 50%);
+}
+
+.guia-hero__content {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  padding: 80px 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.guia-hero__text {
+  color: white;
+}
+
+.guia-hero__subtitle {
+  display: inline-block;
+  font-size: 14px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  opacity: 0.9;
+  font-weight: 500;
+}
+
+.guia-hero__title {
+  font-size: 72px;
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.1;
+  margin: 0 0 30px;
+  font-family: 'PP Editorial New', Georgia, serif;
+}
+
+.guia-hero__description {
+  font-size: 18px;
+  line-height: 1.8;
+  margin: 0 0 40px;
+  opacity: 0.95;
+  max-width: 500px;
+}
+
+.guia-hero__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 18px 40px;
+  background: white;
+  color: #667eea;
+  text-decoration: none;
+  border-radius: 50px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.guia-hero__cta:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+}
+
+.guia-hero__visual {
+  position: relative;
+  height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.guia-hero__circle {
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.2);
+  animation: rotate 20s linear infinite;
+}
+
+.guia-hero__circle--1 {
+  width: 300px;
+  height: 300px;
+}
+
+.guia-hero__circle--2 {
+  width: 400px;
+  height: 400px;
+  animation-duration: 25s;
+  animation-direction: reverse;
+}
+
+.guia-hero__circle--3 {
+  width: 500px;
+  height: 500px;
+  animation-duration: 30s;
+}
+
+.guia-hero__bottle {
+  position: relative;
+  z-index: 2;
+  width: 200px;
+  animation: float 6s ease-in-out infinite;
+}
+
+.guia-hero__scroll {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  color: white;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+.guia-hero__scroll-line {
+  width: 1px;
+  height: 40px;
+  background: white;
+  animation: scrollLine 2s ease-in-out infinite;
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes scrollLine {
+  0%, 100% { opacity: 0; transform: translateY(-20px); }
+  50% { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+  .guia-hero__content {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    text-align: center;
+  }
+  
+  .guia-hero__title {
+    font-size: 48px;
+  }
+  
+  .guia-hero__description {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .guia-hero__visual {
+    height: 300px;
+  }
+  
+  .guia-hero__circle--2,
+  .guia-hero__circle--3 {
+    display: none;
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Guía Olfativa - Hero",
+  "settings": []
+}
+{% endschema %}

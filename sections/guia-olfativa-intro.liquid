@@ -1,0 +1,120 @@
+<section class="guia-intro">
+  <div class="container">
+    <div class="guia-intro__content">
+      <div class="guia-intro__text">
+        <h2 class="guia-intro__title">El Arte de Elegir tu Fragancia</h2>
+        <p class="guia-intro__description">
+          Elegir un perfume es una experiencia personal y única. Cada fragancia cuenta una historia, 
+          evoca recuerdos y refleja tu personalidad. En esta guía, te ayudaremos a descubrir el 
+          lenguaje de los perfumes y a encontrar tu aroma ideal.
+        </p>
+      </div>
+      
+      <div class="guia-intro__stats">
+        <div class="guia-intro__stat">
+          <div class="guia-intro__stat-number">7</div>
+          <div class="guia-intro__stat-label">Familias Olfativas</div>
+        </div>
+        <div class="guia-intro__stat">
+          <div class="guia-intro__stat-number">3</div>
+          <div class="guia-intro__stat-label">Notas del Perfume</div>
+        </div>
+        <div class="guia-intro__stat">
+          <div class="guia-intro__stat-number">5</div>
+          <div class="guia-intro__stat-label">Concentraciones</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+.guia-intro {
+  padding: 120px 0;
+  background: #fff;
+}
+
+.guia-intro__content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.guia-intro__text {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 80px;
+}
+
+.guia-intro__title {
+  font-size: 48px;
+  font-weight: 300;
+  font-style: italic;
+  margin: 0 0 30px;
+  color: #2d2d2d;
+  font-family: 'PP Editorial New', Georgia, serif;
+}
+
+.guia-intro__description {
+  font-size: 18px;
+  line-height: 1.8;
+  color: #666;
+  margin: 0;
+}
+
+.guia-intro__stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 60px;
+  text-align: center;
+}
+
+.guia-intro__stat {
+  padding: 40px 20px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  transition: transform 0.3s ease;
+}
+
+.guia-intro__stat:hover {
+  transform: translateY(-10px);
+}
+
+.guia-intro__stat-number {
+  font-size: 64px;
+  font-weight: 700;
+  color: #667eea;
+  margin-bottom: 10px;
+  font-family: 'PP Editorial New', Georgia, serif;
+}
+
+.guia-intro__stat-label {
+  font-size: 16px;
+  color: #2d2d2d;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+@media (max-width: 768px) {
+  .guia-intro {
+    padding: 80px 0;
+  }
+  
+  .guia-intro__title {
+    font-size: 36px;
+  }
+  
+  .guia-intro__stats {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Guía Olfativa - Intro",
+  "settings": []
+}
+{% endschema %}

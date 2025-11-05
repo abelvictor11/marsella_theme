@@ -1,0 +1,241 @@
+<section class="guia-cta">
+  <div class="guia-cta__background">
+    <div class="guia-cta__circle guia-cta__circle--1"></div>
+    <div class="guia-cta__circle guia-cta__circle--2"></div>
+    <div class="guia-cta__circle guia-cta__circle--3"></div>
+  </div>
+  
+  <div class="container">
+    <div class="guia-cta__content">
+      <h2 class="guia-cta__title">¿Listo para Encontrar tu Fragancia Perfecta?</h2>
+      <p class="guia-cta__description">
+        Explora nuestra colección curada de perfumes de las mejores marcas del mundo. 
+        Cada fragancia cuenta una historia única, esperando ser descubierta por ti.
+      </p>
+      
+      <div class="guia-cta__buttons">
+        <a href="/collections/all" class="guia-cta__button guia-cta__button--primary">
+          Explorar Colección
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M4 10H16M16 10L10 4M16 10L10 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+        <a href="/pages/contact" class="guia-cta__button guia-cta__button--secondary">
+          Asesoría Personalizada
+        </a>
+      </div>
+      
+      <div class="guia-cta__features">
+        <div class="feature-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 11L12 14L22 4"/>
+            <path d="M21 12V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H16"/>
+          </svg>
+          <span>Productos 100% Originales</span>
+        </div>
+        <div class="feature-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/>
+            <line x1="1" y1="10" x2="23" y2="10"/>
+          </svg>
+          <span>Envío Gratis desde $150.000</span>
+        </div>
+        <div class="feature-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V15"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          <span>Muestras Gratis en tu Pedido</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+.guia-cta {
+  position: relative;
+  padding: 120px 0;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  overflow: hidden;
+  color: white;
+}
+
+.guia-cta__background {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.guia-cta__circle {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  animation: float 20s ease-in-out infinite;
+}
+
+.guia-cta__circle--1 {
+  width: 300px;
+  height: 300px;
+  top: -100px;
+  left: -100px;
+  animation-delay: 0s;
+}
+
+.guia-cta__circle--2 {
+  width: 400px;
+  height: 400px;
+  bottom: -150px;
+  right: -150px;
+  animation-delay: 5s;
+}
+
+.guia-cta__circle--3 {
+  width: 200px;
+  height: 200px;
+  top: 50%;
+  right: 10%;
+  animation-delay: 10s;
+}
+
+.guia-cta__content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.guia-cta__title {
+  font-size: 56px;
+  font-weight: 300;
+  font-style: italic;
+  margin: 0 0 30px;
+  line-height: 1.2;
+  font-family: 'PP Editorial New', Georgia, serif;
+}
+
+.guia-cta__description {
+  font-size: 20px;
+  line-height: 1.7;
+  margin: 0 0 50px;
+  opacity: 0.95;
+}
+
+.guia-cta__buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 60px;
+}
+
+.guia-cta__button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 18px 40px;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 16px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.guia-cta__button--primary {
+  background: white;
+  color: #667eea;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.guia-cta__button--primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+}
+
+.guia-cta__button--secondary {
+  background: transparent;
+  color: white;
+  border-color: white;
+}
+
+.guia-cta__button--secondary:hover {
+  background: white;
+  color: #667eea;
+  transform: translateY(-3px);
+}
+
+.guia-cta__features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  margin-top: 60px;
+  padding-top: 60px;
+  border-top: 1px solid rgba(255,255,255,0.2);
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.feature-item svg {
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+  opacity: 0.9;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(30px, -30px) scale(1.1);
+  }
+  66% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
+}
+
+@media (max-width: 768px) {
+  .guia-cta {
+    padding: 80px 0;
+  }
+  
+  .guia-cta__title {
+    font-size: 36px;
+  }
+  
+  .guia-cta__description {
+    font-size: 16px;
+  }
+  
+  .guia-cta__buttons {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .guia-cta__button {
+    justify-content: center;
+  }
+  
+  .guia-cta__features {
+    grid-template-columns: 1fr;
+    text-align: left;
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Guía Olfativa - CTA",
+  "settings": []
+}
+{% endschema %}
