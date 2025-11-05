@@ -404,3 +404,28 @@ div#main-collection-filters {
     align-items: center;
     gap: 20px;
 }
+span.icon-toggle {
+    display: none;
+}
+.previewCartTool {
+    border-top: 1px solid #e2e2e2;
+}
+.cartTool-item {
+    border-radius: 12px;
+}
+.cart-item {
+    border: none !important;
+    border-radius: 12px;
+    background: #fff;
+}
+.cart-header {
+    border-radius: 12px;
+}
+.button.button-1, .button.button--primary, .cart-actions .button {
+    border-radius: 12px !important;
+}
+.cart-content-item[data-cart-total] {
+        background: #fff;
+        padding: 20px;
+        border-radius: 12px;
+}
