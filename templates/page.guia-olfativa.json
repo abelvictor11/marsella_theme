@@ -1,31 +1,31 @@
 {
   "sections": {
     "hero_guia": {
-      "type": "guia-olfativa-hero",
+      "type": "guia-hero",
       "settings": {}
     },
     "intro_guia": {
-      "type": "guia-olfativa-intro",
+      "type": "guia-intro",
       "settings": {}
     },
     "familias_olfativas": {
-      "type": "guia-olfativa-familias",
+      "type": "guia-familias",
       "settings": {}
     },
     "piramide_olfativa": {
-      "type": "guia-olfativa-piramide",
+      "type": "guia-piramide",
       "settings": {}
     },
     "concentraciones": {
-      "type": "guia-olfativa-concentraciones",
+      "type": "guia-concentraciones",
       "settings": {}
     },
     "consejos": {
-      "type": "guia-olfativa-consejos",
+      "type": "guia-consejos",
       "settings": {}
     },
     "cta_final": {
-      "type": "guia-olfativa-cta",
+      "type": "guia-cta",
       "settings": {}
     }
   },
