@@ -1,3 +1,4 @@
+if (typeof SplitBannerProducts === 'undefined') {
 class SplitBannerProducts {
   constructor(element) {
     this.section = element;
@@ -157,65 +158,100 @@ class SplitBannerProducts {
     });
   }
 
-  handleQuickAdd(productId, button) {
-    // Get the first available variant
-    fetch(`/products/${productId}.js`)
-      .then(response => response.json())
-      .then(product => {
-        const variantId = product.variants[0].id;
-        
-        // Add to cart
-        return fetch('/cart/add.js', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            id: variantId,
-            quantity: 1
-          })
-        });
-      })
-      .then(response => response.json())
-      .then(data => {
-        // Show success feedback
-        this.showQuickAddFeedback(button, true);
-        
-        // Trigger cart update event
-        document.dispatchEvent(new CustomEvent('cart:updated'));
-      })
-      .catch(error => {
-        console.error('Quick add error:', error);
-        this.showQuickAddFeedback(button, false);
+  async handleQuickAdd(productId, button) {
+    try {
+      // Disable button during process
+      button.disabled = true;
+      
+      // Add to cart directly with product ID (first variant)
+      const formData = {
+        items: [{
+          id: productId,
+          quantity: 1
+        }]
+      };
+      
+      const response = await fetch('/cart/add.js', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
       });
+      
+      if (!response.ok) {
+        throw new Error('Failed to add to cart');
+      }
+      
+      const data = await response.json();
+      
+      // Show success feedback
+      this.showQuickAddFeedback(button, true);
+      
+      // Update cart count
+      this.updateCartCount();
+      
+      // Trigger cart update event
+      document.dispatchEvent(new CustomEvent('cart:updated'));
+      
+    } catch (error) {
+      console.error('Quick add error:', error);
+      this.showQuickAddFeedback(button, false);
+    } finally {
+      button.disabled = false;
+    }
+  }
+  
+  async updateCartCount() {
+    try {
+      const response = await fetch('/cart.js');
+      const cart = await response.json();
+      
+      // Update cart count in header if exists
+      const cartCount = document.querySelector('.cart-count, [data-cart-count]');
+      if (cartCount) {
+        cartCount.textContent = cart.item_count;
+      }
+    } catch (error) {
+      console.error('Cart count update error:', error);
+    }
   }
 
   showQuickAddFeedback(button, success) {
     const originalHTML = button.innerHTML;
     
     if (success) {
-      button.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>';
-      button.style.background = '#4CAF50';
-      button.style.color = '#fff';
+      button.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>';
+      button.style.background = '#F2D953';
+      button.style.color = '#000';
+      button.style.borderColor = '#F2D953';
     } else {
-      button.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>';
+      button.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>';
       button.style.background = '#f44336';
       button.style.color = '#fff';
+      button.style.borderColor = '#f44336';
     }
     
     setTimeout(() => {
       button.innerHTML = originalHTML;
       button.style.background = '';
       button.style.color = '';
+      button.style.borderColor = '';
     }, 2000);
   }
+}
+
 }
 
 // Initialize all split banner products sections
 function initSplitBannerProducts() {
   const sections = document.querySelectorAll('.split-banner-products');
   sections.forEach(section => {
-    new SplitBannerProducts(section);
+    // Check if already initialized
+    if (!section.dataset.splitBannerInit) {
+      new SplitBannerProducts(section);
+      section.dataset.splitBannerInit = 'true';
+    }
   });
 }
 
