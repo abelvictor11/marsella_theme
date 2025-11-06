@@ -1,4 +1,3 @@
-if (typeof SplitBannerProducts === 'undefined') {
 class SplitBannerProducts {
   constructor(element) {
     this.section = element;
@@ -239,8 +238,6 @@ class SplitBannerProducts {
       button.style.borderColor = '';
     }, 2000);
   }
-}
-
 }
 
 // Initialize all split banner products sections
