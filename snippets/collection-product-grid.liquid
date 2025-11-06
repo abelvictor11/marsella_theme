@@ -114,17 +114,19 @@
         <div class="halo-collection-content halo-grid-content sidebar--layout_{{ sidebar_type }}">
             {%- if has_sidebar -%}
                 {{ 'component-main-sidebar.css' | asset_url | stylesheet_tag }}
-                <div class="page-sidebar page-sidebar-{{ sidebar_position }} page-sidebar--{{ sidebar_type }} sidebar--{{ sidebar_layout }}{% if enable_sticky %} has-sticky{% endif %}" id="halo-sidebar">
-                    <div class="halo-sidebar-header text-left{% if settings.banner_animation == 'effect_fade_up' %} scroll-trigger animate--slide-in{% endif %}">
+                {{ 'collection-filters-overlay.css' | asset_url | stylesheet_tag }}
+                <div class="filters-sidebar filters-sidebar-{{ sidebar_position }} filters-sidebar--{{ sidebar_type }} sidebar--{{ sidebar_layout }}{% if enable_sticky %} has-sticky{% endif %}" id="filters-sidebar">
+                    <div class="filters-drag-handle"></div>
+                    <div class="filters-sidebar-header text-left{% if settings.banner_animation == 'effect_fade_up' %} scroll-trigger animate--slide-in{% endif %}">
                         <span class="title">{{ 'sections.sidebar.title' | t }}</span>
-                        <button type="button" class="halo-sidebar-close" data-close-sidebar="true" role="button" aria-label="{{ 'general.common.close' | t }}">
+                        <button type="button" class="filters-sidebar-close" data-close-sidebar="true" role="button" aria-label="{{ 'general.common.close' | t }}">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
                                 <path d="M 38.982422 6.9707031 A 2.0002 2.0002 0 0 0 37.585938 7.5859375 L 24 21.171875 L 10.414062 7.5859375 A 2.0002 2.0002 0 0 0 8.9785156 6.9804688 A 2.0002 2.0002 0 0 0 7.5859375 10.414062 L 21.171875 24 L 7.5859375 37.585938 A 2.0002 2.0002 0 1 0 10.414062 40.414062 L 24 26.828125 L 37.585938 40.414062 A 2.0002 2.0002 0 1 0 40.414062 37.585938 L 26.828125 24 L 40.414062 10.414062 A 2.0002 2.0002 0 0 0 38.982422 6.9707031 z"></path>
                             </svg>
                             <span class="close-text">{{ 'general.common.close' | t }}</span>
                         </button>
                     </div>
-                    <div class="halo-sidebar-wrapper custom-scrollbar{% if settings.banner_animation == 'effect_fade_up' %} scroll-trigger animate--slide-in{% endif %}">
+                    <div class="filters-sidebar-wrapper custom-scrollbar{% if settings.banner_animation == 'effect_fade_up' %} scroll-trigger animate--slide-in{% endif %}">
                         {% render 'collection-sidebar',
                             results: collection,
                             section: section,
@@ -138,6 +140,14 @@
                             filter_swatch_type: filter_swatch_type,
                             filter_rectangle: filter_rectangle
                         %}
+                    </div>
+                    <div class="filters-sidebar-footer">
+                        <button type="button" class="filters-clear-button" data-filters-clear>
+                            Limpiar
+                        </button>
+                        <button type="button" class="filters-apply-button" data-filters-apply>
+                            Aplicar <span class="filter-results-count"></span>
+                        </button>
                     </div>
                 </div>
             {%- endif -%}
