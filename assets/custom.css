@@ -384,6 +384,10 @@ div#main-collection-filters {
   height: 20px;
 }
 
+.filters-sidebar-close .close-text {
+  display: none;
+}
+
 /* Keep cart sidebar close button separate */
 .halo-cart-sidebar .halo-sidebar-close {
   position: absolute;
@@ -402,15 +406,19 @@ div#main-collection-filters {
   z-index: 10;
 }
 
-.halo-sidebar-close:hover {
+.halo-cart-sidebar .halo-sidebar-close:hover {
   background: #f5f5f5;
   border-color: #000;
   transform: rotate(90deg);
 }
 
-.halo-sidebar-close svg {
+.halo-cart-sidebar .halo-sidebar-close svg {
   width: 20px;
   height: 20px;
+}
+
+.halo-cart-sidebar .halo-sidebar-close .close-text {
+  display: none;
 }
 .halo-block-header.style--left.has-des.d-flex.flex-align-center.flex-jc-between {
     padding-left: 30px;
