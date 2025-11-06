@@ -328,10 +328,18 @@ div#main-collection-filters {
     color: #fff;
   }
   
-  /* Ensure sidebar is accessible on mobile */
-  .page-sidebar {
+  /* Ensure filters sidebar is accessible on mobile */
+  .filters-sidebar {
     display: flex !important;
     position: fixed !important;
+  }
+  
+  /* Ensure cart sidebar is not affected */
+  .halo-cart-sidebar {
+    display: block !important;
+    position: fixed !important;
+    top: 0 !important;
+    bottom: auto !important;
   }
   
   /* Sort dropdown mobile */
@@ -347,8 +355,37 @@ div#main-collection-filters {
 }
 
 
-/* Fix close button in sidebar */
-.halo-sidebar-close {
+/* Fix close button in filters sidebar */
+.filters-sidebar-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border: 2px solid #e0e0e0;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.filters-sidebar-close:hover {
+  background: #f5f5f5;
+  border-color: #000;
+  transform: rotate(90deg);
+}
+
+.filters-sidebar-close svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Keep cart sidebar close button separate */
+.halo-cart-sidebar .halo-sidebar-close {
   position: absolute;
   top: 20px;
   right: 20px;
@@ -431,4 +468,13 @@ span.icon-toggle {
 }
 .jdgm-write-rev-link.jdgm-write-rev-link {
     border-radius: 12px;
+}
+@media only screen and (max-width: 600px) {
+.title-brand {
+    padding: 20px !important;
+    display: block !important;
+}
+.title-brand p {
+    max-width: 100% !important;
+}
 }

@@ -92,10 +92,12 @@
         <div class="halo-collection-content halo-grid-content sidebar--layout_{{ sidebar_type }}">
             {%- if has_sidebar -%}
                 {{ 'component-main-sidebar.css' | asset_url | stylesheet_tag }}
-                <div class="page-sidebar page-sidebar-{{ sidebar_position }} page-sidebar--{{ sidebar_type }} sidebar--{{ sidebar_layout }}{% if enable_sticky %} has-sticky{% endif %}" id="halo-sidebar">
-                    <button type="button" class="halo-sidebar-close" data-close-sidebar role="button"><span class="visually-hidden">{{ 'general.common.close' | t }}</span> {% render 'icon-close' %}</button>
-                    <div class="halo-sidebar-header text-left{% if settings.banner_animation == 'effect_fade_up' %} scroll-trigger animate--slide-in{% endif %}"><span class="title">{{ 'sections.sidebar.title' | t }}</span></div>
-                    <div class="halo-sidebar-wrapper custom-scrollbar{% if settings.banner_animation == 'effect_fade_up' %} scroll-trigger animate--slide-in{% endif %}">
+                {{ 'collection-filters-overlay.css' | asset_url | stylesheet_tag }}
+                <div class="filters-sidebar filters-sidebar-{{ sidebar_position }} filters-sidebar--{{ sidebar_type }} sidebar--{{ sidebar_layout }}{% if enable_sticky %} has-sticky{% endif %}" id="filters-sidebar">
+                    <div class="filters-drag-handle"></div>
+                    <button type="button" class="filters-sidebar-close" data-close-sidebar role="button"><span class="visually-hidden">{{ 'general.common.close' | t }}</span> {% render 'icon-close' %}</button>
+                    <div class="filters-sidebar-header text-left{% if settings.banner_animation == 'effect_fade_up' %} scroll-trigger animate--slide-in{% endif %}"><span class="title">{{ 'sections.sidebar.title' | t }}</span></div>
+                    <div class="filters-sidebar-wrapper custom-scrollbar{% if settings.banner_animation == 'effect_fade_up' %} scroll-trigger animate--slide-in{% endif %}">
                         {% render 'collection-sidebar',
                             results: collection,
                             section: section,

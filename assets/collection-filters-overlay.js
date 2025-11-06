@@ -1,6 +1,6 @@
 class CollectionFiltersOverlay {
   constructor() {
-    this.sidebar = document.querySelector('.page-sidebar');
+    this.sidebar = document.querySelector('.filters-sidebar');
     this.overlay = document.querySelector('.filters-overlay');
     this.toggleButton = document.querySelector('[data-filters-toggle]');
     this.toolbarButton = document.querySelector('[data-sidebar]');
@@ -8,12 +8,19 @@ class CollectionFiltersOverlay {
     this.applyButton = document.querySelector('[data-filters-apply]');
     this.clearButton = document.querySelector('[data-filters-clear]');
     
+    // Mobile detection
+    this.isMobile = window.innerWidth <= 768;
+    this.startY = 0;
+    this.currentY = 0;
+    this.isDragging = false;
+    
     console.log('CollectionFiltersOverlay initialized', {
       sidebar: !!this.sidebar,
       overlay: !!this.overlay,
       toggleButton: !!this.toggleButton,
       toolbarButton: !!this.toolbarButton,
-      closeButton: !!this.closeButton
+      closeButton: !!this.closeButton,
+      isMobile: this.isMobile
     });
     
     if (!this.sidebar || !this.overlay) {
@@ -28,6 +35,15 @@ class CollectionFiltersOverlay {
     // Ensure sidebar starts hidden
     this.sidebar.classList.remove('active');
     this.overlay.classList.remove('active');
+    
+    // Update mobile detection on resize
+    window.addEventListener('resize', () => {
+      const wasMobile = this.isMobile;
+      this.isMobile = window.innerWidth <= 768;
+      if (wasMobile !== this.isMobile) {
+        this.updateLayout();
+      }
+    });
     
     // Toggle filters - Main button
     if (this.toggleButton) {
@@ -108,11 +124,19 @@ class CollectionFiltersOverlay {
     // Scroll indicator
     this.initScrollIndicator();
     
+    // Mobile gestures
+    if (this.isMobile) {
+      this.initMobileGestures();
+    }
+    
+    // Product count updater
+    this.updateProductCount();
+    
     console.log('Filters overlay initialized successfully');
   }
 
   initScrollIndicator() {
-    const wrapper = this.sidebar.querySelector('.halo-sidebar-wrapper');
+    const wrapper = this.sidebar.querySelector('.filters-sidebar-wrapper');
     if (!wrapper) return;
     
     wrapper.addEventListener('scroll', () => {
@@ -124,18 +148,90 @@ class CollectionFiltersOverlay {
     });
   }
 
+  initMobileGestures() {
+    const handle = this.sidebar.querySelector('.filters-drag-handle');
+    if (!handle) return;
+
+    // Touch events for drag to close
+    handle.addEventListener('touchstart', (e) => {
+      this.startY = e.touches[0].clientY;
+      this.isDragging = true;
+      this.sidebar.style.transition = 'none';
+    });
+
+    handle.addEventListener('touchmove', (e) => {
+      if (!this.isDragging) return;
+      
+      this.currentY = e.touches[0].clientY;
+      const deltaY = this.currentY - this.startY;
+      
+      // Only allow dragging down
+      if (deltaY > 0) {
+        this.sidebar.style.transform = `translateY(${deltaY}px)`;
+      }
+    });
+
+    handle.addEventListener('touchend', (e) => {
+      if (!this.isDragging) return;
+      
+      this.isDragging = false;
+      this.sidebar.style.transition = '';
+      
+      const deltaY = this.currentY - this.startY;
+      
+      // Close if dragged down more than 150px
+      if (deltaY > 150) {
+        this.closeFilters();
+      } else {
+        this.sidebar.style.transform = '';
+      }
+    });
+  }
+
+  updateLayout() {
+    // Re-initialize mobile gestures if needed
+    if (this.isMobile && !this.sidebar.querySelector('.filters-drag-handle')) {
+      this.initMobileGestures();
+    }
+  }
+
+  updateProductCount() {
+    const applyButton = this.applyButton;
+    if (!applyButton) return;
+
+    // Count active filters
+    const activeFilters = this.sidebar.querySelectorAll('input[type="checkbox"]:checked').length;
+    
+    // Update button text (if you want to show count)
+    const countText = applyButton.querySelector('.filter-results-count');
+    if (countText && activeFilters > 0) {
+      countText.textContent = ` (${activeFilters})`;
+    }
+  }
+
   openFilters() {
     console.log('Opening filters...');
     this.sidebar.classList.add('active');
     this.overlay.classList.add('active');
     document.body.classList.add('filters-open');
-    document.body.style.overflow = 'hidden';
+    
+    // Prevent body scroll
+    if (this.isMobile) {
+      document.body.style.position = 'fixed';
+      document.body.style.width = '100%';
+      document.body.style.top = `-${window.scrollY}px`;
+    } else {
+      document.body.style.overflow = 'hidden';
+    }
     
     // Force scroll to top of sidebar
-    const wrapper = this.sidebar.querySelector('.halo-sidebar-wrapper');
+    const wrapper = this.sidebar.querySelector('.filters-sidebar-wrapper');
     if (wrapper) {
       wrapper.scrollTop = 0;
     }
+    
+    // Reset transform (for mobile drag)
+    this.sidebar.style.transform = '';
   }
 
   closeFilters() {
@@ -143,7 +239,20 @@ class CollectionFiltersOverlay {
     this.sidebar.classList.remove('active');
     this.overlay.classList.remove('active');
     document.body.classList.remove('filters-open');
-    document.body.style.overflow = '';
+    
+    // Restore body scroll
+    if (this.isMobile) {
+      const scrollY = document.body.style.top;
+      document.body.style.position = '';
+      document.body.style.width = '';
+      document.body.style.top = '';
+      window.scrollTo(0, parseInt(scrollY || '0') * -1);
+    } else {
+      document.body.style.overflow = '';
+    }
+    
+    // Reset transform
+    this.sidebar.style.transform = '';
   }
 
   applyFilters() {
@@ -192,7 +301,7 @@ class CollectionFiltersOverlay {
 
   updateFilterCount() {
     const checkedFilters = this.sidebar.querySelectorAll('input[type="checkbox"]:checked').length;
-    const countElement = this.toggleButton.querySelector('.filter-count');
+    const countElement = this.toggleButton?.querySelector('.filter-count');
     
     if (countElement) {
       if (checkedFilters > 0) {
@@ -202,6 +311,9 @@ class CollectionFiltersOverlay {
         countElement.style.display = 'none';
       }
     }
+    
+    // Update product count in apply button
+    this.updateProductCount();
   }
 
   initCollapsibleBlocks() {
