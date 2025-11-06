@@ -206,11 +206,35 @@ class SplitBannerProducts {
       const response = await fetch('/cart.js');
       const cart = await response.json();
       
-      // Update cart count in header if exists
-      const cartCount = document.querySelector('.cart-count, [data-cart-count]');
-      if (cartCount) {
-        cartCount.textContent = cart.item_count;
+      // Update all cart count elements
+      const cartCountSelectors = [
+        '.cart-count',
+        '[data-cart-count]',
+        '.cart-count-bubble',
+        '#cart-icon-bubble',
+        '.cartCount',
+        '[data-header-cart-count]'
+      ];
+      
+      cartCountSelectors.forEach(selector => {
+        const elements = document.querySelectorAll(selector);
+        elements.forEach(element => {
+          element.textContent = cart.item_count;
+          // Add visible class if count > 0
+          if (cart.item_count > 0) {
+            element.classList.add('visible');
+          }
+        });
+      });
+      
+      // Trigger cart drawer update if it exists
+      if (typeof window.theme !== 'undefined' && window.theme.cart) {
+        window.theme.cart.getCart();
       }
+      
+      // Alternative: trigger custom event for cart refresh
+      document.dispatchEvent(new CustomEvent('cart:refresh', { detail: cart }));
+      
     } catch (error) {
       console.error('Cart count update error:', error);
     }
@@ -220,12 +244,27 @@ class SplitBannerProducts {
     const originalHTML = button.innerHTML;
     
     if (success) {
-      button.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>';
+      // Checkmark icon - better centered and sized
+      button.innerHTML = `
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+      `;
       button.style.background = '#F2D953';
       button.style.color = '#000';
       button.style.borderColor = '#F2D953';
+      button.style.transform = 'scale(1.05)';
+      
+      // Add success animation
+      button.style.transition = 'all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)';
     } else {
-      button.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>';
+      // X icon for error
+      button.innerHTML = `
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      `;
       button.style.background = '#f44336';
       button.style.color = '#fff';
       button.style.borderColor = '#f44336';
@@ -236,7 +275,9 @@ class SplitBannerProducts {
       button.style.background = '';
       button.style.color = '';
       button.style.borderColor = '';
-    }, 2000);
+      button.style.transform = '';
+      button.style.transition = '';
+    }, 2500);
   }
 }
 
@@ -263,3 +304,28 @@ if (document.readyState === 'loading') {
 if (window.Shopify && window.Shopify.designMode) {
   document.addEventListener('shopify:section:load', initSplitBannerProducts);
 }
+
+// Listen for cart refresh events to update cart sidebar
+document.addEventListener('cart:refresh', async (event) => {
+  // Update cart sidebar content if it exists
+  const cartSidebar = document.querySelector('.halo-cart-sidebar, [data-cart-sidebar]');
+  if (cartSidebar) {
+    try {
+      // Fetch updated cart HTML
+      const response = await fetch('/?section_id=cart-drawer');
+      if (response.ok) {
+        const html = await response.text();
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        const newContent = doc.querySelector('.previewCart, [data-cart-content]');
+        const currentContent = cartSidebar.querySelector('.previewCart, [data-cart-content]');
+        
+        if (newContent && currentContent) {
+          currentContent.innerHTML = newContent.innerHTML;
+        }
+      }
+    } catch (error) {
+      console.log('Cart sidebar update skipped:', error);
+    }
+  }
+});
