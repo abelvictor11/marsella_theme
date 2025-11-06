@@ -203,6 +203,10 @@ body.filters-open .filters-sidebar-wrapper {
   stroke-width: 2.5;
 }
 
+.filters-sidebar-close .close-text {
+  display: none;
+}
+
 .filters-sidebar-close:active {
   transform: rotate(90deg) scale(0.95);
 }
