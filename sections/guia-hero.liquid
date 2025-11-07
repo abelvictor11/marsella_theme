@@ -2,6 +2,10 @@
 
 <section class="guia-hero">
   <div class="guia-hero__background">
+    <video class="guia-hero__video" autoplay loop muted playsinline>
+      <source src="https://cdn.shopify.com/videos/c/o/v/3a6fe34645ba4a4ab8064360c8804d44.webm" type="video/webm">
+      <source src="https://cdn.shopify.com/videos/c/o/v/0af216d1f1564117ac331f4c7446ee3e.mp4" type="video/mp4">
+    </video>
     <div class="guia-hero__overlay"></div>
   </div>
   
@@ -55,7 +59,7 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: #3B3B3B;
 }
 
 .guia-hero__background {
@@ -64,10 +68,19 @@
   z-index: 0;
 }
 
+.guia-hero__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.4;
+}
+
 .guia-hero__overlay {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 30% 50%, rgba(255,255,255,0.1) 0%, transparent 50%);
+  background: linear-gradient(135deg, rgba(59, 59, 59, 0.8) 0%, rgba(59, 59, 59, 0.95) 100%);
 }
 
 .guia-hero__content {
@@ -118,18 +131,22 @@
   align-items: center;
   gap: 10px;
   padding: 18px 40px;
-  background: white;
-  color: #667eea;
+  background: #F2D953;
+  color: #3B3B3B;
   text-decoration: none;
-  border-radius: 50px;
+  border-radius: 12px;
+  font-size: 12px;
   font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
   transition: all 0.3s ease;
   box-shadow: 0 10px 30px rgba(0,0,0,0.2);
 }
 
 .guia-hero__cta:hover {
   transform: translateY(-3px);
-  box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+  box-shadow: 0 15px 40px rgba(242, 217, 83, 0.4);
+  background: #f5de6b;
 }
 
 .guia-hero__visual {
@@ -143,7 +160,7 @@
 .guia-hero__circle {
   position: absolute;
   border-radius: 50%;
-  border: 2px solid rgba(255,255,255,0.2);
+  border: 2px solid rgba(242, 217, 83, 0.15);
   animation: rotate 20s linear infinite;
 }
 
